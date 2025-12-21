@@ -1,0 +1,15 @@
+// src/lib/wordpress.js
+
+const API_URL = "http://web-headless.local/wp-json/wp/v2";
+
+export async function getPodcasts() {
+  const res = await fetch(`${API_URL}/podcast`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Error al obtener podcasts");
+  }
+
+  return res.json();
+}

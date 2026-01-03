@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PodcastList from "../components/PodcastList";
+import PodcastList from "@/components/PodcastList";
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
@@ -11,14 +11,14 @@ export default function Page() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/posts");
+        const res = await fetch("/api/posts");
+        if (!res.ok) throw new Error("Error HTTP");
 
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setPosts(data);
       } catch (err) {
-        console.error("Error al obtener posts:", err);
-        setError("Error al obtener posts");
+        console.error(err);
+        setError("No se pudieron cargar los podcasts");
       } finally {
         setLoading(false);
       }
@@ -27,9 +27,9 @@ export default function Page() {
     fetchPosts();
   }, []);
 
-  if (loading) return <div>Cargando podcasts...</div>;
+  if (loading) return <div>Cargando podcasts…</div>;
   if (error) return <div>{error}</div>;
-  if (posts.length === 0) return <div>No hay podcasts disponibles</div>;
+  if (!posts.length) return <div>No hay podcasts disponibles</div>;
 
   return <PodcastList posts={posts} />;
 }

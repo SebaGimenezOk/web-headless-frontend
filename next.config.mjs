@@ -11,9 +11,7 @@ const nextConfig = {
     dangerouslyAllowSVG: false,
     unoptimized: false,
   },
-  experimental: {
-    allowPrivateImage: true,
-  },
+ 
 };
 
 export default nextConfig;

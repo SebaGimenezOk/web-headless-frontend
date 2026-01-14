@@ -1,18 +1,22 @@
 import "./globals.css";
-import Header from "@/components/Header";
+
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Mi Web",
-  description: "Sitio web con WordPress Headless y Next.js",
+  title: "Crónicas de un Espectador",
+  description: "contenidos y análisis culturales",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/yha3lnr.css"></link>
+      </head>
+      <body>
+        <Navbar />
+        {children}
         <Footer />
       </body>
     </html>

@@ -1,7 +1,18 @@
 // src/app/podcasts/page.jsx
 
-import { getPodcasts } from "@/lib/wordpress";
 import PodcastCard from "@/components/PodcastCard";
+
+async function getPodcasts() {
+  const res = await fetch("http://localhost:3000/api/posts", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Error al obtener podcasts");
+  }
+
+  return res.json();
+}
 
 export default async function PodcastsPage() {
   const podcasts = await getPodcasts();
@@ -12,11 +23,17 @@ export default async function PodcastsPage() {
         Podcasts
       </h1>
 
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {podcasts.map((podcast) => (
-          <PodcastCard key={podcast.id} podcast={podcast} />
-        ))}
-      </section>
+      {podcasts.length === 0 ? (
+        <p className="text-gray-500">
+          No hay podcasts disponibles.
+        </p>
+      ) : (
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {podcasts.map((podcast) => (
+            <PodcastCard key={podcast.id} post={podcast} />
+          ))}
+        </section>
+      )}
     </main>
   );
 }

@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* =========================
+   Variables base
+   ========================= */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #FAFAF8;
+    --foreground: #1C1C1C;
+
+    --color-primary: #5B2D8B;
+    --color-secondary: #B45309;
+    --color-muted: #6B7280;
+    --color-border: #E5E7EB;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #0F0F12;
+      --foreground: #EDEDED;
+
+      --color-primary: #C4B5FD;
+      --color-secondary: #FCD34D;
+      --color-muted: #9CA3AF;
+      --color-border: #2A2A2E;
+    }
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: open-sans-condensed, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: adobe-garamond-pro, serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   Navbar
+   ========================= */
+@layer components {
+  .navbar {
+    background-color: var(--background);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .navbar-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-brand {
+    font-family: adobe-garamond-pro, serif;
+    font-size: 1.75rem;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .navbar-link {
+    font-family: open-sans-condensed, sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--foreground);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-link:hover {
+    color: var(--color-primary);
+  }
 }

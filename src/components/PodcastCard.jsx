@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-
-
 import Link from "next/link";
 
-export default function PodcastCard({ post }) {
+export default function PodcastCard({ post, className = "" }) {
   if (!post || typeof post !== "object") return null;
 
   const {
@@ -12,54 +10,76 @@ export default function PodcastCard({ post }) {
     author = "Autor desconocido",
     duration = null,
     imageUrl = null,
+    slug = "#",
+    publishedAt = null, // fecha de publicación
   } = post;
 
+  const formattedDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString("es-AR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+
   return (
-    
-   <Link href={`/podcasts/${post.slug}`}>
-  <article className="
-    group
-    rounded-2xl 
-    border 
-    bg-white
-    p-4 
-    shadow-sm 
-    transition-all
-    duration-300
-    hover:-translate-y-1
-    hover:shadow-lg
-  ">
-    <div className="overflow-hidden rounded-xl mb-3">
-      <img
-        src={imageUrl || "/placeholder-podcast.jpg"}
-        alt={title}
-        className="
-          h-56 
-          w-full 
-          object-cover
-          transition-transform
+    <Link href={`/podcasts/${slug}`}>
+      <article
+        className={`
+          group
+          rounded-2xl
+          
+          bg-white
+          p-4
+          shadow-sm
+          transition-all
           duration-300
-          group-hover:scale-105
-        "
-      />
-    </div>
+          hover:-translate-y-1
+          hover:shadow-lg
+          ${className}
+        `}
+      >
+        {/* Imagen Destacada */}
+        <div className="overflow-hidden rounded-xl mb-3">
+          <img
+            src={imageUrl || "/placeholder-podcast.jpg"}
+            alt={title}
+            className="
+              h-56
+              w-full
+              object-cover
+              transition-transform
+              duration-300
+              group-hover:scale-105
+            "
+          />
+        </div>
 
-    <h3 className="text-lg font-semibold mb-1 group-hover:text-indigo-600">
-      {title}
-    </h3>
+        {/* Título */}
+        <h3 className="text-3xl font-heading mb-1 group-hover:text-primary">
+          {title}
+        </h3>
 
-    {excerpt && (
-      <p className="text-sm text-gray-600 mb-3 line-clamp-3">
-        {excerpt}
-      </p>
-    )}
+        {/* Meta: Fecha y autor */}
+        <div className="text-base text-tertiary flex gap-2 mb-2">
+          {formattedDate && <span>{formattedDate}</span>}
+          <span>• {author}</span>
+        </div>
 
-    <div className="text-xs text-gray-500 flex gap-2">
-      <span>{author}</span>
-      {duration && <span>• {duration} min</span>}
-    </div>
-  </article>
-</Link>
+        {/* Extracto */}
+        {excerpt && (
+          <p className="text-text text-secondary mb-3 line-clamp-3">
+            {excerpt}
+          </p>
+        )}
 
+        {/* Duración (si aplica) */}
+        {duration && (
+          <div className="text-text text-tertiary">
+            Duración: {duration} min
+          </div>
+        )}
+      </article>
+    </Link>
   );
 }

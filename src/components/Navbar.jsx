@@ -1,41 +1,34 @@
-import Link from "next/link";
+import { palette } from "@/lib/palette";
 
 export default function Navbar() {
   return (
-    <header
-      className="border-b"
-      style={{ borderColor: "var(--color-border)" }}
+    <nav
+      className="flex items-center justify-between px-6 py-4"
+      style={{ backgroundColor: palette.olivePale }}
     >
-      <nav className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-        {/* Marca */}
-        <Link
-          href="/"
-          className="text-2xl tracking-tight"
-          style={{
-            fontFamily: "adobe-garamond-pro, serif",
-            color: "var(--foreground)",
-          }}
-        >
-          Crónicas de un Espectador
-        </Link>
+      {/* Marca / título */}
+      <span
+        className="text-2xl uppercase"
+        style={{
+          fontFamily: '"adobe-garamond-pro", serif',
+          color: palette.textStrong,
+        }}
+      >
+        Crónicas de un Espectador
+      </span>
 
-        {/* Navegación */}
-        <div
-          className="flex gap-8 text-sm uppercase"
-          style={{
-            fontFamily: "open-sans-condensed, sans-serif",
-            letterSpacing: "0.08em",
-          }}
-        >
-          <Link
-            href="/podcasts"
-            className="transition-colors"
-            style={{ color: "var(--foreground)" }}
-          >
-            Podcasts
-          </Link>
-        </div>
-      </nav>
-    </header>
+      {/* Navegación */}
+      <ul
+        className="flex gap-6 uppercase"
+        style={{
+          fontFamily: '"open-sans-condensed", sans-serif',
+          color: palette.textStrong,
+        }}
+      >
+        <li>Inicio</li>
+        <li>Podcasts</li>
+        <li>Críticas</li>
+      </ul>
+    </nav>
   );
 }

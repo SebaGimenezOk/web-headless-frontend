@@ -25,16 +25,17 @@ export default async function PodcastDetailPage({ params }) {
       </Link>
 
       <article className="mt-6 space-y-6">
-        <h1 className="text-4xl font-bold leading-tight">
+        <h1 className="text-4xl uppercase font-bold leading-tight">
           {post.title}
         </h1>
 
-        <div className="text-sm text-gray-500 flex gap-3">
+        <div  className="text-sm text-gray-500 flex gap-3">
           <span>{post.author}</span>
           {post.duration && <span>• {post.duration} min</span>}
         </div>
 
         {post.imageUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={post.imageUrl}
             alt={post.title}

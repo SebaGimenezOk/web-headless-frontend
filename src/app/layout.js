@@ -1,5 +1,5 @@
+// src/app/layout.js
 import "./globals.css";
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -12,11 +12,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <head>
-        <link rel="stylesheet" href="https://use.typekit.net/yha3lnr.css"></link>
+        {/* Adobe Fonts */}
+        <link rel="stylesheet" href="https://use.typekit.net/yha3lnr.css" />
       </head>
-      <body>
+      <body className="min-h-screen overflow-x-hidden bg-neutral-50 text-neutral-900">
         <Navbar />
-        {children}
+
+        <main className="relative">
+          {children}
+        </main>
+
         <Footer />
       </body>
     </html>

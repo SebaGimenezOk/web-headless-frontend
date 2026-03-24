@@ -45,5 +45,6 @@ export async function getPodcastBySlug(slug) {
       post.acf?.cover_image?.url ||
       post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
       null,
+      audioUrl: post?.acf?.audio_url,
   };
 }

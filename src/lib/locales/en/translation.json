@@ -1,0 +1,31 @@
+
+{
+  "nav.home": "Home",
+  "nav.seasons": "Seasons",
+  "nav.bio": "Bio",
+  "nav.search": "Search",
+  "nav.contact": "Contact",
+  "hero.quote": "Music is the most sublime, the most emotional, and the most mysterious art.",
+  "hero.author": "— Wolfgang Amadeus Mozart",
+  "hero.description": "This is a space where we gather episodes, analysis, and content published from our editorial perspective. We hope you enjoy it as much as we enjoy creating it. — A. Dominguez Benavides",
+  "home.recentEpisodes": "Recent Episodes",
+  "home.viewAll": "View all podcasts",
+  "home.noPodcasts": "No podcasts available at the moment.",
+  "footer.brand": "Chronicles of a Spectator",
+  "footer.description": "A space dedicated to cultural analysis, critical thinking, and the attentive observation of art and contemporary society.",
+  "footer.navigation": "Navigation",
+  "footer.home": "Home",
+  "footer.episodes": "Episodes",
+  "footer.categories": "Categories",
+  "footer.archive": "Archive",
+  "footer.information": "Information",
+  "footer.about": "About the project",
+  "footer.contact": "Contact",
+  "footer.privacy": "Privacy Policy",
+  "footer.terms": "Terms and Conditions",
+  "footer.rights": "All rights reserved.",
+  "footer.credit": "Design and development — Sebastián Giménez"
+
+
+
+}

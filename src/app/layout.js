@@ -1,28 +1,39 @@
-// src/app/layout.js
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import I18nProvider from "@/components/I18nProvider";
+import { ReproductorProvider } from "@/context/ReproductorContext";
+import Player from "@/components/Player";
+
+// 👇 Reproductor con resolve automático
 
 export const metadata = {
   title: "Crónicas de un Espectador",
   description: "contenidos y análisis culturales",
 };
 
+
+
+
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <head>
-        {/* Adobe Fonts */}
-        <link rel="stylesheet" href="https://use.typekit.net/yha3lnr.css" />
-      </head>
-      <body className="min-h-screen overflow-x-hidden bg-neutral-50 text-neutral-900">
-        <Navbar />
+      <body className="min-h-screen overflow-x-hidden bg-neutral-50 text-neutral-900 pb-48">
+        {/* padding-bottom para que el contenido no quede oculto bajo el reproductor */}
+        <ReproductorProvider>
+          <I18nProvider>
+            <Navbar />
 
-        <main className="relative">
-          {children}
-        </main>
+            <main className="relative">
+              {children}
+            </main>
 
-        <Footer />
+            <Footer />
+          </I18nProvider>
+
+       
+       <Player/>
+        </ReproductorProvider>
       </body>
     </html>
   );

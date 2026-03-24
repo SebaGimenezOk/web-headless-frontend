@@ -1,8 +1,16 @@
-// src/components/Hero.jsx
+"use client";
 
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
+
+
+
+
+
 
 export default function Hero() {
+  const { t } = useTranslation();
+
   return (
     <>
       {/* HERO VISUAL */}
@@ -13,36 +21,36 @@ export default function Hero() {
           alt="Wolfgang Amadeus Mozart"
           fill
           priority
-          className="object-cover object-center opacity-50"
+          className="object-cover object-center"
         />
 
-        {/* Overlay opcional */}
+        {/* Overlay */}
         <div className="absolute inset-0 bg-linear-to-r from-neutral-50/90 via-neutral-50/70 to-transparent" />
 
-        {/* Contenido sobre la imagen */}
+        {/* Contenido */}
         <div className="relative z-10 max-w-7xl mx-auto my-12 py-6 h-full px-6 flex items-center">
           <div className="max-w-3xl space-y-6">
-            <h1 className="text-6xl md:text-4xl">
 
+            {/* Frase */}
+            <h1 className="text-5xl md:text-4xl uppercase leading-tight">
+              {t("hero.quote")}
             </h1>
-            <h1 className="text-5xl md:text-5xl uppercase leading-tight">
-              “La música es el arte más sublime, el más emotivo y el más
-              misterioso.”
-            </h1>
-        
-            <h3 className="text-2xl uppercase  text-gray-700">
-              — Wolfgang Amadeus Mozart
+
+            {/* Autor */}
+            <h3 className="text-2xl uppercase text-gray-700">
+              {t("hero.author")}
             </h3>
           </div>
         </div>
       </section>
-
-      {/* TEXTO DE BAJADA — DEBAJO DEL HERO */}
+  
+      {/* TEXTO DE BAJADA */}
       <section className="max-w-7xl mx-auto px-6 py-4 flex flex-col items-center text-center space-y-6">
-        <span className="text-xl italic text-gray-600 leading-relaxed max-w-4xl">
-          Este es un espacio donde reunimos episodios, análisis y contenidos publicados
-          desde nuestro editorial. Que lo disfruten tanto como nosotros en hacerlo.-    A.Dominguez Benavides 
-        </span>
+        <h3 className="text-2xl italic text-gray-600 leading-relaxed max-w-6xl">
+          {t("hero.description")}
+        </h3>
+
+        
       </section>
     </>
   );

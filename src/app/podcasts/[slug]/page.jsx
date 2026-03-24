@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug } from "@/services/podcasts";
+import PlayButton from "@/components/PlayButton"; // 👈 IMPORTANTE
 
 export default async function PodcastDetailPage({ params }) {
-  // 👇 Next moderno: params ES UNA PROMESA
   const { slug } = await params;
 
   const post = await getPodcastBySlug(slug);
@@ -15,7 +15,9 @@ export default async function PodcastDetailPage({ params }) {
   }
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-10">
+    
+   
+   <main className="max-w-4xl mx-auto px-6 py-10">
       {/* Volver */}
       <Link
         href="/podcasts"
@@ -29,13 +31,26 @@ export default async function PodcastDetailPage({ params }) {
           {post.title}
         </h1>
 
-        <div  className="text-sm text-gray-500 flex gap-3">
+        {/* 🧠 META + AUDIO */}
+        <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
           <span>{post.author}</span>
+
           {post.duration && <span>• {post.duration} min</span>}
+
+          {/* 🎧 BOTÓN SOLO SI HAY AUDIO */}
+
+          
+          {post.audioUrl && (
+            <>
+              <span>•</span>
+            
+              <PlayButton url="https://soundcloud.com/sebastian-gimenez-979313261" />
+            </>
+          )}
         </div>
 
+        {/* Imagen */}
         {post.imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={post.imageUrl}
             alt={post.title}
@@ -43,6 +58,7 @@ export default async function PodcastDetailPage({ params }) {
           />
         )}
 
+        {/* Contenido */}
         <div
           className="prose prose-lg max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}

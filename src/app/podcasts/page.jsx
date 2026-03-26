@@ -1,27 +1,23 @@
-// src/app/podcasts/page.jsx
-
 import PodcastCard from "@/components/PodcastCard";
+import { getAllPodcasts } from "@/services/podcasts";
 
-async function getPodcasts() {
-  const res = await fetch("http://localhost:3000/api/posts", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Error al obtener podcasts");
-  }
-
-  return res.json();
-}
+/**
+ * 🔥 FORZAR ESTÁTICO
+ */
+export const dynamic = "force-static";
 
 export default async function PodcastsPage() {
-  const podcasts = await getPodcasts();
+  let podcasts = [];
+
+  try {
+    podcasts = await getAllPodcasts();
+  } catch (error) {
+    console.error("Error cargando podcasts:", error);
+  }
 
   return (
     <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">
-        Podcasts
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">Podcasts</h1>
 
       {podcasts.length === 0 ? (
         <p className="text-gray-500">

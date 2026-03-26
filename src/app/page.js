@@ -1,21 +1,21 @@
 import Hero from "@/components/Hero";
 import HomeContent from "@/components/HomeContent";
+import { getAllPodcasts } from "@/services/podcasts";
 
-async function getLatestPodcasts() {
-  const res = await fetch("http://localhost:3000/api/posts", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Error al obtener podcasts");
-  }
-
-  const data = await res.json();
-  return data.slice(0, 3);
-}
+/**
+ * 🔥 FORZAR ESTÁTICO
+ */
+export const dynamic = "force-static";
 
 export default async function HomePage() {
-  const podcasts = await getLatestPodcasts();
+  let podcasts = [];
+
+  try {
+    const data = await getAllPodcasts();
+    podcasts = data.slice(0, 3); // últimos 3
+  } catch (error) {
+    console.error("Error cargando podcasts:", error);
+  }
 
   return (
     <>

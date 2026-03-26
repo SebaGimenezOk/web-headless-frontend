@@ -1,17 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+
   images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "web-headless.local",
-        pathname: "/wp-content/uploads/**",
-      },
-    ],
-    dangerouslyAllowSVG: false,
-    unoptimized: false,
+    domains: ["www.cronicasdeunespectador.com"],
   },
- 
 };
 
 export default nextConfig;

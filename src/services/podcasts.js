@@ -1,50 +1,85 @@
 const API_URL = process.env.NEXT_PUBLIC_WP_API_URL;
 
 /**
- * Obtener un podcast por slug
+ * Obtener TODOS los podcasts
+ */
+export async function getAllPodcasts() {
+  try {
+    const res = await fetch(`${API_URL}/wp/v2/podcast?_embed`, {
+      cache: "force-cache",
+    });
+
+    if (!res.ok) {
+      console.error("Error HTTP:", res.status);
+      return [];
+    }
+
+    const posts = await res.json();
+
+    if (!Array.isArray(posts)) {
+      console.error("Respuesta no es array:", posts);
+      return [];
+    }
+
+    return posts.map((post) => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title?.rendered || "",
+      content: post.content?.rendered || "",
+      author: post.acf?.author || "Desconocido",
+      duration: post.acf?.duration || null,
+      imageUrl:
+        post.acf?.cover_image?.url ||
+        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        null,
+      audioUrl: post?.acf?.audio_url || null,
+    }));
+  } catch (error) {
+    console.error("Fetch falló:", error);
+    return [];
+  }
+}
+
+/**
+ * Obtener UN podcast por slug
  */
 export async function getPodcastBySlug(slug) {
-  if (!API_URL) {
-    throw new Error("WP API URL no definida");
-  }
+  try {
+    const res = await fetch(
+      `${API_URL}/wp/v2/podcast?slug=${slug}&_embed`,
+      {
+        cache: "force-cache",
+      }
+    );
 
-  const res = await fetch(
-    `${API_URL}/wp/v2/podcast?slug=${slug}&_embed`,
-    { cache: "no-store" }
-  );
+    if (!res.ok) {
+      console.error("Error HTTP:", res.status);
+      return null;
+    }
 
-  if (!res.ok) {
-    throw new Error("Error al obtener el podcast");
-  }
+    const data = await res.json();
 
-  const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      return null;
+    }
 
-  if (!data || data.length === 0) {
+    const post = data[0];
+
+    return {
+      id: post.id,
+      slug: post.slug,
+      title: post.title?.rendered || "",
+      content: post.content?.rendered || "",
+      author: post.acf?.author || "Desconocido",
+      duration: post.acf?.duration || null,
+      imageUrl:
+        post.acf?.cover_image?.url ||
+        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        null,
+      audioUrl: post?.acf?.audio_url || null,
+    };
+  } catch (error) {
+    console.error("Fetch slug falló:", error);
     return null;
   }
-
-  const post = data[0];
-
-  const stripHtml = (html) =>
-    html.replace(/<[^>]*>?/gm, "").trim();
-
-  const contentRaw = post.content?.rendered || "";
-  const excerptRaw = post.excerpt?.rendered || "";
-
-  return {
-    id: post.id,
-    slug: post.slug,
-    title: post.title?.rendered || "Sin título",
-    content: post.content?.rendered || "",
-    excerpt:
-      stripHtml(excerptRaw) ||
-      stripHtml(contentRaw).slice(0, 140),
-    author: post.acf?.author || "Desconocido",
-    duration: post.acf?.duration || null,
-    imageUrl:
-      post.acf?.cover_image?.url ||
-      post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-      null,
-      audioUrl: post?.acf?.audio_url,
-  };
 }

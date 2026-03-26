@@ -1,14 +1,18 @@
-import { NextResponse } from "next/server";
-
+// src/services/posts.js
 const WP_API = process.env.NEXT_PUBLIC_WP_API_URL;
 
-export async function GET() {
+/**
+ * Obtener todos los podcasts desde WordPress
+ * Compatible con export estático
+ */
+export async function getAllPosts() {
   try {
     if (!WP_API) {
       throw new Error("WP API URL no definida");
     }
 
     const res = await fetch(`${WP_API}/wp/v2/podcast?_embed`);
+
     if (!res.ok) {
       throw new Error("Error al obtener podcasts de WordPress");
     }
@@ -39,15 +43,13 @@ export async function GET() {
           post.acf?.cover_image?.url ||
           post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
           null,
+        audioUrl: post?.acf?.audio_url || null,
       };
     });
 
-    return NextResponse.json(normalized);
+    return normalized;
   } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { error: "Error interno del servidor" },
-      { status: 500 }
-    );
+    console.error("Error fetching posts:", error);
+    return [];
   }
 }

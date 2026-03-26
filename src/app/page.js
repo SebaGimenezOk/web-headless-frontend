@@ -15,6 +15,7 @@ export default async function HomePage() {
     podcasts = data.slice(0, 3); // últimos 3
   } catch (error) {
     console.error("Error cargando podcasts:", error);
+    
   }
 
   return (
@@ -24,3 +25,4 @@ export default async function HomePage() {
     </>
   );
 }
+

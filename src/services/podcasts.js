@@ -1,10 +1,11 @@
-const API_URL = process.env.NEXT_PUBLIC_WP_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * Obtener TODOS los podcasts
  */
 export async function getAllPodcasts() {
   try {
+    console.log("URL de WordPress:", process.env.NEXT_PUBLIC_API_URL);
     const res = await fetch(`${API_URL}/wp/v2/podcast?_embed`, {
       cache: "force-cache",
     });

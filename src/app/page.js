@@ -2,9 +2,6 @@ import Hero from "@/components/Hero";
 import HomeContent from "@/components/HomeContent";
 import { getAllPodcasts } from "@/services/podcasts";
 
-/**
- * 🔥 FORZAR ESTÁTICO
- */
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {

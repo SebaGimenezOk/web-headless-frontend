@@ -1,5 +1,5 @@
 // src/services/posts.js
-const WP_API = process.env.NEXT_PUBLIC_WP_API_URL;
+const WP_API = process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * Obtener todos los podcasts desde WordPress

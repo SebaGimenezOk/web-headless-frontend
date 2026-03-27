@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import HomeContent from "@/components/HomeContent";
 import { getAllPodcasts } from "@/services/podcasts";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60; 
 
 export default async function HomePage() {
   let podcasts = [];

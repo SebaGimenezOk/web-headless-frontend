@@ -3,11 +3,10 @@ import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
 
-/**
- * 🔥 CLAVES PARA EXPORT ESTÁTICO
- */
-export const dynamic = "force-static";
-export const dynamicParams = false;
+
+
+export const dynamicParams = true;
+export const revalidate = 60;
 
 export default async function PodcastDetailPage({ params }) {
   const slug = params?.slug;
@@ -20,6 +19,7 @@ export default async function PodcastDetailPage({ params }) {
 
   try {
     post = await getPodcastBySlug(slug);
+    console.log(post);
   } catch (error) {
     console.error("Error obteniendo podcast:", error);
   }
@@ -53,7 +53,7 @@ export default async function PodcastDetailPage({ params }) {
 
       <article className="mt-6 space-y-6">
         <h1 className="text-4xl uppercase font-bold leading-tight">
-          {post.title}
+         {post.title?.rendered}
         </h1>
 
         <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">

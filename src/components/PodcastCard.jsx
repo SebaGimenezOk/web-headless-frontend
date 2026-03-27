@@ -2,6 +2,8 @@
 import Link from "next/link";
 
 export default function PodcastCard({ post, className = "" }) {
+console.log("CARD POST:", post);
+
   if (!post || typeof post !== "object") return null;
 
   const {
@@ -57,7 +59,7 @@ export default function PodcastCard({ post, className = "" }) {
 
         {/* Título */}
         <h3 className="text-3xl font-heading mb-1 group-hover:text-primary">
-          {title}
+           {title}
         </h3>
 
         {/* Meta: Fecha y autor */}

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  // output: "export",
 
   images: {
     unoptimized: true, // <--- esto desactiva la optimización que falla en export

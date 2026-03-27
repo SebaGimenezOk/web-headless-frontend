@@ -4,7 +4,7 @@ const API_URL = "https://api.cronicasdeunespectador.com/wp-json/wp/v2";
 
 export async function getPodcasts() {
 const res = await fetch(`${API_URL}/podcast`, {
-  next: { revalidate: 0 },
+  next: { revalidate: 60 },
 });
 
   if (!res.ok) {

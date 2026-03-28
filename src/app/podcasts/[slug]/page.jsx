@@ -3,13 +3,15 @@ import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
 
-
-
-export const dynamicParams = true;
+/**
+ * 🔥 Configuración de revalidación
+ */
 export const revalidate = 60;
+export const dynamicParams = true;
 
 export default async function PodcastDetailPage({ params }) {
-  const slug = params?.slug;
+  // ✅ params ahora es una Promise en Next.js moderno
+  const { slug } = await params;
 
   if (!slug) {
     notFound();
@@ -19,12 +21,11 @@ export default async function PodcastDetailPage({ params }) {
 
   try {
     post = await getPodcastBySlug(slug);
-    console.log(post);
   } catch (error) {
     console.error("Error obteniendo podcast:", error);
   }
 
-  // 🔥 Si no hay contenido (ej: preview), mostramos fallback
+  // 🔥 Fallback si no existe el post
   if (!post) {
     return (
       <main className="max-w-4xl mx-auto p-10">
@@ -53,7 +54,7 @@ export default async function PodcastDetailPage({ params }) {
 
       <article className="mt-6 space-y-6">
         <h1 className="text-4xl uppercase font-bold leading-tight">
-         {post.title?.rendered}
+          {post.title}
         </h1>
 
         <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
@@ -87,16 +88,13 @@ export default async function PodcastDetailPage({ params }) {
 }
 
 /**
- * 🔥 GENERACIÓN DE SLUGS (FIX DEFINITIVO)
+ * 🔥 Generación de slugs (opcional para build)
  */
 export async function generateStaticParams() {
   try {
     const posts = await getAllPodcasts();
 
-    // 🔥 Si no hay datos, generamos una ruta dummy
     if (!Array.isArray(posts) || posts.length === 0) {
-      console.warn("No hay podcasts, generando ruta preview");
-
       return [{ slug: "preview" }];
     }
 
@@ -105,8 +103,6 @@ export async function generateStaticParams() {
     }));
   } catch (error) {
     console.error("Error en generateStaticParams:", error);
-
-    // 🔥 fallback seguro
     return [{ slug: "preview" }];
   }
 }

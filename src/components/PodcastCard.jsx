@@ -2,7 +2,6 @@
 import Link from "next/link";
 
 export default function PodcastCard({ post, className = "" }) {
-console.log("CARD POST:", post);
 
   if (!post || typeof post !== "object") return null;
 

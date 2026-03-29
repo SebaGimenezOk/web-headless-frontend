@@ -1,13 +1,16 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+const BASE_ENDPOINT = `${API_URL}/wp-json/wp/v2/podcast`;
+
 export async function getAllPodcasts() {
   try {
-    const res = await fetch(
-      `${API_URL}/wp-json/wp/v2/podcast?_embed`,
-      {
-        next: { revalidate: 60 },
-      }
-    );
+    if (!API_URL) {
+      throw new Error("NEXT_PUBLIC_API_URL no está definida");
+    }
+
+    const res = await fetch(`${BASE_ENDPOINT}?_embed`, {
+      next: { revalidate: 60 },
+    });
 
     if (!res.ok) {
       console.error("Error HTTP:", res.status, await res.text());
@@ -48,7 +51,7 @@ export async function getAllPodcasts() {
 export async function getPodcastBySlug(slug) {
   try {
     const res = await fetch(
-      `${API_URL}/wp-json/wp/v2/podcast?slug=${slug}&_embed`,
+      `${BASE_ENDPOINT}?slug=${slug}&_embed`,
       {
         next: { revalidate: 60 },
       }

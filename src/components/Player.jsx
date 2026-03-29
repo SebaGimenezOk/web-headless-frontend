@@ -1,30 +1,3 @@
-// "use client";
-
-// import { useReproductor } from "@/context/ReproductorContext";
-
-// export default function Player() {
-//   const { trackUrl } = useReproductor();
-
-//   return (
-//     <div className="fixed bottom-0 left-0 w-full z-50">
-
-//       {!trackUrl ? (
-//         <div className="text-white text-sm p-4">
-//           Ningún audio en reproducción
-//         </div>
-//       ) : (
-//         <iframe
-//           key={trackUrl}
-//           width="100%"
-//           height="120"
-//           allow="autoplay"
-//           src={`https://w.soundcloud.com/player/?url=${trackUrl}&color=%23ff5500&auto_play=true`}
-//         />
-//       )}
-//     </div>
-//   );
-// }
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -52,13 +25,7 @@ export default function Player() {
   const [artwork, setArtwork] = useState("");
   const [volume, setVolume] = useState(50);
 
-  // cargar SDK
-  useEffect(() => {
-    if (widgetRef.current) {
-      widgetRef.current.setVolume(volume);
-    }
-  }, [volume]);
-
+  // 🎧 Cargar SDK
   useEffect(() => {
     if (window.SC) return;
 
@@ -68,36 +35,60 @@ export default function Player() {
     document.body.appendChild(script);
   }, []);
 
-  // init widget
+  // 🔊 Volumen
   useEffect(() => {
-    if (!trackUrl || !iframeRef.current || !window.SC) return;
+    if (widgetRef.current) {
+      widgetRef.current.setVolume(volume);
+    }
+  }, [volume]);
 
-    const widget = window.SC.Widget(iframeRef.current);
-    widgetRef.current = widget;
+  // 🎛 Inicializar widget
+  useEffect(() => {
+    if (!trackUrl) return;
 
-    widget.bind(window.SC.Widget.Events.READY, () => {
-      widget.getCurrentSound((sound) => {
-        setTitle(sound.title);
-        setArtist(sound.user?.username || "");
-        setArtwork(sound.artwork_url || "");
-      });
-      widget.getDuration((d) => {
-        if (d) setDuration(d);
-      });
+    const init = () => {
+      if (!iframeRef.current) {
+        setTimeout(init, 100);
+        return;
+      }
 
-      widget.getDuration((d) => setDuration(d));
-    });
+      const waitForSC = () => {
+        if (!window.SC) {
+          setTimeout(waitForSC, 200);
+          return;
+        }
 
-    widget.bind(window.SC.Widget.Events.PLAY, () => setIsPlaying(true));
-    widget.bind(window.SC.Widget.Events.PAUSE, () => setIsPlaying(false));
+        const widget = window.SC.Widget(iframeRef.current);
+        widgetRef.current = widget;
 
-    widget.bind(window.SC.Widget.Events.PLAY_PROGRESS, (e) => {
-      if (e.duration) setDuration(e.duration);
-      setCurrent(e.currentPosition);
-    });
+        widget.bind(window.SC.Widget.Events.READY, () => {
+          widget.getCurrentSound((sound) => {
+            setTitle(sound?.title || "");
+            setArtist(sound?.user?.username || "");
+            setArtwork(sound?.artwork_url || "");
+          });
+
+          widget.getDuration((d) => {
+            if (d) setDuration(d);
+          });
+        });
+
+        widget.bind(window.SC.Widget.Events.PLAY, () => setIsPlaying(true));
+        widget.bind(window.SC.Widget.Events.PAUSE, () => setIsPlaying(false));
+
+        widget.bind(window.SC.Widget.Events.PLAY_PROGRESS, (e) => {
+          if (e.duration) setDuration(e.duration);
+          setCurrent(e.currentPosition);
+        });
+      };
+
+      waitForSC();
+    };
+
+    init();
   }, [trackUrl]);
 
-  // play / pause
+  // ▶️ Play / Pause
   const togglePlay = () => {
     if (!widgetRef.current) return;
 
@@ -105,13 +96,12 @@ export default function Player() {
       paused ? widgetRef.current.play() : widgetRef.current.pause();
     });
   };
-  //  seek manual
+
+  // ⏩ Seek
   const handleSeek = (e) => {
     if (!widgetRef.current || !duration) return;
 
     const percent = Number(e.target.value);
-
-    // 👉 convertir % → ms correctamente
     const newTime = (percent / 100) * duration;
 
     widgetRef.current.seekTo(newTime);
@@ -123,109 +113,107 @@ export default function Player() {
     const sec = Math.floor(ms / 1000);
     const m = Math.floor(sec / 60);
     const s = String(sec % 60).padStart(2, "0");
+
     return `${m}:${s}`;
   };
-if (!trackUrl) return null;
 
-return (
-  <div className="fixed bottom-0 left-0 w-full bg-white  shadow z-50">
-    
-    <div className="h-20 flex items-center px-4 gap-4">
+  if (!trackUrl) return null;
 
-      {/* 🎵 Miniatura */}
-      {artwork && (
-        <img
-          src={artwork}
-          alt="cover"
-          className="w-14 h-14 rounded object-cover"
-        />
-      )}
+  return (
+    <div className="fixed bottom-0 left-0 w-full bg-white shadow z-50">
+      <div className="h-20 flex items-center px-4 gap-4">
+        
+        {/* Artwork */}
+        {artwork && (
+          <img
+            src={artwork}
+            alt="cover"
+            className="w-14 h-14 rounded object-cover"
+          />
+        )}
 
-      {/* 🎛 CONTROLES */}
-      <div className="flex items-center gap-3">
+        {/* Controls */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => widgetRef.current?.seekTo(0)}
+            className="text-gray-500 hover:text-orange-500"
+          >
+            <SkipBack size={18} />
+          </button>
 
-        {/* ⏮ */}
-        <button
-          onClick={() => widgetRef.current.seekTo(0)}
-          className="text-gray-500 hover:text-orange-500 transition"
-        >
-          <SkipBack size={18} />
-        </button>
+          <button
+            onClick={togglePlay}
+            className="w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center"
+          >
+            {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+          </button>
 
-        {/* ▶️ */}
-        <button
-          onClick={togglePlay}
-          className="w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center transition"
-        >
-          {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-        </button>
+          <button
+            onClick={() =>
+              widgetRef.current?.seekTo(current + 10000)
+            }
+            className="text-gray-500 hover:text-orange-500"
+          >
+            <SkipForward size={18} />
+          </button>
+        </div>
 
-        {/* ⏭ */}
-        <button
-          onClick={() => widgetRef.current.seekTo(current + 10000)}
-          className="text-gray-500 hover:text-orange-500 transition"
-        >
-          <SkipForward size={18} />
-        </button>
-      </div>
+        {/* Info + Progress */}
+        <div className="flex-1">
+          <p className="text-sm font-semibold truncate text-gray-800">
+            {title || "Cargando..."}
+          </p>
 
-      {/* 🎧 INFO + PROGRESS */}
-      <div className="flex-1">
+          <p className="text-xs text-orange-500 truncate">
+            {artist}
+          </p>
 
-        <p className="text-sm font-semibold truncate text-gray-800">
-          {title || "Cargando..."}
-        </p>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="0.1"
+            value={duration ? (current / duration) * 100 : 0}
+            onInput={handleSeek}
+            className="w-full h-1 mt-1 appearance-none bg-gray-200 rounded-lg cursor-pointer accent-orange-500"
+          />
 
-        <p className="text-xs text-orange-500 truncate">
-          {artist}
-        </p>
+          <div className="flex justify-between text-[11px] text-gray-400 mt-1">
+            <span>{formatTime(current)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
 
-        {/* 🎚 PROGRESS */}
-        <input
-          type="range"
-          min="0"
-          max="100"
-          step="0.1"
-          value={duration ? (current / duration) * 100 : 0}
-          onInput={handleSeek}
-          className="w-full h-1 mt-1 appearance-none bg-gray-200 rounded-lg cursor-pointer accent-orange-500"
-        />
+        {/* Volume */}
+        <div className="flex items-center gap-2 w-32">
+          {volume === 0 ? (
+            <VolumeX size={18} />
+          ) : (
+            <Volume2 size={18} />
+          )}
 
-        <div className="flex justify-between text-[11px] text-gray-400 mt-1">
-          <span>{formatTime(current)}</span>
-          <span>{formatTime(duration)}</span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={volume}
+            onChange={(e) => setVolume(Number(e.target.value))}
+            className="w-full accent-orange-500 cursor-pointer"
+          />
         </div>
       </div>
 
-      {/* 🔊 VOLUMEN */}
-      <div className="flex items-center gap-2 w-32">
-        {volume === 0 ? (
-          <VolumeX size={18} className="text-gray-500" />
-        ) : (
-          <Volume2 size={18} className="text-gray-500" />
-        )}
-
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={volume}
-          onChange={(e) => setVolume(Number(e.target.value))}
-          className="w-full accent-orange-500 cursor-pointer"
-        />
-      </div>
+      {/* Hidden iframe (ENCODED URL) */}
+      <iframe
+        ref={iframeRef}
+        key={trackUrl}
+        width="100%"
+        height="0"
+        allow="autoplay"
+        src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
+          trackUrl
+        )}&auto_play=true&visual=false`}
+      />
     </div>
-
-    {/* 🎵 IFRAME OCULTO */}
-    <iframe
-      ref={iframeRef}
-      key={trackUrl}
-      width="100%"
-      height="0"
-      allow="autoplay"
-      src={`https://w.soundcloud.com/player/?url=${trackUrl}&auto_play=true&visual=false`}
-    />
-  </div>
-);
- 
+  );
 }

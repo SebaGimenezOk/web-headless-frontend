@@ -5,9 +5,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  */
 export async function getAllPodcasts() {
   try {
-    console.log("URL de WordPress:", process.env.NEXT_PUBLIC_API_URL);
+  
+
     const res = await fetch(`${API_URL}/wp/v2/podcast?_embed`, {
-      cache: "force-cache",
+      next: { revalidate: 60 }, // ISR (mejor que force-cache)
     });
 
     if (!res.ok) {
@@ -25,7 +26,7 @@ export async function getAllPodcasts() {
     return posts.map((post) => ({
       id: post.id,
       slug: post.slug,
-      title: post.title?.rendered || "",
+      title: post.title?.rendered.replace(/<[^>]+>/g, "") || "",
       content: post.content?.rendered || "",
       author: post.acf?.author || "Desconocido",
       duration: post.acf?.duration || null,
@@ -49,7 +50,7 @@ export async function getPodcastBySlug(slug) {
     const res = await fetch(
       `${API_URL}/wp/v2/podcast?slug=${slug}&_embed`,
       {
-        cache: "force-cache",
+        next: { revalidate: 60 },
       }
     );
 
@@ -69,7 +70,7 @@ export async function getPodcastBySlug(slug) {
     return {
       id: post.id,
       slug: post.slug,
-      title: post.title?.rendered || "",
+      title: post.title?.rendered.replace(/<[^>]+>/g, "") || "",
       content: post.content?.rendered || "",
       author: post.acf?.author || "Desconocido",
       duration: post.acf?.duration || null,

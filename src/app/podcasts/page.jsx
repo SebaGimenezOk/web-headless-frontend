@@ -7,14 +7,13 @@ import { getAllPodcasts } from "@/services/podcasts";
 export const revalidate = 60;
 
 export default async function PodcastsPage() {
-  console.log("🔥 PAGE PODCASTS RENDER");
+  
   
   let podcasts = [];
 
   try {
     podcasts = await getAllPodcasts();
-    console.log("PODCASTS RAW:", podcasts);
-    console.log("PODCASTS LIST:", podcasts);
+  
   } catch (error) {
     console.error("Error cargando podcasts:", error);
   }

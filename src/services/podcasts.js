@@ -1,40 +1,43 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-/**
- * Obtener TODOS los podcasts
- */
 export async function getAllPodcasts() {
   try {
-  
-
-    const res = await fetch(`${API_URL}/wp/v2/podcast?_embed`, {
-      next: { revalidate: 60 }, // ISR (mejor que force-cache)
-    });
+    const res = await fetch(
+      `${API_URL}/wp-json/wp/v2/podcast?_embed`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
 
     if (!res.ok) {
-      console.error("Error HTTP:", res.status);
+      console.error("Error HTTP:", res.status, await res.text());
       return [];
     }
 
     const posts = await res.json();
 
     if (!Array.isArray(posts)) {
-      console.error("Respuesta no es array:", posts);
+      console.error("Respuesta inválida:", posts);
       return [];
     }
 
     return posts.map((post) => ({
       id: post.id,
       slug: post.slug,
-      title: post.title?.rendered.replace(/<[^>]+>/g, "") || "",
+      title: post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
+      excerpt: post.excerpt?.rendered || "",
       content: post.content?.rendered || "",
+      publishedAt: post.date || null,
+
       author: post.acf?.author || "Desconocido",
       duration: post.acf?.duration || null,
+
       imageUrl:
         post.acf?.cover_image?.url ||
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
         null,
-      audioUrl: post?.acf?.audio_url || null,
+
+      audioUrl: post.acf?.audio_url || null,
     }));
   } catch (error) {
     console.error("Fetch falló:", error);
@@ -42,43 +45,43 @@ export async function getAllPodcasts() {
   }
 }
 
-/**
- * Obtener UN podcast por slug
- */
 export async function getPodcastBySlug(slug) {
   try {
     const res = await fetch(
-      `${API_URL}/wp/v2/podcast?slug=${slug}&_embed`,
+      `${API_URL}/wp-json/wp/v2/podcast?slug=${slug}&_embed`,
       {
         next: { revalidate: 60 },
       }
     );
 
     if (!res.ok) {
-      console.error("Error HTTP:", res.status);
+      console.error("Error HTTP:", res.status, await res.text());
       return null;
     }
 
     const data = await res.json();
 
-    if (!Array.isArray(data) || data.length === 0) {
-      return null;
-    }
+    if (!Array.isArray(data) || data.length === 0) return null;
 
     const post = data[0];
 
     return {
       id: post.id,
       slug: post.slug,
-      title: post.title?.rendered.replace(/<[^>]+>/g, "") || "",
+      title: post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
+      excerpt: post.excerpt?.rendered || "",
       content: post.content?.rendered || "",
+      publishedAt: post.date || null,
+
       author: post.acf?.author || "Desconocido",
       duration: post.acf?.duration || null,
+
       imageUrl:
         post.acf?.cover_image?.url ||
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
         null,
-      audioUrl: post?.acf?.audio_url || null,
+
+      audioUrl: post.acf?.audio_url || null,
     };
   } catch (error) {
     console.error("Fetch slug falló:", error);

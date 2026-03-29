@@ -1,36 +1,59 @@
-import PodcastCard from "@/components/PodcastCard";
-import { getAllPodcasts } from "@/services/podcasts";
+// app/page.js
 
-/**
- * 🔥 FORZAR ESTÁTICO
- */
-export const revalidate = 60;
-
-export default async function PodcastsPage() {
-  
-  
-  let podcasts = [];
-
+async function getPosts() {
   try {
-    podcasts = await getAllPodcasts();
-  
+    const res = await fetch(
+      "https://api.cronicasdeunespectador.com/wp-json/wp/v2/posts",
+      {
+        // Importante para datos dinámicos desde WordPress
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Error al obtener posts");
+    }
+
+    return await res.json();
   } catch (error) {
-    console.error("Error cargando podcasts:", error);
+    console.error("Fetch error:", error);
+    return [];
   }
+}
+
+export default async function Home() {
+  const posts = await getPosts();
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Podcasts</h1>
+    <main style={{ padding: "20px" }}>
+      <h1>Podcasts / Posts</h1>
 
-      {podcasts.length === 0 ? (
-        <p className="text-gray-500">No hay podcasts disponibles.</p>
-      ) : (
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {podcasts.map((podcast) => (
-            <PodcastCard key={podcast.id} post={podcast} />
-          ))}
-        </section>
-      )}
+      {posts.length === 0 && <p>No hay posts disponibles.</p>}
+
+      <div style={{ display: "grid", gap: "16px", marginTop: "20px" }}>
+        {posts.map((post) => (
+          <article
+            key={post.id}
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+              padding: "16px",
+            }}
+          >
+            <h2
+              dangerouslySetInnerHTML={{
+                __html: post.title.rendered,
+              }}
+            />
+
+            <div
+              dangerouslySetInnerHTML={{
+                __html: post.excerpt.rendered,
+              }}
+            />
+          </article>
+        ))}
+      </div>
     </main>
   );
 }

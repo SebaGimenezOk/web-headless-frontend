@@ -21,8 +21,8 @@ async function fetchAPI(endpoint) {
  * Obtener posts
  * - Compatible con export estático
  */
-export async function getPosts() {
-  return fetchAPI("/wp/v2/posts?_embed&per_page=100");
+export async function getPodcasts() {
+  return fetchAPI("/wp/v2/podcast?_embed&per_page=100");
 }
 
 /**

@@ -7,7 +7,7 @@ export default function Article({
   author,
   date,
   readingTime,
-  audioUrl, // 👈 NUEVO
+  audioUrl,
   children,
 }) {
   return (
@@ -18,7 +18,7 @@ export default function Article({
         author={author}
         date={date}
         readingTime={readingTime}
-        audioUrl={audioUrl} // 👈 PASARLO
+        audioUrl={audioUrl}
       />
 
       <ArticleBody>{children}</ArticleBody>

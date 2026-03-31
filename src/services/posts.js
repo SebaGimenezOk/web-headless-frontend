@@ -11,7 +11,7 @@ export async function getAllPosts() {
       throw new Error("WP API URL no definida");
     }
 
-    const res = await fetch(`${WP_API}/wp/v2/podcast?_embed`);
+    const res = await fetch(`${WP_API}/wp/v2/podcast`);
 
     if (!res.ok) {
       throw new Error("Error al obtener podcasts de WordPress");

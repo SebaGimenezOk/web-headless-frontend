@@ -1,3 +1,5 @@
+"use client";
+
 <nav
   className="grid grid-cols-3 items-center px-6 py-4"
   style={{ backgroundColor: palette.primary }}

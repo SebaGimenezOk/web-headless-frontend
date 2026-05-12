@@ -11,10 +11,12 @@
 
     --olive: #6f7f4e;
     --beige: #d2c4b2;
-
+    --ocre:  #936917;
     /* Tipografías */
-    --font-heading: "adobe-garamond-pro", serif;
+    /* --font-heading: "adobe-garamond-pro", serif; */
+    --font-heading: "magister", serif;
     --font-body: "source sans 3", sans-serif;
+
   }
 
   body {

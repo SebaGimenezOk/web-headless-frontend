@@ -16,14 +16,14 @@ export default function Navbar() {
   return (
     <nav
       className="flex items-center justify-between px-6 py-4"
-      style={{ backgroundColor: palette.olivePale }}
+      style={{ backgroundColor: palette.primary}}
     >
-      {/* Logo */}
+   
       <Image
-        src="/cronicaV2.png"
+        src="/Logo Cronicas v4.png"
         alt="cronicas 2"
-        width={200}
-        height={200}
+        width={400}
+        height={300}
         className="object-contain object-center"
       />
 

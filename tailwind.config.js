@@ -15,6 +15,7 @@ module.exports = {
         textStrong: "var(--text-strong)",
         olive: "var(--olive)",
         beige: "var(--beige)",
+        ocre: "var(--ocre)",
       },
       fontFamily: {
         heading: "var(--font-heading)",

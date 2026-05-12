@@ -20,7 +20,7 @@ export default function Navbar() {
     >
    
       <Image
-        src="/Logo Cronicas v4.png"
+        src="/logocronicasv4.png"
         alt="cronicas 2"
         width={400}
         height={300}

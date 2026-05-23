@@ -1,76 +1,32 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
+const API_URL = "https://api.cronicasdeunespectador.com";
 const BASE_ENDPOINT = `${API_URL}/wp-json/wp/v2/podcast`;
+
 
 export async function getAllPodcasts() {
   try {
-    if (!API_URL) {
-      throw new Error("NEXT_PUBLIC_API_URL no está definida");
-    }
-
     const res = await fetch(`${BASE_ENDPOINT}?_embed`, {
       next: { revalidate: 60 },
     });
 
-    if (!res.ok) {
-      console.error("Error HTTP:", res.status, await res.text());
-      return [];
-    }
+    if (!res.ok) return [];
 
     const posts = await res.json();
-
-    if (!Array.isArray(posts)) {
-      console.error("Respuesta inválida:", posts);
-      return [];
-    }
 
     return posts.map((post) => ({
       id: post.id,
       slug: post.slug,
-      title: post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
-      excerpt: post.excerpt?.rendered || "",
-      content: post.content?.rendered || "",
-      publishedAt: post.date || null,
-
-      author: post.acf?.author || "Desconocido",
-      duration: post.acf?.duration || null,
-
+      title:
+        post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
       imageUrl:
-        post.acf?.cover_image?.url ||
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
         null,
-
-      audioUrl: post.acf?.audio_url || null,
     }));
   } catch (error) {
-    console.error("Fetch falló:", error);
+    console.error(error);
     return [];
   }
 }
 
-export async function getPodcastsByTemporadaId(temporadaId) {
-  try {
-    const res = await fetch(
-      `${API_URL}/wp-json/wp/v2/podcast?temporada=${temporadaId}&_embed`,
-      { next: { revalidate: 60 } }
-    );
-
-    if (!res.ok) return [];
-
-    const data = await res.json();
-
-    return data.map((post) => ({
-      id: post.id,
-      slug: post.slug,
-      title: post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
-      imageUrl:
-        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null,
-    }));
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
-}
 
 export async function getPodcastBySlug(slug) {
   try {
@@ -81,37 +37,55 @@ export async function getPodcastBySlug(slug) {
       }
     );
 
-    if (!res.ok) {
-      console.error("Error HTTP:", res.status, await res.text());
-      return null;
-    }
+    if (!res.ok) return null;
 
     const data = await res.json();
-
-    if (!Array.isArray(data) || data.length === 0) return null;
+    if (!data.length) return null;
 
     const post = data[0];
 
     return {
       id: post.id,
       slug: post.slug,
-      title: post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
-      excerpt: post.excerpt?.rendered || "",
+      title:
+        post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
       content: post.content?.rendered || "",
-      publishedAt: post.date || null,
-
-      author: post.acf?.author || "Desconocido",
-      duration: post.acf?.duration || null,
-
+      excerpt: post.excerpt?.rendered || "",
       imageUrl:
-        post.acf?.cover_image?.url ||
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
         null,
-
-      audioUrl: post.acf?.audio_url || null,
     };
   } catch (error) {
-    console.error("Fetch slug falló:", error);
+    console.error(error);
     return null;
+  }
+}
+
+
+export async function getPodcastsByTemporadaId(temporadaId) {
+  try {
+    const res = await fetch(
+      `${BASE_ENDPOINT}?temporada=${temporadaId}&_embed`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) return [];
+
+    const data = await res.json();
+
+    return data.map((post) => ({
+      id: post.id,
+      slug: post.slug,
+      title:
+        post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
+      imageUrl:
+        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        null,
+    }));
+  } catch (err) {
+    console.error(err);
+    return [];
   }
 }

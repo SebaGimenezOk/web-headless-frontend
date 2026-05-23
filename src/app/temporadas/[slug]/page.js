@@ -14,18 +14,22 @@ export default async function TemporadaPage({ params }) {
     );
   }
 
-  return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold">{temporada.name}</h1>
+  const podcasts = await getPodcastsByTemporadaId(temporada.id);
 
-      {temporada.description && (
-        <div
-          className="mt-4 prose"
-          dangerouslySetInnerHTML={{
-            __html: temporada.description,
-          }}
-        />
+
+  return (
+    <div>
+      <h1>{temporada.name}</h1>
+
+      {podcasts.length === 0 ? (
+        <p>No hay podcasts</p>
+      ) : (
+        podcasts.map((p) => (
+          <div key={p.id}>
+            {p.title}
+          </div>
+        ))
       )}
-    </main>
+    </div>
   );
 }

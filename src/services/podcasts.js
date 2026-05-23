@@ -89,3 +89,32 @@ export async function getPodcastsByTemporadaId(temporadaId) {
     return [];
   }
 }
+
+
+export async function getPodcastsByCategoriaId(categoriaId) {
+  try {
+    const res = await fetch(
+      `${BASE_ENDPOINT}?categoria=${categoriaId}&_embed`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) return [];
+
+    const data = await res.json();
+
+    return data.map((post) => ({
+      id: post.id,
+      slug: post.slug,
+      title:
+        post.title?.rendered?.replace(/<[^>]+>/g, "") || "",
+      imageUrl:
+        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        null,
+    }));
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}

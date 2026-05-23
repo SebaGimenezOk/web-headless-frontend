@@ -6,11 +6,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { palette } from "@/lib/palette";
-
-import {
-  getTemporadas,
-  getCategorias,
-} from "@/services/taxonomies";
+import { getTemporadas, getCategorias } from "@/services/taxonomies";
 
 export default function Navbar() {
   const { t } = useTranslation();
@@ -19,7 +15,7 @@ export default function Navbar() {
   const [categorias, setCategorias] = useState([]);
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -37,57 +33,59 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className="px-6 py-4"
-      style={{ backgroundColor: palette.primary }}
-    >
-      {/* DESKTOP */}
-      <div className="grid grid-cols-3 items-center">
-        {/* izquierda */}
-        <div />
+    <nav style={{ backgroundColor: palette.primary }} className="w-full">
+      
+      {/* TOP BAR */}
+      <div className="flex items-center justify-between px-4 py-3 md:py-4">
 
-        {/* logo */}
-        <div className="flex justify-center">
+        {/* LEFT (vacío en desktop para centrar logo) */}
+        <div className="hidden md:block w-1/3" />
+
+        {/* LOGO */}
+        <div className="flex justify-center w-full md:w-1/3">
           <Link href="/">
             <Image
               src="/logocronicasv4.png"
               alt="cronicas"
-              width={200}
-              height={150}
+              width={160}
+              height={100}
               className="object-contain"
             />
           </Link>
         </div>
 
-        {/* derecha desktop */}
-        <div className="hidden md:flex justify-end">
-          <ul
-            className="flex gap-6 uppercase items-center"
-            style={{
-              fontFamily: '"open-sans-condensed", sans-serif',
-              color: palette.textStrong,
-            }}
+        {/* RIGHT */}
+        <div className="flex justify-end w-auto md:w-1/3">
+
+          {/* HAMBURGER */}
+          <button
+            className="md:hidden text-2xl"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
+            ☰
+          </button>
+
+          {/* DESKTOP MENU */}
+          <ul className="hidden md:flex gap-6 items-center uppercase text-sm">
+
             <li><Link href="/">{t("nav.home")}</Link></li>
 
             {/* TEMPORADAS */}
             <li
-              className="relative"
-              onMouseEnter={() => setOpenDropdown("temporadas")}
-              onMouseLeave={() => setOpenDropdown(null)}
+              onMouseEnter={() => setActiveDropdown("temporadas")}
+              onMouseLeave={() => setActiveDropdown(null)}
+              className="relative cursor-pointer"
             >
-              <span className="cursor-pointer">
-                {t("nav.seasons")}
-              </span>
+              {t("nav.seasons")}
 
-              {openDropdown === "temporadas" && (
-                <div className="absolute top-full left-0 bg-white text-black shadow-md p-2 min-w-40 z-50">
+              {activeDropdown === "temporadas" && (
+                <div className="absolute top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
                   {temporadas.map((t) => (
                     <Link
                       key={t.id}
                       href={`/temporadas/${t.slug}`}
-                      className="block px-2 py-1 hover:bg-gray-100"
-                    >
+                      className="block py-1 hover:opacity-60"
+                    >    
                       {t.name}
                     </Link>
                   ))}
@@ -97,21 +95,19 @@ export default function Navbar() {
 
             {/* CATEGORÍAS */}
             <li
-              className="relative"
-              onMouseEnter={() => setOpenDropdown("categorias")}
-              onMouseLeave={() => setOpenDropdown(null)}
+              onMouseEnter={() => setActiveDropdown("categorias")}
+              onMouseLeave={() => setActiveDropdown(null)}
+              className="relative cursor-pointer"
             >
-              <span className="cursor-pointer">
-                Categorías
-              </span>
+              Categorías
 
-              {openDropdown === "categorias" && (
-                <div className="absolute top-full left-0 bg-white text-black shadow-md p-2 min-w-40 z-50">
+              {activeDropdown === "categorias" && (
+                <div className="absolute top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
                   {categorias.map((c) => (
                     <Link
                       key={c.id}
                       href={`/categorias/${c.slug}`}
-                      className="block px-2 py-1 hover:bg-gray-100"
+                      className="block py-1 hover:opacity-60"
                     >
                       {c.name}
                     </Link>
@@ -125,61 +121,82 @@ export default function Navbar() {
             <li><Link href="/contacto">{t("nav.contact")}</Link></li>
 
             {/* LANG */}
-            <li className="flex gap-2 ml-4">
+            <li className="flex gap-2">
               <button onClick={() => changeLanguage("es")}>ES</button>
               <button onClick={() => changeLanguage("en")}>EN</button>
             </li>
           </ul>
         </div>
-
-        {/* MOBILE BUTTON */}
-        <div className="md:hidden flex justify-end">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            ☰
-          </button>
-        </div>
       </div>
 
       {/* MOBILE MENU */}
-      {menuOpen && (
-        <div className="md:hidden mt-4 space-y-3">
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          menuOpen ? "max-h-125 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="px-4 pb-4 flex flex-col gap-3">
+
           <Link href="/">{t("nav.home")}</Link>
 
-          <details>
-            <summary>{t("nav.seasons")}</summary>
-            <div className="pl-4">
-              {temporadas.map((t) => (
-                <Link
-                  key={t.id}
-                  href={`/temporadas/${t.slug}`}
-                  className="block py-1"
-                >
-                  {t.name}
-                </Link>
-              ))}
-            </div>
-          </details>
+          {/* TEMPORADAS */}
+          <div>
+            <button
+              onClick={() =>
+                setActiveDropdown(
+                  activeDropdown === "temporadas" ? null : "temporadas"
+                )
+              }
+              className="w-full text-left"
+            >
+              {t("nav.seasons")}
+            </button>
 
-          <details>
-            <summary>Categorías</summary>
-            <div className="pl-4">
-              {categorias.map((c) => (
-                <Link
-                  key={c.id}
-                  href={`/categorias/${c.slug}`}
-                  className="block py-1"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-          </details>
+            {activeDropdown === "temporadas" && (
+              <div className="pl-4 mt-2 flex flex-col gap-1">
+                {temporadas.map((t) => (
+                  <Link key={t.id} href={`/temporadas/${t.slug}`}>
+                    {t.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* CATEGORÍAS */}
+          <div>
+            <button
+              onClick={() =>
+                setActiveDropdown(
+                  activeDropdown === "categorias" ? null : "categorias"
+                )
+              }
+              className="w-full text-left"
+            >
+              Categorías
+            </button>
+
+            {activeDropdown === "categorias" && (
+              <div className="pl-4 mt-2 flex flex-col gap-1">
+                {categorias.map((c) => (
+                  <Link key={c.id} href={`/categorias/${c.slug}`}>
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
           <Link href="/bio">{t("nav.bio")}</Link>
           <Link href="/search">{t("nav.search")}</Link>
           <Link href="/contacto">{t("nav.contact")}</Link>
+
+          <div className="flex gap-3 mt-2">
+            <button onClick={() => changeLanguage("es")}>ES</button>
+            <button onClick={() => changeLanguage("en")}>EN</button>
+          </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 }

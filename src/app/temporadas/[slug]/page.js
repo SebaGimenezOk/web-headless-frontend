@@ -30,20 +30,47 @@ export default async function TemporadaPage({ params }) {
   );
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">
-        {temporada.name}
-      </h1>
+  <div className="px-6 py-8 max-w-6xl mx-auto">
+    {/* TÍTULO */}
+    <h1 className="text-3xl md:text-4xl font-bold mb-8">
+      {temporada.name}
+    </h1>
 
-      {podcasts.length === 0 ? (
-        <p>No hay podcasts</p>
-      ) : (
-        <div className="space-y-2">
-          {podcasts.map((p) => (
-            <div key={p.id}>{p.title}</div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+    {/* GRID */}
+    {podcasts.length === 0 ? (
+      <p className="text-gray-500">
+        No hay podcasts en esta temporada.
+      </p>
+    ) : (
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {podcasts.map((p) => (
+          <a
+            key={p.id}
+            href={`/podcasts/${p.slug}`}
+            className="group block"
+          >
+            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition">
+
+              {/* IMAGEN */}
+              {p.imageUrl && (
+                <img
+                  src={p.imageUrl}
+                  alt={p.title}
+                  className="w-full h-48 object-cover group-hover:scale-105 transition"
+                />
+              )}
+
+              {/* TEXTO */}
+              <div className="p-4">
+                <h2 className="font-semibold text-lg leading-snug group-hover:text-gray-600 transition">
+                  {p.title}
+                </h2>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+);
 }

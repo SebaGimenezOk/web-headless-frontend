@@ -46,8 +46,8 @@ export default function Navbar() {
             <Image
               src="/logocronicasv4.png"
               alt="cronicas"
-              width={160}
-              height={100} 
+              width={260}
+              height={160} 
               className="object-cover"
             />
           </Link>

@@ -147,7 +147,7 @@ export default function Navbar() {
                   activeDropdown === "temporadas" ? null : "temporadas"
                 )
               }
-              className="w-full text-left"
+              className="w-full text-left uppercase"
             >
               {t("nav.seasons")}
             </button>
@@ -171,7 +171,7 @@ export default function Navbar() {
                   activeDropdown === "categorias" ? null : "categorias"
                 )
               }
-              className="w-full text-left"
+              className="w-full text-left uppercase"
             >
               Categorías
             </button>
@@ -190,7 +190,7 @@ export default function Navbar() {
           <Link href="/bio">{t("nav.bio")}</Link>
           <Link href="/search">{t("nav.search")}</Link>
           <Link href="/contacto">{t("nav.contact")}</Link>
-
+ 
           <div className="flex gap-3 mt-2">
             <button onClick={() => changeLanguage("es")}>ES</button>
             <button onClick={() => changeLanguage("en")}>EN</button>

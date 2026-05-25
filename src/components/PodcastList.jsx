@@ -1,7 +1,7 @@
 "use client";
 
 import PodcastCard from "./PodcastCard";
-
+import { getAllPodcasts } from "@/services/podcasts";
 export default function PodcastList({ posts }) {
   if (!posts || !Array.isArray(posts)) return null;
 

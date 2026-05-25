@@ -2,6 +2,7 @@ export const revalidate = 60;
 
 import { getTemporadaBySlug } from "@/services/taxonomies";
 import { getPodcastsByTemporadaId } from "@/services/podcasts";
+import { getAllPodcasts } from "@/services/podcasts";
 
 export default async function TemporadaPage({ params }) {
   // 🔥 CLAVE: hay que esperar params

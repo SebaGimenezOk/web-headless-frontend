@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import PlayButton from "@/components/PlayButton";
+import { getAllPodcasts } from "@/services/podcasts";
 
 export default function PodcastCard({ post, className = "" }) {
   if (!post || typeof post !== "object") return null;

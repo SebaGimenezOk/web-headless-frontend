@@ -79,7 +79,7 @@ export default function Navbar() {
               {t("nav.seasons")}
 
               {activeDropdown === "temporadas" && (
-                <div className="absolute top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
+                <div className="absolute uppercase  top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
                   {temporadas.map((t) => (
                     <Link
                       key={t.id}
@@ -97,7 +97,7 @@ export default function Navbar() {
             <li
               onMouseEnter={() => setActiveDropdown("categorias")}
               onMouseLeave={() => setActiveDropdown(null)}
-              className="relative uppercase cursor-pointer"
+              className="relative cursor-pointer"
             >
               Categorías
 

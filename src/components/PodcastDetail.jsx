@@ -1,7 +1,7 @@
 "use client";
 
 import PlayButton from "@/components/PlayButton";
-
+import Image from "next/image";
 export default function PodcastDetail({ post }) {
   if (!post) return null;
 
@@ -34,10 +34,10 @@ export default function PodcastDetail({ post }) {
 
       {/* IMG */}
       {imageUrl && (
-        <img
+        <Image
           src={imageUrl}
           alt={title}
-          className="w-full h-[400px] object-cover rounded-xl"
+          className="w-full h-100 object-cover rounded-xl"
         />
       )}
 

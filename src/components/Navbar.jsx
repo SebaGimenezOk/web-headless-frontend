@@ -97,7 +97,7 @@ export default function Navbar() {
             <li
               onMouseEnter={() => setActiveDropdown("categorias")}
               onMouseLeave={() => setActiveDropdown(null)}
-              className="relative cursor-pointer"
+              className="relative uppercase cursor-pointer"
             >
               Categorías
 

@@ -38,8 +38,8 @@ export default function Navbar() {
       {/* TOP BAR */}
       <div className="flex items-center justify-between px-4 py-3 md:py-4">
 
-        {/* LEFT */}
-        <div className="hidden md:block w-1/3" />
+        {/* LEFT (vacío en desktop para centrar logo) */}
+        <div className="hidden md:block w-1/2" />
 
         {/* LOGO */}
         <div className="flex justify-center w-full md:w-1/3">
@@ -48,7 +48,7 @@ export default function Navbar() {
               src="/logocronicasv4.png"
               alt="cronicas"
               width={160}
-              height={100}
+              height={100} 
               className="object-contain"
             />
           </Link>
@@ -59,14 +59,14 @@ export default function Navbar() {
 
           {/* HAMBURGER */}
           <button
-            className="md:hidden text-2xl text-white"
+            className="md:hidden text-2xl"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             ☰
           </button>
 
           {/* DESKTOP MENU */}
-          <ul className="hidden md:flex gap-6 items-center uppercase text-sm text-white">
+          <ul className="hidden md:flex gap-6 items-center uppercase text-sm">
 
             <li><Link href="/">{t("nav.home")}</Link></li>
 
@@ -79,14 +79,14 @@ export default function Navbar() {
               {t("nav.seasons")}
 
               {activeDropdown === "temporadas" && (
-                <div className="absolute uppercase top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
-                  {temporadas.map((temp) => (
+                <div className="absolute uppercase  top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
+                  {temporadas.map((t) => (
                     <Link
-                      key={temp.id}
-                      href={`/temporadas/${temp.slug}`}
+                      key={t.id}
+                      href={`/temporadas/${t.slug}`}
                       className="block py-1 hover:opacity-60"
                     >    
-                      {temp.name}
+                      {t.name}
                     </Link>
                   ))}
                 </div>
@@ -102,14 +102,14 @@ export default function Navbar() {
               Categorías
 
               {activeDropdown === "categorias" && (
-                <div className="absolute uppercase top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
-                  {categorias.map((cat) => (
+                <div className="absolute top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
+                  {categorias.map((c) => (
                     <Link
-                      key={cat.id}
-                      href={`/categorias/${cat.slug}`}
+                      key={c.id}
+                      href={`/categorias/${c.slug}`}
                       className="block py-1 hover:opacity-60"
                     >
-                      {cat.name}
+                      {c.name}
                     </Link>
                   ))}
                 </div>
@@ -135,7 +135,7 @@ export default function Navbar() {
           menuOpen ? "max-h-125 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 pb-4 flex flex-col gap-3 uppercase text-white">
+        <div className="px-4 pb-4 flex flex-col gap-3 uppercase">
 
           <Link href="/">{t("nav.home")}</Link>
 
@@ -154,9 +154,9 @@ export default function Navbar() {
 
             {activeDropdown === "temporadas" && (
               <div className="pl-4 mt-2 flex flex-col gap-1">
-                {temporadas.map((temp) => (
-                  <Link key={temp.id} href={`/temporadas/${temp.slug}`}>
-                    {temp.name}
+                {temporadas.map((t) => (
+                  <Link key={t.id} href={`/temporadas/${t.slug}`}>
+                    {t.name}
                   </Link>
                 ))}
               </div>
@@ -178,9 +178,9 @@ export default function Navbar() {
 
             {activeDropdown === "categorias" && (
               <div className="pl-4 mt-2 flex flex-col gap-1">
-                {categorias.map((cat) => (
-                  <Link key={cat.id} href={`/categorias/${cat.slug}`}>
-                    {cat.name}
+                {categorias.map((c) => (
+                  <Link key={c.id} href={`/categorias/${c.slug}`}>
+                    {c.name}
                   </Link>
                 ))}
               </div>

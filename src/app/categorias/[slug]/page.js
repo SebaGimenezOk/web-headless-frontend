@@ -2,6 +2,7 @@ export const revalidate = 60;
 import Image from "next/image";
 import { getCategoriaBySlug } from "@/services/taxonomies";
 import { getPodcastsByCategoriaId } from "@/services/podcasts";
+import { getAllPodcasts } from "@/services/podcasts";
 
 export default async function CategoriaPage({ params }) {
   // 🔥 Next 16 → params async

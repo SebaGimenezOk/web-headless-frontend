@@ -36,26 +36,25 @@ export default function Navbar() {
     <nav style={{ backgroundColor: palette.primary }} className="w-full">
       
       {/* TOP BAR */}
-      <div className="flex items-center justify-between px-4 py-3 md:py-4">
+       <div className="flex items-center px-4 py-3 md:py-4">
 
-        {/* LEFT (vacío en desktop para centrar logo) */}
-        <div className="hidden md:block w-1/3" />
+       
 
         {/* LOGO */}
-        <div className="flex justify-center w-full md:w-1/3">
+        <div className="flex items-center">
           <Link href="/">
             <Image
               src="/logocronicasv4.png"
               alt="cronicas"
-              width={160}
-              height={100}
-              className="object-contain"
+              width={260}
+              height={160} 
+              className="object-cover"
             />
           </Link>
         </div>
 
         {/* RIGHT */}
-        <div className="flex justify-end w-auto md:w-1/3">
+        <div className="ml-auto flex items-center ">
 
           {/* HAMBURGER */}
           <button
@@ -79,7 +78,7 @@ export default function Navbar() {
               {t("nav.seasons")}
 
               {activeDropdown === "temporadas" && (
-                <div className="absolute top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
+                <div className="absolute uppercase  top-full left-0 bg-white text-black shadow-lg p-3 min-w-45 z-50">
                   {temporadas.map((t) => (
                     <Link
                       key={t.id}
@@ -135,7 +134,7 @@ export default function Navbar() {
           menuOpen ? "max-h-125 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 pb-4 flex flex-col gap-3">
+        <div className="px-4 pb-4 flex flex-col gap-3 uppercase">
 
           <Link href="/">{t("nav.home")}</Link>
 
@@ -147,7 +146,7 @@ export default function Navbar() {
                   activeDropdown === "temporadas" ? null : "temporadas"
                 )
               }
-              className="w-full text-left"
+              className="w-full text-left uppercase"
             >
               {t("nav.seasons")}
             </button>
@@ -171,7 +170,7 @@ export default function Navbar() {
                   activeDropdown === "categorias" ? null : "categorias"
                 )
               }
-              className="w-full text-left"
+              className="w-full text-left uppercase"
             >
               Categorías
             </button>
@@ -190,7 +189,7 @@ export default function Navbar() {
           <Link href="/bio">{t("nav.bio")}</Link>
           <Link href="/search">{t("nav.search")}</Link>
           <Link href="/contacto">{t("nav.contact")}</Link>
-
+ 
           <div className="flex gap-3 mt-2">
             <button onClick={() => changeLanguage("es")}>ES</button>
             <button onClick={() => changeLanguage("en")}>EN</button>

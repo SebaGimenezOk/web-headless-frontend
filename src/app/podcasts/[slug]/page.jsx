@@ -7,7 +7,7 @@ import Image from "next/image";
 /**
  * 🔥 Configuración de revalidación
  */
-export const revalidate = 60;
+export const revalidate = 60;               
 export const dynamicParams = true;
 
 export default async function PodcastDetailPage({ params }) {

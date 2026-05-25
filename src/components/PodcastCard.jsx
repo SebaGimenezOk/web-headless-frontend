@@ -30,7 +30,7 @@ export default function PodcastCard({ post, className = "" }) {
       `}
     >
       {/* LINK */}
-      <Link href={`/podcast/${slug}`}>
+      <Link href={`/podcasts/${slug}`}>
         <div className="cursor-pointer">
           {/* IMAGEN */}
           <div className="overflow-hidden rounded-xl mb-3">

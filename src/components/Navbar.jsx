@@ -48,7 +48,7 @@ export default function Navbar() {
               alt="cronicas"
               width={160}
               height={100} 
-              className="object-contain"
+              className="object-cover"
             />
           </Link>
         </div>

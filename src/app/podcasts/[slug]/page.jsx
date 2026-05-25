@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
+import Image from "next/image";
 
 /**
  * 🔥 Configuración de revalidación
@@ -71,10 +72,12 @@ export default async function PodcastDetailPage({ params }) {
         </div>
 
         {post.imageUrl && (
-          <img
+          <Image
             src={post.imageUrl}
             alt={post.title}
-            className="w-full rounded-2xl shadow-md"
+            className=" object-cover w-full rounded-2xl shadow-md"
+            width={800}
+            height={400}
           />
         )}
 

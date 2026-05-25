@@ -7,22 +7,12 @@ export default function PodcastCard({ post, className = "" }) {
 
   const {
     title = "Sin título",
-    excerpt = "",
     author = "Autor desconocido",
-    duration = null,
+    category = "Sin categoría",
     imageUrl = null,
     slug = "#",
-    publishedAt = null,
     audioUrl = null,
   } = post;
-
-  const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString("es-AR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "";
 
   return (
     <article
@@ -39,10 +29,10 @@ export default function PodcastCard({ post, className = "" }) {
         ${className}
       `}
     >
-      {/* Link SOLO en partes clickeables */}
-      <Link href={`/podcasts/${slug}`}>
+      {/* LINK */}
+      <Link href={`/podcast/${slug}`}>
         <div className="cursor-pointer">
-          {/* Imagen */}
+          {/* IMAGEN */}
           <div className="overflow-hidden rounded-xl mb-3">
             <img
               src={imageUrl || "/placeholder-podcast.jpg"}
@@ -51,37 +41,29 @@ export default function PodcastCard({ post, className = "" }) {
             />
           </div>
 
-          {/* Título */}
-          <h3 className="text-3xl font-heading mb-1 group-hover:text-primary">
+          {/* TÍTULO */}
+          <h3 className="text-xl font-heading mb-1 group-hover:text-primary">
             {title}
           </h3>
         </div>
       </Link>
 
-      {/* Meta */}
-      <div className="text-base text-tertiary flex gap-2 mb-2">
-        {formattedDate && <span>{formattedDate}</span>}
-        <span>• {author}</span>
+      {/* CATEGORÍA */}
+      <div className="text-sm uppercase text-gray-500 mt-1">
+        {category}
       </div>
 
-      {/* Extracto */}
-      {excerpt && (
-        <p className="text-text text-secondary mb-3 line-clamp-3">{excerpt}</p>
-      )}
+      {/* AUTOR */}
+      <div className="text-sm text-gray-400">
+        {author}
+      </div>
 
-      {/* Duración */}
-      {duration && (
-        <div className="text-text text-tertiary mb-3">
-          Duración: {duration} min
+      {/* AUDIO */}
+      {audioUrl && (
+        <div className="mt-3">
+          <PlayButton url={audioUrl} label="Escuchar entrevista" />
         </div>
       )}
-
-      {/* 🎧 REPRODUCTOR */}
-    {audioUrl && (
-  <div className="mt-3">
-    <PlayButton url={audioUrl} label="▶ Reproducir" />
-  </div>
-)}
     </article>
   );
 }

@@ -36,13 +36,12 @@ export default function Navbar() {
     <nav style={{ backgroundColor: palette.primary }} className="w-full">
       
       {/* TOP BAR */}
-      <div className="flex items-center justify-between px-4 py-3 md:py-4">
+       <div className="flex items-center px-4 py-3 md:py-4">
 
-        {/* LEFT (vacío en desktop para centrar logo) */}
-        <div className="hidden md:block w-1/2" />
+       
 
         {/* LOGO */}
-        <div className="flex justify-center w-full md:w-1/3">
+        <div className="flex items-center">
           <Link href="/">
             <Image
               src="/logocronicasv4.png"
@@ -55,7 +54,7 @@ export default function Navbar() {
         </div>
 
         {/* RIGHT */}
-        <div className="flex justify-end w-auto md:w-1/3">
+        <div className="ml-auto flex items-center ">
 
           {/* HAMBURGER */}
           <button

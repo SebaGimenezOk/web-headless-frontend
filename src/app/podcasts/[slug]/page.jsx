@@ -7,7 +7,7 @@ import Image from "next/image";
 /**
  * 🔥 Configuración de revalidación
  */
-export const revalidate = 60;               
+export const revalidate = 60;
 export const dynamicParams = true;
 
 export default async function PodcastDetailPage({ params }) {
@@ -54,14 +54,25 @@ export default async function PodcastDetailPage({ params }) {
       </Link>
 
       <article className="mt-6 space-y-6">
-        <h1 className="text-4xl uppercase font-bold leading-tight">
+        <div className="uppercase tracking-[0.2em] text-xs text-gray-500 font-semibold">
+          Audio Entrevista
+        </div>
+        <h1 className="text-4xl uppercase font-medium leading-tight">
           {post.title}
         </h1>
 
         <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
-          <span>{post.author}</span>
+          {post.author && (
+            <span>
+              <strong>Autor:</strong> {post.author}
+            </span>
+          )}
 
-          {post.duration && <span>• {post.duration} min</span>}
+          {post.duration && (
+            <span>
+              <strong>Duración:</strong> {post.duration}
+            </span>
+          )}
 
           {post.audioUrl && (
             <>
@@ -82,7 +93,7 @@ export default async function PodcastDetailPage({ params }) {
         )}
 
         <div
-          className="prose prose-lg max-w-none"
+          className="prose prose-lg max-w-none article-content"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>

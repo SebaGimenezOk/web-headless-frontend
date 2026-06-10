@@ -55,51 +55,58 @@ export default async function PodcastDetailPage({ params }) {
         </Link>
       </div>
 
-      <article className="mt-6 space-y-6">
-        <h1 className="text-4xl uppercase font-medium leading-tight">
-          {post.title}
-        </h1>
+    <article className="mt-6 space-y-6">
 
-        <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
-          {post.author && (
-            <span>
-              <strong>Autor:</strong> {post.author}
-            </span>
-          )}
+  <h1 className="text-4xl uppercase font-medium leading-tight">
+    {post.title}
+  </h1>
 
-          {post.duration && (
-            <span>
-              <strong>Duración:</strong> {post.duration}
-            </span>
-          )}
+  <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
+    {post.author && (
+      <span>
+        <strong>Autor:</strong> {post.author}
+      </span>
+    )}
 
-          {post.audioUrl && (
-            <>
-              <span>•</span>
-              <PlayButton url={post.audioUrl} />
-            </>
-          )}
-        </div>
-        {post.bajada && (
-          <p className="podcast-bajada">
-            {post.bajada}
-          </p>
-        )}
-        {post.imageUrl && (
-          <Image
-            src={post.imageUrl}
-            alt={post.title}
-            className=" object-cover w-full rounded-2xl shadow-md mb-8" 
-            width={800}
-            height={400}
-          />
-        )}
+    {post.duration && (
+      <span>
+        <strong>Duración:</strong> {post.duration}
+      </span>
+    )}
 
-        <div
-          className="article-content"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      </article>
+    {post.audioUrl && (
+      <>
+        <span>•</span>
+        <PlayButton url={post.audioUrl} />
+      </>
+    )}
+  </div>
+
+  {post.bajada && (
+    <p className="podcast-bajada">
+      {post.bajada}
+    </p>
+  )}
+
+  {/* 👇 separador visual real */}
+  <div className="pt-6">
+    {post.imageUrl && (
+      <Image
+        src={post.imageUrl}
+        alt={post.title}
+        className="object-cover w-full rounded-2xl shadow-md"
+        width={800}
+        height={400}
+      />
+    )}
+  </div>
+
+  <div
+    className="article-content mt-8"
+    dangerouslySetInnerHTML={{ __html: post.content }}
+  />
+
+</article>
     </main>
   );
 }

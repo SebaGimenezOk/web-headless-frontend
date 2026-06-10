@@ -89,7 +89,7 @@ export default async function PodcastDetailPage({ params }) {
   )}
 
   
-  <div className="my-12">
+  <div className="w-full my-12">
     {post.imageUrl && (
       <Image
         src={post.imageUrl}

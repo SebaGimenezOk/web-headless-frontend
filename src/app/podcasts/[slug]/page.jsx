@@ -46,21 +46,25 @@ export default async function PodcastDetailPage({ params }) {
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-10">
-      <Link
-        href="/podcasts"
-        className="text-sm text-gray-500 hover:text-indigo-600"
-      >
-        ← Volver a podcasts
-      </Link>
+      <div className="flex justify-end">
+        <Link
+          href="/podcasts"
+          className="text-sm text-gray-500 hover:text-indigo-600"
+        >
+          ← Volver a podcasts
+        </Link>
+      </div>
 
       <article className="mt-6 space-y-6">
-        <div className="uppercase tracking-[0.2em] text-xs text-gray-500 font-semibold">
-          Audio Entrevista
-        </div>
+        
         <h1 className="text-4xl uppercase font-medium leading-tight">
           {post.title}
         </h1>
-
+        {post.bajada && (
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-4 max-w-3xl">
+            {post.bajada}
+          </p>
+        )}
         <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
           {post.author && (
             <span>

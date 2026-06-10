@@ -24,11 +24,14 @@
     font-size: 1.125rem;
     line-height: 1.85;
   }
-  
+
   .article-content h2 {
     font-family: var(--font-heading);
     font-weight: 400;
     font-size: 2rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 
   .article-content h3 {
@@ -37,31 +40,31 @@
     font-size: 1.5rem;
   }
   .article-subtitle {
-  max-width: 720px;
-  margin: 2rem auto;
-  font-size: 1.4rem;
-  line-height: 1.6;
-  color: var(--text-strong);
-  text-align: center;
-}
-.podcast-bajada {
-  font-family: var(--font-article);
-  font-size: 1.35rem;
-  line-height: 1.7;
-  color: var(--text-strong);
-  max-width: 720px;
-  margin-top: 1.2rem;
-  margin-bottom: 2rem;
-}
-.article-content p:first-of-type::first-letter {
-  float: left;
-  font-family: var(--font-heading);
-  font-size: 3.5rem;
-  line-height: 1;
-  padding-right: 0.4rem;
-  padding-top: 0.2rem;
-  color: var(--text-strong);
-}
+    max-width: 720px;
+    margin: 2rem auto;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--text-strong);
+    text-align: center;
+  }
+  .podcast-bajada {
+    font-family: var(--font-article);
+    font-size: 1.35rem;
+    line-height: 1.7;
+    color: var(--text-strong);
+    max-width: 720px;
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .article-content p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    line-height: 1;
+    padding-right: 0.4rem;
+    padding-top: 0.2rem;
+    color: var(--text-strong);
+  }
   body {
     font-family: var(--font-body);
   }

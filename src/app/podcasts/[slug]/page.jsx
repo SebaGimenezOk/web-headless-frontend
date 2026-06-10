@@ -89,7 +89,7 @@ export default async function PodcastDetailPage({ params }) {
   )}
 
   {/* 👇 separador visual real */}
-  <div className="pt-6">
+  <div className="my-12">
     {post.imageUrl && (
       <Image
         src={post.imageUrl}

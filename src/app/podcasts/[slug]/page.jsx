@@ -89,14 +89,14 @@ export default async function PodcastDetailPage({ params }) {
           <Image
             src={post.imageUrl}
             alt={post.title}
-            className=" object-cover w-full rounded-2xl shadow-md"
+            className=" object-cover w-full rounded-2xl shadow-md mb-8" 
             width={800}
             height={400}
           />
         )}
 
         <div
-          className="prose prose-lg max-w-none article-content"
+          className="article-content"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>

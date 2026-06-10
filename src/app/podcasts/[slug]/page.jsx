@@ -11,6 +11,7 @@ export const revalidate = 60;
 export const dynamicParams = true;
 
 export default async function PodcastDetailPage({ params }) {
+
   // ✅ params ahora es una Promise en Next.js moderno
   const { slug } = await params;
 
@@ -64,6 +65,7 @@ export default async function PodcastDetailPage({ params }) {
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-4 max-w-3xl">
             {post.bajada}
           </p>
+      
         )}
         <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
           {post.author && (

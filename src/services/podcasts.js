@@ -19,6 +19,7 @@ function mapPost(post) {
       post.title?.rendered?.replace(/<[^>]+>/g, "") || "Sin título",
 
     content: post.content?.rendered || "",
+
     excerpt:
       post.excerpt?.rendered?.replace(/<[^>]+>/g, "") || "",
 
@@ -26,8 +27,16 @@ function mapPost(post) {
       post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
       null,
 
+    // 🔥 ACF FIELDS
     author: post.acf?.author || "Autor desconocido",
 
+    bajada: post.acf?.bajada || "",
+
+    audioUrl: post.acf?.audio_url || null,
+
+    duration: post.acf?.duration || null,
+
+    // 🔥 TAXONOMÍAS
     category: categorias.length
       ? categorias.join(", ")
       : "Sin categoría",
@@ -37,10 +46,6 @@ function mapPost(post) {
       : "Sin temporada",
 
     publishedAt: post.date || null,
-
-    audioUrl: post.acf?.audio_url || null,
-
-    duration: post.acf?.duration || null,
   };
 }
 
@@ -80,7 +85,7 @@ export async function getPodcastBySlug(slug) {
 
     const data = await res.json();
 
-    if (!data.length) return null;
+    if (!Array.isArray(data) || data.length === 0) return null;
 
     return mapPost(data[0]);
   } catch (error) {
@@ -105,7 +110,7 @@ export async function getPodcastsByTemporadaId(temporadaId) {
 
     const data = await res.json();
 
-    return data.map(mapPost);
+    return Array.isArray(data) ? data.map(mapPost) : [];
   } catch (error) {
     console.error("Error getPodcastsByTemporadaId:", error);
     return [];
@@ -128,7 +133,7 @@ export async function getPodcastsByCategoriaId(categoriaId) {
 
     const data = await res.json();
 
-    return data.map(mapPost);
+    return Array.isArray(data) ? data.map(mapPost) : [];
   } catch (error) {
     console.error("Error getPodcastsByCategoriaId:", error);
     return [];

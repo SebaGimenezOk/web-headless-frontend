@@ -11,23 +11,74 @@
 
     --olive: #6f7f4e;
     --beige: #d2c4b2;
-    --ocre:  #936917;
+    --ocre: #936917;
     /* Tipografías */
     /* --font-heading: "adobe-garamond-pro", serif; */
     --font-heading: "magister", serif;
     --font-body: "source sans 3", sans-serif;
-
+    --font-article: "source-serif-4", serif;
+  }
+  .article-content {
+    font-family: var(--font-article);
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.85;
+    margin-top: 4rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    display:flow-root;
   }
 
+  .article-content h2 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 2rem;
+    
+  }
+
+  .article-content h3 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+  .article-subtitle {
+    max-width: 720px;
+    margin: 2rem auto;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--text-strong);
+    text-align: center;
+  }
+  .podcast-bajada {
+    font-family: var(--font-article);
+    font-size: 1.35rem;
+    line-height: 1.7;
+    color: var(--text-strong);
+    max-width: 720px;
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+  .article-content p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    line-height: 1;
+    padding-right: 0.4rem;
+    padding-top: 0.2rem;
+    color: var(--text-strong);
+    margin-bottom: 1.2rem;
+  }
   body {
     font-family: var(--font-body);
- 
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
   }
 }

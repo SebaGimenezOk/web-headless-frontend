@@ -52,7 +52,7 @@ export default function PodcastDetail({ post }) {
       {/* AUDIO */}
       {audioUrl && (
         <div className="pt-2">
-          <PlayButton url={audioUrl} label="Escuchar entrevista" />
+          <PlayButton url={audioUrl} label="Posee Entrevista 🎧" />
         </div>
       )}
 

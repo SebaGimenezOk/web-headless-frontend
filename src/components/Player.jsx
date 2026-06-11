@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useReproductor } from "@/context/ReproductorContext";
 import {
@@ -88,7 +89,6 @@ export default function Player() {
     init();
   }, [trackUrl]);
 
-  // ▶️ Play / Pause
   const togglePlay = () => {
     if (!widgetRef.current) return;
 
@@ -97,7 +97,6 @@ export default function Player() {
     });
   };
 
-  // ⏩ Seek
   const handleSeek = (e) => {
     if (!widgetRef.current || !duration) return;
 
@@ -120,15 +119,17 @@ export default function Player() {
   if (!trackUrl) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white shadow z-50">
-      <div className="h-20 flex items-center px-4 gap-4">
-        
+    <div className="fixed bottom-0 left-0 z-50 w-full border-t border-(--border) bg-(--surface) shadow">
+      <div className="flex h-20 items-center gap-4 px-4">
         {/* Artwork */}
         {artwork && (
-          <img
+          <Image
             src={artwork}
-            alt="cover"
-            className="w-14 h-14 rounded object-cover"
+            alt={title || "Portada del audio"}
+            width={56}
+            height={56}
+            className="h-14 w-14 rounded object-cover"
+            unoptimized
           />
         )}
 
@@ -136,23 +137,21 @@ export default function Player() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => widgetRef.current?.seekTo(0)}
-            className="text-gray-500 hover:text-orange-500"
+            className="text-gray-500 transition-colors hover:text-(--olive)"
           >
             <SkipBack size={18} />
           </button>
 
           <button
             onClick={togglePlay}
-            className="w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-(--olive) text-white transition-opacity hover:opacity-90"
           >
             {isPlaying ? <Pause size={18} /> : <Play size={18} />}
           </button>
 
           <button
-            onClick={() =>
-              widgetRef.current?.seekTo(current + 10000)
-            }
-            className="text-gray-500 hover:text-orange-500"
+            onClick={() => widgetRef.current?.seekTo(current + 10000)}
+            className="text-gray-500 transition-colors hover:text-(--olive)"
           >
             <SkipForward size={18} />
           </button>
@@ -160,11 +159,11 @@ export default function Player() {
 
         {/* Info + Progress */}
         <div className="flex-1">
-          <p className="text-sm font-semibold truncate text-gray-800">
+          <p className="truncate text-sm font-semibold text-(--text-strong)">
             {title || "Cargando..."}
           </p>
 
-          <p className="text-xs text-orange-500 truncate">
+          <p className="truncate text-xs text-(--olive)">
             {artist}
           </p>
 
@@ -175,22 +174,18 @@ export default function Player() {
             step="0.1"
             value={duration ? (current / duration) * 100 : 0}
             onInput={handleSeek}
-            className="w-full h-1 mt-1 appearance-none bg-gray-200 rounded-lg cursor-pointer accent-orange-500"
+            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-(--olive)"
           />
 
-          <div className="flex justify-between text-[11px] text-gray-400 mt-1">
+          <div className="mt-1 flex justify-between text-[11px] text-(--text)">
             <span>{formatTime(current)}</span>
             <span>{formatTime(duration)}</span>
           </div>
         </div>
 
         {/* Volume */}
-        <div className="flex items-center gap-2 w-32">
-          {volume === 0 ? (
-            <VolumeX size={18} />
-          ) : (
-            <Volume2 size={18} />
-          )}
+        <div className="flex w-32 items-center gap-2 text-(--olive)">
+          {volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
 
           <input
             type="range"
@@ -198,12 +193,12 @@ export default function Player() {
             max="100"
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
-            className="w-full accent-orange-500 cursor-pointer"
+            className="w-full cursor-pointer accent-(--olive)"
           />
         </div>
       </div>
 
-      {/* Hidden iframe (ENCODED URL) */}
+      {/* Hidden iframe */}
       <iframe
         ref={iframeRef}
         key={trackUrl}

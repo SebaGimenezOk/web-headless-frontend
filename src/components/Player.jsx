@@ -136,14 +136,14 @@ export default function Player() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => widgetRef.current?.seekTo(0)}
-            className="text-gray-500 hover:text-orange-500"
+            className="text-gray-500 hover:text-lime-800"
           >
             <SkipBack size={18} />
           </button>
 
           <button
             onClick={togglePlay}
-            className="w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center"
+            className="w-10 h-10 bg-lime-500 hover:bg-lime-600 text-white rounded-full flex items-center justify-center"
           >
             {isPlaying ? <Pause size={18} /> : <Play size={18} />}
           </button>
@@ -152,7 +152,7 @@ export default function Player() {
             onClick={() =>
               widgetRef.current?.seekTo(current + 10000)
             }
-            className="text-gray-500 hover:text-orange-500"
+            className="text-gray-500 hover:text-lime-800"
           >
             <SkipForward size={18} />
           </button>
@@ -164,7 +164,7 @@ export default function Player() {
             {title || "Cargando..."}
           </p>
 
-          <p className="text-xs text-orange-500 truncate">
+          <p className="text-xs text-lime-500 truncate">
             {artist}
           </p>
 
@@ -175,7 +175,7 @@ export default function Player() {
             step="0.1"
             value={duration ? (current / duration) * 100 : 0}
             onInput={handleSeek}
-            className="w-full h-1 mt-1 appearance-none bg-gray-200 rounded-lg cursor-pointer accent-orange-500"
+            className="w-full h-1 mt-1 appearance-none bg-gray-200 rounded-lg cursor-pointer accent-lime-500"
           />
 
           <div className="flex justify-between text-[11px] text-gray-400 mt-1">
@@ -198,7 +198,7 @@ export default function Player() {
             max="100"
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
-            className="w-full accent-orange-500 cursor-pointer"
+            className="w-full accent-lime-500 cursor-pointer"
           />
         </div>
       </div>

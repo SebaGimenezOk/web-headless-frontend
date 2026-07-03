@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import HomeContent from "@/components/HomeContent";
 import { getAllPodcasts } from "@/services/podcasts";
+import InstitutionalLinks from "@/components/InstitutionalLinks";
 
 export const revalidate = 60; 
 
@@ -19,6 +20,8 @@ export default async function HomePage() {
     <>
       <Hero />
       <HomeContent podcasts={podcasts} />
+      <InstitutionalLinks />
+
     </>
   );
 }

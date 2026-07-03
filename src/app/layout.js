@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
           <Player />
         </ReproductorProvider>
 
-        {/* 👇 Los movimos acá abajo para asegurarnos de que el HTML ya exista cuando carguen */}
+  
         <Script
           src="https://cdn.weglot.com/weglot.min.js"
           strategy="afterInteractive"

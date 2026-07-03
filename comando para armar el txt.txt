@@ -1,0 +1,1 @@
+(echo "=== ESTRUCTURA DE LA CARPETA PUBLIC ===" && find public -maxdepth 2 2>/dev/null && echo "\n" && find . -type f \( -name "*.js" -o -name "*.jsx" -o -name "*.css" \) ! -path "*/node_modules/*" ! -path "*/.next/*" ! -path "*/.git/*" -exec sh -c 'echo "=== ARCHIVO: {} ==="; cat "{}"; echo "\n"' \;) > todo_el_proyecto.txt

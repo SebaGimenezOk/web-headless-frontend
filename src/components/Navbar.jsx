@@ -40,12 +40,31 @@ export default function Navbar() {
       {/* ========================================================================= */}
       <div className="hidden md:grid grid-cols-3 items-center px-8 pt-6 pb-4 max-w-7xl mx-auto">
         
-        {/* FILA 1 - IZQUIERDA: Espacio libre o secundario para equilibrar el peso visual hacia la derecha */}
-        <div className="flex items-center">
-          {/* Queda libre, empujando la atención hacia el centro y la derecha */}
-        </div>
+        {/* FILA 1 - IZQUIERDA: Enlaces Secundarios (Antes a la derecha) */}
+        <ul className="flex gap-6 items-center uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
+          <li className="hover:opacity-60 transition-opacity"><Link href="/bio">{t("nav.bio")}</Link></li>
+          <li className="hover:opacity-60 transition-opacity"><Link href="/search">{t("nav.search")}</Link></li>
+          <li className="hover:opacity-60 transition-opacity"><Link href="/contacto">{t("nav.contact")}</Link></li>
+          
+          {/* LANG TOGGLE (Mantenido junto a los enlaces de este lado) */}
+          <li className="flex gap-2 items-center pl-2 border-l border-[var(--border)] text-[11px]">
+            <button 
+              onClick={() => changeLanguage("es")} 
+              className={`hover:text-black font-bold ${i18n.language === "es" ? "text-[var(--text-strong)] underline decoration-2 underline-offset-4" : "text-[var(--text)]"}`}
+            >
+              ES
+            </button>
+            <span className="text-[var(--border)]">|</span>
+            <button 
+              onClick={() => changeLanguage("en")} 
+              className={`hover:text-black font-bold ${i18n.language === "en" ? "text-[var(--text-strong)] underline decoration-2 underline-offset-4" : "text-[var(--text)]"}`}
+            >
+              EN
+            </button>
+          </li>
+        </ul>
 
-        {/* FILA 1 - CENTRO: Isologo (Pluma / Ícono) */}
+        {/* FILA 1 - CENTRO: Isologo perfectamente centrado en su tercio de pantalla */}
         <div className="flex justify-center">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image
@@ -59,10 +78,8 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* FILA 1 - DERECHA: Toda la navegación principal y secundaria consolidada a la derecha */}
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 items-center justify-end uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
-          
-          {/* Portada */}
+        {/* FILA 1 - DERECHA: Enlaces Principales + Dropdowns alineados al fondo (Antes a la izquierda) */}
+        <ul className="flex gap-6 items-center justify-end uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
           <li className="hover:opacity-60 transition-opacity">
             <Link href="/">{t("nav.home")}</Link>
           </li>
@@ -117,28 +134,6 @@ export default function Navbar() {
                 ))}
               </div>
             )}
-          </li>
-
-          {/* Enlaces Secundarios Originales de la Derecha */}
-          <li className="hover:opacity-60 transition-opacity"><Link href="/bio">{t("nav.bio")}</Link></li>
-          <li className="hover:opacity-60 transition-opacity"><Link href="/search">{t("nav.search")}</Link></li>
-          <li className="hover:opacity-60 transition-opacity"><Link href="/contacto">{t("nav.contact")}</Link></li>
-
-          {/* LANG TOGGLE */}
-          <li className="flex gap-2 items-center pl-2 border-l border-[var(--border)] text-[11px]">
-            <button 
-              onClick={() => changeLanguage("es")} 
-              className={`hover:text-black font-bold ${i18n.language === "es" ? "text-[var(--text-strong)] underline decoration-2 underline-offset-4" : "text-[var(--text)]"}`}
-            >
-              ES
-            </button>
-            <span className="text-[var(--border)]">|</span>
-            <button 
-              onClick={() => changeLanguage("en")} 
-              className={`hover:text-black font-bold ${i18n.language === "en" ? "text-[var(--text-strong)] underline decoration-2 underline-offset-4" : "text-[var(--text)]"}`}
-            >
-              EN
-            </button>
           </li>
         </ul>
 

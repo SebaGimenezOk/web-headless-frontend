@@ -40,8 +40,29 @@ export default function Navbar() {
       {/* ========================================================================= */}
       <div className="hidden md:grid grid-cols-3 items-center px-8 pt-6 pb-4 max-w-7xl mx-auto">
         
-        {/* FILA 1 - IZQUIERDA: Enlaces de Navegación Izquierda */}
-        <ul className="flex gap-6 items-center uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
+        {/* FILA 1 - IZQUIERDA: Espacio libre o secundario para equilibrar el peso visual hacia la derecha */}
+        <div className="flex items-center">
+          {/* Queda libre, empujando la atención hacia el centro y la derecha */}
+        </div>
+
+        {/* FILA 1 - CENTRO: Isologo (Pluma / Ícono) */}
+        <div className="flex justify-center">
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <Image
+              src="/branding/IsologoPluma.png"
+              alt="cronicas-isologo"
+              width={70} 
+              height={70}
+              className="object-contain"
+              priority
+            />
+          </Link>
+        </div>
+
+        {/* FILA 1 - DERECHA: Toda la navegación principal y secundaria consolidada a la derecha */}
+        <ul className="flex flex-wrap gap-x-6 gap-y-2 items-center justify-end uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
+          
+          {/* Portada */}
           <li className="hover:opacity-60 transition-opacity">
             <Link href="/">{t("nav.home")}</Link>
           </li>
@@ -58,7 +79,7 @@ export default function Navbar() {
             </span>
 
             {activeDropdown === "temporadas" && (
-              <div className="absolute top-full left-0 bg-white text-[var(--text-strong)] shadow-xl p-4 min-w-[200px] z-50 border border-[var(--border)] rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
+              <div className="absolute top-full right-0 bg-white text-[var(--text-strong)] shadow-xl p-4 min-w-[200px] z-50 border border-[var(--border)] rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
                 {temporadas.map((t) => (
                   <Link
                     key={t.id}
@@ -84,7 +105,7 @@ export default function Navbar() {
             </span>
 
             {activeDropdown === "categorias" && (
-              <div className="absolute top-full left-0 bg-white text-[var(--text-strong)] shadow-xl p-4 min-w-[200px] z-50 border border-[var(--border)] rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
+              <div className="absolute top-full right-0 bg-white text-[var(--text-strong)] shadow-xl p-4 min-w-[200px] z-50 border border-[var(--border)] rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
                 {categorias.map((c) => (
                   <Link
                     key={c.id}
@@ -97,24 +118,8 @@ export default function Navbar() {
               </div>
             )}
           </li>
-        </ul>
 
-        {/* FILA 1 - CENTRO: Isologo (Pluma / Ícono) */}
-        <div className="flex justify-center">
-          <Link href="/" className="hover:opacity-80 transition-opacity">
-            <Image
-              src="/IsologoPluma.png"
-              alt="cronicas-isologo"
-              width={70} 
-              height={70}
-              className="object-contain"
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* FILA 1 - DERECHA: Enlaces Secundarios + Selector Idioma */}
-        <ul className="flex gap-6 items-center justify-end uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
+          {/* Enlaces Secundarios Originales de la Derecha */}
           <li className="hover:opacity-60 transition-opacity"><Link href="/bio">{t("nav.bio")}</Link></li>
           <li className="hover:opacity-60 transition-opacity"><Link href="/search">{t("nav.search")}</Link></li>
           <li className="hover:opacity-60 transition-opacity"><Link href="/contacto">{t("nav.contact")}</Link></li>

@@ -6,7 +6,7 @@ export default function InstitutionalLinks() {
   return (
     <section className="w-full border-y border-(--border) bg-white py-14">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="mb-3 text-center  font-semibold uppercase tracking-[0.3em] text-(--olive)">
+        <h2 className="mb-3 text-center text-xl font-semibold uppercase tracking-[0.3em] text-(--olive)">
           Instituciones y medios de referencia
         </h2>
 

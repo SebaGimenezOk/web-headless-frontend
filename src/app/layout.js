@@ -23,15 +23,16 @@ export default function RootLayout({ children }) {
           </I18nProvider>
           <Player />
         </ReproductorProvider>
-        <Script
+
+       <Script
           id="weglot-lib"
           src="https://cdn.weglot.com/weglot.min.js"
           strategy="afterInteractive"
           onLoad={() => {
-            if (typeof Weglot !== "undefined") {
+            if (typeof Weglot !== 'undefined') {
               Weglot.initialize({
-                api_key: "wg_1caf55c66793a04dfea0cdcaff0251f85",
-                dynamic: "body",
+                api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85',
+                dynamic: 'body'
               });
             }
           }}

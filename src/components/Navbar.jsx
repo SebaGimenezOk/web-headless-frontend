@@ -41,23 +41,23 @@ export default function Navbar() {
       <div className="hidden md:grid grid-cols-3 items-center px-8 pt-6 pb-4 max-w-7xl mx-auto">
         
         {/* FILA 1 - IZQUIERDA: Enlaces Secundarios (Antes a la derecha) */}
-        <ul className="flex gap-6 items-center uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
+        <ul className="flex gap-6 items-center uppercase text-xs tracking-wider font-medium text-(--text-strong)">
           <li className="hover:opacity-60 transition-opacity"><Link href="/bio">{t("nav.bio")}</Link></li>
           <li className="hover:opacity-60 transition-opacity"><Link href="/search">{t("nav.search")}</Link></li>
           <li className="hover:opacity-60 transition-opacity"><Link href="/contacto">{t("nav.contact")}</Link></li>
           
           {/* LANG TOGGLE (Mantenido junto a los enlaces de este lado) */}
-          <li className="flex gap-2 items-center pl-2 border-l border-[var(--border)] text-[11px]">
+          <li className="flex gap-2 items-center pl-2 border-l border-(--border) text-[11px]">
             <button 
               onClick={() => changeLanguage("es")} 
-              className={`hover:text-black font-bold ${i18n.language === "es" ? "text-[var(--text-strong)] underline decoration-2 underline-offset-4" : "text-[var(--text)]"}`}
+              className={`hover:text-black font-bold ${i18n.language === "es" ? "text-(--text-strong) underline decoration-2 underline-offset-4" : "text-(--text)"}`}
             >
               ES
             </button>
-            <span className="text-[var(--border)]">|</span>
+            <span className="text-(--border)">|</span>
             <button 
               onClick={() => changeLanguage("en")} 
-              className={`hover:text-black font-bold ${i18n.language === "en" ? "text-[var(--text-strong)] underline decoration-2 underline-offset-4" : "text-[var(--text)]"}`}
+              className={`hover:text-black font-bold ${i18n.language === "en" ? "text-(--text-strong) underline decoration-2 underline-offset-4" : "text-(--text)"}`}
             >
               EN
             </button>
@@ -79,7 +79,7 @@ export default function Navbar() {
         </div>
 
         {/* FILA 1 - DERECHA: Enlaces Principales + Dropdowns alineados al fondo (Antes a la izquierda) */}
-        <ul className="flex gap-6 items-center justify-end uppercase text-xs tracking-wider font-medium text-[var(--text-strong)]">
+        <ul className="flex gap-6 items-center justify-end uppercase text-xs tracking-wider font-medium text-(--text-strong)">
           <li className="hover:opacity-60 transition-opacity">
             <Link href="/">{t("nav.home")}</Link>
           </li>
@@ -96,12 +96,12 @@ export default function Navbar() {
             </span>
 
             {activeDropdown === "temporadas" && (
-              <div className="absolute top-full right-0 bg-white text-[var(--text-strong)] shadow-xl p-4 min-w-[200px] z-50 border border-[var(--border)] rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
+              <div className="absolute top-full right-0 bg-white text-(--text-strong) shadow-xl p-4 min-w-50 z-50 border border-(--border) rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
                 {temporadas.map((t) => (
                   <Link
                     key={t.id}
                     href={`/temporadas/${t.slug}`}
-                    className="block py-1 px-2 hover:bg-[var(--background)] rounded transition-colors text-sm"
+                    className="block py-1 px-2 hover:bg-(--background) rounded transition-colors text-sm"
                   >    
                     {t.name}
                   </Link>
@@ -122,12 +122,12 @@ export default function Navbar() {
             </span>
 
             {activeDropdown === "categorias" && (
-              <div className="absolute top-full right-0 bg-white text-[var(--text-strong)] shadow-xl p-4 min-w-[200px] z-50 border border-[var(--border)] rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
+              <div className="absolute top-full right-0 bg-white text-(--text-strong) shadow-xl p-4 min-w-50 z-50 border border-(--border) rounded flex flex-col gap-2 normal-case tracking-normal animate-fadeIn">
                 {categorias.map((c) => (
                   <Link
                     key={c.id}
                     href={`/categorias/${c.slug}`}
-                    className="block py-1 px-2 hover:bg-[var(--background)] rounded transition-colors text-sm"
+                    className="block py-1 px-2 hover:bg-(--background) rounded transition-colors text-sm"
                   >
                     {c.name}
                   </Link>
@@ -142,7 +142,7 @@ export default function Navbar() {
           <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
             <h1 
               style={{ fontFamily: 'var(--font-heading)' }} 
-              className="text-3xl md:text-3xl tracking-widest uppercase text-[var(--text-strong)] font-normal"
+              className="text-3xl md:text-3xl tracking-widest uppercase text-(--text-strong) font-normal"
             >
               Crónicas de un Espectador
             </h1>
@@ -157,17 +157,17 @@ export default function Navbar() {
         
         {/* Mobile Brand */}
         <Link href="/" className="flex flex-col">
-          <span style={{ fontFamily: 'var(--font-heading)' }} className="text-lg uppercase tracking-wider text-[var(--text-strong)] font-bold leading-tight">
+          <span style={{ fontFamily: 'var(--font-heading)' }} className="text-lg uppercase tracking-wider text-(--text-strong) font-bold leading-tight">
             Crónicas de
           </span>
-          <span style={{ fontFamily: 'var(--font-heading)' }} className="text-sm uppercase tracking-widest text-[var(--text-strong)] font-normal">
+          <span style={{ fontFamily: 'var(--font-heading)' }} className="text-sm uppercase tracking-widest text-(--text-strong) font-normal">
             un Espectador
           </span>
         </Link>
 
         {/* Hamburger Button */}
         <button
-          className="text-2xl p-2 text-[var(--text-strong)] focus:outline-none"
+          className="text-2xl p-2 text-(--text-strong) focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle Menu"
         >
@@ -178,10 +178,10 @@ export default function Navbar() {
       {/* MOBILE MENU DROPDOWN */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-125 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-5 pb-6 pt-2 flex flex-col gap-4 uppercase text-sm font-medium tracking-wide text-[var(--text-strong)] border-t border-black/5 bg-white/50 backdrop-blur-sm">
+        <div className="px-5 pb-6 pt-2 flex flex-col gap-4 uppercase text-sm font-medium tracking-wide text-(--text-strong) border-t border-black/5 bg-white/50 backdrop-blur-sm">
 
           <Link href="/" onClick={() => setMenuOpen(false)} className="py-1 border-b border-black/5">{t("nav.home")}</Link>
 
@@ -196,7 +196,7 @@ export default function Navbar() {
             </button>
 
             {activeDropdown === "temporadas" && (
-              <div className="pl-4 mt-2 flex flex-col gap-2 normal-case tracking-normal text-[var(--text)] bg-black/5 p-2 rounded">
+              <div className="pl-4 mt-2 flex flex-col gap-2 normal-case tracking-normal text-(--text) bg-black/5 p-2 rounded">
                 {temporadas.map((t) => (
                   <Link key={t.id} href={`/temporadas/${t.slug}`} onClick={() => setMenuOpen(false)} className="py-1 block">
                     {t.name}
@@ -217,7 +217,7 @@ export default function Navbar() {
             </button>
 
             {activeDropdown === "categorias" && (
-              <div className="pl-4 mt-2 flex flex-col gap-2 normal-case tracking-normal text-[var(--text)] bg-black/5 p-2 rounded">
+              <div className="pl-4 mt-2 flex flex-col gap-2 normal-case tracking-normal text-(--text) bg-black/5 p-2 rounded">
                 {categorias.map((c) => (
                   <Link key={c.id} href={`/categorias/${c.slug}`} onClick={() => setMenuOpen(false)} className="py-1 block">
                     {c.name}

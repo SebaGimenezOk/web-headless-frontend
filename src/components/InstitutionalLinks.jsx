@@ -4,9 +4,9 @@ import institutionalLinks from "@/data/institutionalLinks";
 
 export default function InstitutionalLinks() {
   return (
-    <section className="w-full border-y border-[var(--border)] bg-white py-14">
+    <section className="w-full border-y border-(--border) bg-white py-14">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.3em] text-[var(--olive)]">
+        <h2 className="mb-3 text-center  font-semibold uppercase tracking-[0.3em] text-(--olive)">
           Instituciones y medios de referencia
         </h2>
 

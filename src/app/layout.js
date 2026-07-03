@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
               if (typeof Weglot !== 'undefined') {
                 Weglot.initialize({
                   api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85'
+                  dynamic:'body
                 });
               } else {
                 setTimeout(initWeglot, 100);

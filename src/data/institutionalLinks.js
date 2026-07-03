@@ -16,7 +16,7 @@ const institutionalLinks = [
   },
   {
     name: "Palacio Libertad",
-    logo: "/PalacioLibertadGris.jpg",
+    logo: "/PalacioLibertadgris.jpg",
     url: "https://palaciolibertad.gob.ar",
   },
   {

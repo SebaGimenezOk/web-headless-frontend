@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import I18nProvider from "@/components/I18nProvider";
 import { ReproductorProvider } from "@/context/ReproductorContext";
 import Player from "@/components/Player";
-import Script from "next/script"; 
+import Script from "next/script";
 
 export const metadata = {
   title: "Crónicas de un Espectador",
@@ -14,22 +14,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <head>
-
-        <Script
-          src="https://cdn.weglot.com/weglot.min.js"
-          strategy="afterInteractive"
-        />
-
-        <Script id="weglot-init" strategy="afterInteractive">
-          {`
-            Weglot.initialize({
-              api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85'
-            });
-          `}
-        </Script>
-      </head>
-      
       <body className="min-h-screen overflow-x-hidden bg-neutral-50 text-neutral-900 pb-48">
         <ReproductorProvider>
           <I18nProvider>
@@ -39,6 +23,19 @@ export default function RootLayout({ children }) {
           </I18nProvider>
           <Player />
         </ReproductorProvider>
+
+        {/* 👇 Los movimos acá abajo para asegurarnos de que el HTML ya exista cuando carguen */}
+        <Script
+          src="https://cdn.weglot.com/weglot.min.js"
+          strategy="afterInteractive"
+        />
+        <Script id="weglot-init" strategy="afterInteractive">
+          {`
+            Weglot.initialize({
+              api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85'
+            });
+          `}
+        </Script>
       </body>
     </html>
   );

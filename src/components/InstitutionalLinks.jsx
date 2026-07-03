@@ -24,7 +24,7 @@ export default function InstitutionalLinks() {
                 src={site.logo}
                 alt={site.name}
                 width={180}
-                height={70}
+                height={120}
                 className="h-14 w-auto opacity-70 transition-all duration-300 hover:opacity-100"
               />
             </Link>

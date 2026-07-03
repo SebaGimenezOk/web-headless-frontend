@@ -15,6 +15,11 @@ const institutionalLinks = [
     url: "https://www.laprensa.com.ar",
   },
   {
+    name: "Palacio Libertad",
+    logo: "/PalacioLibertadGris.jpg",
+    url: "https://palaciolibertad.gob.ar",
+  },
+  {
     name: "Asociación de Críticos Musicales",
     logo: "/CMGris.jpg",
     url: "https://criticamusical.org.ar",

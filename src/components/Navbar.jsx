@@ -105,8 +105,8 @@ export default function Navbar() {
             <Image
               src="/IsologoPluma.png"
               alt="cronicas-isologo"
-              width={80} 
-              height={80}
+              width={70} 
+              height={70}
               className="object-contain"
               priority
             />
@@ -142,7 +142,7 @@ export default function Navbar() {
           <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
             <h1 
               style={{ fontFamily: 'var(--font-heading)' }} 
-              className="text-3xl md:text-4xl tracking-widest uppercase text-[var(--text-strong)] font-normal"
+              className="text-3xl md:text-3xl tracking-widest uppercase text-[var(--text-strong)] font-normal"
             >
               Crónicas de un Espectador
             </h1>

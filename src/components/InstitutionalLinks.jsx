@@ -10,11 +10,6 @@ export default function InstitutionalLinks() {
           Instituciones y medios de referencia
         </h2>
 
-        <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-gray-500">
-          Instituciones y medios con los que compartimos afinidad cultural,
-          artística y periodística.
-        </p>
-
         <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-10">
           {institutionalLinks.map((site) => (
             <Link

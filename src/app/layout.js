@@ -23,30 +23,19 @@ export default function RootLayout({ children }) {
           </I18nProvider>
           <Player />
         </ReproductorProvider>
-
-        {/* 👇 1. Cargamos la librería base de Weglot */}
         <Script
           id="weglot-lib"
           src="https://cdn.weglot.com/weglot.min.js"
           strategy="afterInteractive"
-        />
-
-        {/* 👇 2. Inicializamos SOLO cuando la librería base terminó de cargar en el navegador */}
-        <Script id="weglot-init" strategy="lazyOnload">
-          {`
-            function initWeglot() {
-              if (typeof Weglot !== 'undefined') {
-                Weglot.initialize({
-                  api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85',
-                  dynamic:'body
-                });
-              } else {
-                setTimeout(initWeglot, 100);
-              }
+          onLoad={() => {
+            if (typeof Weglot !== "undefined") {
+              Weglot.initialize({
+                api_key: "wg_1caf55c66793a04dfea0cdcaff0251f85",
+                dynamic: "body",
+              });
             }
-            initWeglot();
-          `}
-        </Script>
+          }}
+        />
       </body>
     </html>
   );

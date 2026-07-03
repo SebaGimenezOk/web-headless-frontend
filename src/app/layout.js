@@ -23,20 +23,32 @@ export default function RootLayout({ children }) {
           </I18nProvider>
           <Player />
         </ReproductorProvider>
-
-       <Script
+{/* 1. Cargamos la librería base de Weglot */}
+        <Script
           id="weglot-lib"
           src="https://cdn.weglot.com/weglot.min.js"
           strategy="afterInteractive"
-          onLoad={() => {
-            if (typeof Weglot !== 'undefined') {
-              Weglot.initialize({
-                api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85',
-                dynamic: 'body'
-              });
-            }
-          }}
         />
+
+        {/* 2. Inicializamos de forma segura como texto plano */}
+        <Script id="weglot-init" strategy="afterInteractive">
+          {`
+            (function() {
+              function checkWeglot() {
+                if (typeof Weglot !== 'undefined') {
+                  Weglot.initialize({
+                    api_key: 'wg_1caf55c66793a04dfea0cdcaff0251f85',
+                    dynamic: 'body'
+                  });
+                } else {
+                  setTimeout(checkWeglot, 50);
+                }
+              }
+              checkWeglot();
+            })();
+          `}
+        </Script>
+       
       </body>
     </html>
   );

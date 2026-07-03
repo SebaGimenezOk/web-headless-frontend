@@ -103,10 +103,10 @@ export default function Navbar() {
         <div className="flex justify-center">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image
-              src="/LogoCronicas001.png"
+              src="/IsologoPluma.png"
               alt="cronicas-isologo"
-              width={50} 
-              height={50}
+              width={80} 
+              height={80}
               className="object-contain"
               priority
             />

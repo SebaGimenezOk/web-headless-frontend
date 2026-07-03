@@ -68,7 +68,7 @@ export default function Navbar() {
         <div className="flex justify-center">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image
-              src="/branding/IsologoPluma.png"
+              src="/IsologoPluma.png"
               alt="cronicas-isologo"
               width={70} 
               height={70}

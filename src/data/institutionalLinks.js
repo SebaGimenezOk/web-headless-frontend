@@ -1,22 +1,22 @@
 const institutionalLinks = [
   {
     name: "Teatro Colón",
-    logo: "/images/friends/TeatroColonGris.jpg",
+    logo: "/TeatroColonGris.jpg",
     url: "https://teatrocolon.org.ar",
   },
   {
     name: "Mozarteum Argentino",
-    logo: "/images/friends/MozarteumGris.jpg",
+    logo: "/MozarteumGris.jpg",
     url: "https://mozarteumargentino.org",
   },
   {
     name: "La Prensa",
-    logo: "/images/friends/LaPrensaGris.jpg",
+    logo: "/LaPrensaGris.jpg",
     url: "https://www.laprensa.com.ar",
   },
   {
     name: "Asociación de Críticos Musicales",
-    logo: "/images/friends/CMGris.jpg",
+    logo: "/CMGris.jpg",
     url: "https://criticamusical.org.ar",
   },
 ];

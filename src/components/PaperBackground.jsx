@@ -22,8 +22,8 @@ export default function PaperBackground({ children }) {
           image="/TexturaPapelCanson1.jpg"
           colorBack="#faf9f6"    // Base blanca hueso súper limpia
           colorFront="#ebdcc5"   // Grano en un tono arena ultra suave (chau negro)
-          contrast={0.01}        // <-- AL MÍNIMO: Aplana la luz y saca el manchón del medio por completo
-          roughness={0.04}       // <-- BAJADO: Grano fino que solo se nota si prestás mucha atención
+          contrast={0.12}        // <-- AL MÍNIMO: Aplana la luz y saca el manchón del medio por completo
+          roughness={0.09}       // <-- BAJADO: Grano fino que solo se nota si prestás mucha atención
           ambient={1.0}          // Luz idéntica en toda la pantalla de punta a punta
           diffuse={0.0}
           fiber={0.0}            

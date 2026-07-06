@@ -20,12 +20,12 @@ export default function PaperBackground({ children }) {
           width="100%"
           height="100%"
           colorBack="#faf9f6" 
-          colorFront="#f5f5f5" // Grano suave
+          colorFront="##f1f1f1" // Grano suave
           contrast={0.02} // CLAVE: Al mínimo para que no haga el manchón gris en el centro
           roughness={0.6} // Grano muy fino y sutil
-          fiber={0.1} // fibras
+          fiber={0.4} // fibras
           fiberSize={0.1}
-          crumples={0.1} // arrugas 
+          crumples={0.3} // arrugas 
           crumpleSize={0.1}
           folds={0.1}
           foldCount={0}

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "^0.0.77",
     "framer-motion": "^12.38.0",
     "i18next": "^25.8.18",
     "lucide-react": "^1.6.0",

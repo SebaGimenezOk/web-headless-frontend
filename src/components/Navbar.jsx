@@ -233,7 +233,7 @@ export default function Navbar() {
  
           {/* Mobile Selector Idioma */}
           <div className="flex gap-4 mt-2 justify-center text-xs tracking-widest bg-black/5 py-2 rounded">
-            {/* <button 
+            <button 
               onClick={() => { changeLanguage("es"); setMenuOpen(false); }}
               className={i18n.language === "es" ? "font-bold underline underline-offset-4" : "opacity-60"}
             >
@@ -245,7 +245,7 @@ export default function Navbar() {
               className={i18n.language === "en" ? "font-bold underline underline-offset-4" : "opacity-60"}
             >
               ENGLISH
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

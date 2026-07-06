@@ -5,7 +5,6 @@ import { PaperTexture } from '@paper-design/shaders-react';
 export default function PaperBackground({ children }) {
   return (
     <div style={{ position: 'relative', minHeight: '100vh', width: '100%' }}>
-      {/* El lienzo interactivo del Shader */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -13,28 +12,28 @@ export default function PaperBackground({ children }) {
         width: '100vw',
         height: '100vh',
         zIndex: -1, 
-        pointerEvents: 'none' 
+        pointerEvents: 'none'
       }}>
         <PaperTexture 
           width="100%" 
           height="100%" 
-
-          colorBack="#ffffff" 
-          colorFront="#f5f5f5" // Color crema/tinta suave para darle calidez a las fibras del relieve
-          contrast={0.08}      // Mantenelo sutil para que no compita con los textos de tus críticas
-          roughness={0.15}     // Textura granulada fina táctil
-          fiber={0.1}          // Fibras de papel tenues
-          fiberSize={0.2}
-          crumples={0.05}       // Arrugas de papel muy suavecitas
-          crumpleSize={0.3}
-          folds={0.0}         // Pliegues casi imperceptibles
+          fit="cover"
+          image="/TexturaPapelCanson1.jpg" // <-- La devolvemos a la vida sí o sí
+          colorBack="#faf9f6"    // Base blanca hueso súper limpia
+          colorFront="#ebdcc5"   // Grano suave
+          contrast={0.01}        // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
+          roughness={0.05}       // Grano muy fino y sutil
+          fiber={0.0}            // Sin fibras
+          fiberSize={0.0}
+          crumples={0.0}         // Sin arrugas (chau manchas rústicas)
+          crumpleSize={0.0}
+          folds={0.0}
           foldCount={0}
-          ambientOcclusion={0.02} // Sombra ambiental ligera para dar profundidad 
-          diffuse={0.2}          // Mantener la luz difusa para que el papel se vea natural
+          ambient={1.0}          // <-- CLAVE: Luz al máximo y plana en toda la pantalla
+          diffuse={0.0}          // Sin sombras direccionales
         />
       </div>
 
-      {/* Tu contenido de la web encima */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         {children}
       </div>

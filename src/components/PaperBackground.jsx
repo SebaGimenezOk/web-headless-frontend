@@ -15,22 +15,32 @@ export default function PaperBackground({ children }) {
         pointerEvents: 'none'
       }}>
         <PaperTexture 
-          width="100%" 
-          height="100%" 
-          fit="cover"
-          image="/TexturaPapelCanson1.jpg"
-          colorBack="#faf9f6"    // Base blanca hueso súper limpia
-          colorFront="#ebdcc5"   // Grano suave
-          contrast={0.18}        // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
-          roughness={0.15}       // Grano muy fino y sutil
-          fiber={0.0}            // Sin fibras
-          fiberSize={0.0}
-          crumples={0.0}         // Sin arrugas (chau manchas rústicas)
-          crumpleSize={0.0}
-          folds={0.0}
-          foldCount={0}
-          ambient={1.0}          // <-- CLAVE: Luz al máximo y plana en toda la pantalla
-          diffuse={0.0}          // Sin sombras direccionales
+        //   width="100%" 
+        //   height="100%" 
+        //   fit="cover"
+        //   image="/TexturaPapelCanson1.jpg"
+        //   colorBack="#faf9f6"    // Base blanca hueso súper limpia
+        //   colorFront="#ebdcc5"   // Grano suave
+        //   contrast={0.18}        // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
+        //   roughness={0.15}       // Grano muy fino y sutil
+        //   fiber={0.0}            // Sin fibras
+        //   fiberSize={0.0}
+        //   crumples={0.0}         // Sin arrugas (chau manchas rústicas)
+        //   crumpleSize={0.0}
+        //   folds={0.0}
+        //   foldCount={0}
+        //   ambient={1.0}          // <-- CLAVE: Luz al máximo y plana en toda la pantalla
+        //   diffuse={0.0}          // Sin sombras direccionales
+        width="100%" 
+            height="100%" 
+            fit="cover"
+            image="/TexturaPapelCanson1.jpg"
+            colorBack="#ffffff"
+            colorFront="#000000"
+            contrast={0.8}
+            roughness={0.8}
+            ambient={1.0}
+            diffuse={0.0}
         />
       </div>
 

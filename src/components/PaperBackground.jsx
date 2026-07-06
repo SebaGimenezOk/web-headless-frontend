@@ -21,16 +21,16 @@ export default function PaperBackground({ children }) {
           height="100%"
           colorBack="#faf9f6" 
           colorFront="#f5f5f5" // Grano suave
-          contrast={0.03} // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
-          roughness={0.8} // Grano muy fino y sutil
-          fiber={0.1} // Sin fibras
+          contrast={0.02} // CLAVE: Al mínimo para que no haga el manchón gris en el centro
+          roughness={0.6} // Grano muy fino y sutil
+          fiber={0.1} // fibras
           fiberSize={0.1}
-          crumples={0.1} // Sin arrugas (chau manchas rústicas)
+          crumples={0.1} // arrugas 
           crumpleSize={0.1}
           folds={0.1}
           foldCount={0}
-          ambient={1.0} // <-- CLAVE: Luz al máximo y plana en toda la pantalla
-          diffuse={0.0} // Sin sombras direccionales
+          ambient={1.0} // CLAVE: Luz al máximo y plana en toda la pantalla
+          diffuse={0.0} // sombras direccionales
         />
       </div>
 

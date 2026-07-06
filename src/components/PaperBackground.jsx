@@ -21,14 +21,16 @@ export default function PaperBackground({ children }) {
 
           colorBack="#ffffff" 
           colorFront="#f5f5f5" // Color crema/tinta suave para darle calidez a las fibras del relieve
-          contrast={0.01}      // Mantenelo sutil para que no compita con los textos de tus críticas
-          roughness={0.02}     // Textura granulada fina táctil
+          contrast={0.04}      // Mantenelo sutil para que no compita con los textos de tus críticas
+          roughness={0.08}     // Textura granulada fina táctil
           fiber={0.1}          // Fibras de papel tenues
           fiberSize={0.2}
           crumples={0.05}       // Arrugas de papel muy suavecitas
           crumpleSize={0.3}
           folds={0.0}         // Pliegues casi imperceptibles
           foldCount={0}
+          ambientOcclusion={0.02} // Sombra ambiental ligera para dar profundidad 
+          diffuse={0.2}          // Mantener la luz difusa para que el papel se vea natural
         />
       </div>
 

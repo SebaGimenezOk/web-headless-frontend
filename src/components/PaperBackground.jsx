@@ -37,7 +37,7 @@ export default function PaperBackground({ children }) {
             image="/TexturaPapelCanson1.jpg"
             colorBack="#ffffff"
             colorFront="#ebdcc5"
-            contrast={0.8}
+            contrast={0.01}
             roughness={0.8}
             ambient={1.0}
             diffuse={0.0}

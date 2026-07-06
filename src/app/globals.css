@@ -18,6 +18,10 @@
     --font-body: "source sans 3", sans-serif;
     --font-article: "source-serif-4", serif;
   }
+  /* Fuerza a que los contenedores principales sean transparentes y dejen ver el shader */
+html, body, main, #__next {
+  background-color: transparent !important;
+}
   .article-content {
     font-family: var(--font-article);
     font-weight: 400;

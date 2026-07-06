@@ -20,7 +20,7 @@ export default function PaperBackground({ children }) {
           width="100%"
           height="100%"
           colorBack="#faf9f6" 
-          colorFront="#fffefb" // Grano suave
+          colorFront="#f5f5f5" // Grano suave
           contrast={0.03} // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
           roughness={0.8} // Grano muy fino y sutil
           fiber={0.1} // Sin fibras

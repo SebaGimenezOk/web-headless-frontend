@@ -23,9 +23,9 @@ export default function PaperBackground({ children }) {
           colorFront="#f1f1f1" // Grano suave
           contrast={0.02} // CLAVE: Al mínimo para que no haga el manchón gris en el centro
           roughness={0.6} // Grano muy fino y sutil
-          fiber={0.4} // fibras
-          fiberSize={0.1}
-          crumples={0.3} // arrugas 
+          fiber={0.0} // fibras
+          fiberSize={0.0}
+          crumples={0.0} // arrugas 
           crumpleSize={0.1}
           folds={0.1}
           foldCount={0}

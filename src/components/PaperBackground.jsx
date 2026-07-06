@@ -33,10 +33,10 @@ export default function PaperBackground({ children }) {
         //   diffuse={0.0}          // Sin sombras direccionales
         width="100%" 
             height="100%" 
-            fit="cover"
+            
             image="/TexturaPapelCanson1.jpg"
             colorBack="#ffffff"
-            colorFront="#ebdcc5"
+            colorFront="##b0a898"
             contrast={0.01}
             roughness={0.8}
             ambient={1.0}

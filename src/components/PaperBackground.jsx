@@ -21,15 +21,15 @@ export default function PaperBackground({ children }) {
           fit="cover" // Hace que la imagen use toda la pantalla como lienzo único sin repetirse
           image="/TexturaPapelCanson1.jpg" // Nombre exacto con el que guardaste la imagen en public/
           colorBack="#ffffff" 
-          colorFront="#ebdcc5" // Color crema/tinta suave para darle calidez a las fibras del relieve
-          contrast={0.15}      // Mantenelo sutil para que no compita con los textos de tus críticas
-          roughness={0.12}     // Textura granulada fina táctil
-          fiber={0.2}          // Fibras de papel tenues
-          fiberSize={0.3}
-          crumples={0.2}       // Arrugas de papel muy suavecitas
-          crumpleSize={0.4}
-          folds={0.05}         // Pliegues casi imperceptibles
-          foldCount={1}
+          colorFront="#f5f5f5" // Color crema/tinta suave para darle calidez a las fibras del relieve
+          contrast={0.04}      // Mantenelo sutil para que no compita con los textos de tus críticas
+          roughness={0.06}     // Textura granulada fina táctil
+          fiber={0.1}          // Fibras de papel tenues
+          fiberSize={0.2}
+          crumples={0.05}       // Arrugas de papel muy suavecitas
+          crumpleSize={0.3}
+          folds={0.0}         // Pliegues casi imperceptibles
+          foldCount={0}
         />
       </div>
 

@@ -21,8 +21,8 @@ export default function PaperBackground({ children }) {
           image="/TexturaPapelCanson1.jpg" // <-- La devolvemos a la vida sí o sí
           colorBack="#faf9f6"    // Base blanca hueso súper limpia
           colorFront="#ebdcc5"   // Grano suave
-          contrast={0.01}        // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
-          roughness={0.05}       // Grano muy fino y sutil
+          contrast={0.12}        // <-- CLAVE: Al mínimo para que no haga el manchón gris en el centro
+          roughness={0.15}       // Grano muy fino y sutil
           fiber={0.0}            // Sin fibras
           fiberSize={0.0}
           crumples={0.0}         // Sin arrugas (chau manchas rústicas)

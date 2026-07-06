@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      {/* 2. Le sacamos el 'bg-neutral-50' al body para que no tape el papel */}
+   
       <body className="min-h-screen overflow-x-hidden text-neutral-900 pb-48">
         
         {/* 3. Envolvemos todo el contenido visual con el fondo Canson */}

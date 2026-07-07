@@ -18,24 +18,28 @@ export default function BioContent() {
         </p>
       </div>
 
-      {/* Imagen Mediana con Corte Diagonal y Viñeta Blanca */}
+      {/* Imagen un 20% más grande con Corte Diagonal y Desvanecido Gaussiano/Difuso */}
       <div 
-        className="relative w-full h-48 sm:w-64 sm:h-auto flex-shrink-0 overflow-hidden bg-white"
+        className="relative w-full h-56 sm:w-77 sm:h-auto shrink-0 overflow-hidden bg-white"
         style={{
-          // Clip-path para hacer el corte diagonal (desplazado 100px a la derecha arriba)
+          // Mantenemos el clipPath para definir el límite físico del polígono diagonal
           clipPath: 'polygon(calc(0% + 100px) 0%, 100% 0%, 100% 100%, 0% 100%)',
           
-          // Máscara de degradado diagonal para lograr el efecto viñeta blanca (difuminado de 100px)
-          WebkitMaskImage: 'linear-gradient(115deg, transparent 0px, transparent 40px, black 140px)',
-          maskImage: 'linear-gradient(115deg, transparent 0px, transparent 40px, black 140px)'
+          // Ampliamos el rango de la máscara y suavizamos los pasos (efecto esfumado/gaussiano)
+          WebkitMaskImage: 'linear-gradient(115deg, transparent 0%, transparent 15px, rgba(0,0,0,0.1) 45px, rgba(0,0,0,0.6) 120px, black 180px)',
+          maskImage: 'linear-gradient(115deg, transparent 0%, transparent 15px, rgba(0,0,0,0.1) 45px, rgba(0,0,0,0.6) 120px, black 180px)'
         }}
       >
         <Image
-          src="/benavides 3.png" 
+          src="/benavides 3.png"
           alt="Foto del Autor"
           fill
-          sizes="(max-width: 768px) 100vw, 256px"
+          sizes="(max-width: 768px) 100vw, 308px"
           className="object-cover m-0"
+          style={{
+            
+            filter: 'drop-shadow(-5px 0px 10px rgba(255,255,255,0.8))'
+          }}
           priority
         />
       </div>

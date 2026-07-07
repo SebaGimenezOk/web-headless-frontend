@@ -15,7 +15,7 @@
         <p>
           Morbi eget efficitur turpis. Praesent ut accumsan nisi. Mauris feugiat lacus in lectus 
           viverra, quis convallis magna erat volutpat. Cras elementum, velit id varius interdum, 
-          dui felis vulputate felis, vitae sodales lorem nisl id turpis, hfdjsej.
+          dui felis vulputate felis, vitae sodales lorem nisl id turpis.
         </p>
       </div>
 

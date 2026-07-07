@@ -10,7 +10,7 @@ export default function Hero() {
     <>
       {/* HERO VISUAL */}
       {/* Añadimos bg-[var(--background)] por si la imagen se aclara contra el fondo de la web */}
-      <section className="relative w-full h-[60vh] min-h-150 overflow-hidden bg-(--background)">
+      <section className="relative w-full h-[40vh] overflow-hidden bg-(--background)">
         {/* Imagen de fondo con opacidad reducida para mejorar legibilidad */}
         <Image
           src="/SalaColonExtendida.jpg"
@@ -21,7 +21,7 @@ export default function Hero() {
         />
 
         {/* Overlay sutil que ayuda a fundir los bordes */}
-        <div className="absolute inset-0 bg-linear-to-t from-(--background)/0  to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-(--background) via-(--background)/50 to-transparent from-0% via-50% to-100%"/>
 
         {/* Contenido con la estética limpia del SearchBox */}
         <div className="relative z-10 max-w-4xl mx-auto h-full px-6 flex items-center justify-center sm:justify-start">

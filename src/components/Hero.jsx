@@ -17,11 +17,11 @@ export default function Hero() {
           alt="Wolfgang Amadeus Mozart"
           fill
           priority
-          className="object-cover object-center p-4 opacity-35" 
+          className="object-cover object-center opacity-25" 
         />
 
         {/* Overlay sutil que ayuda a fundir los bordes */}
-        <div className="absolute inset-0 bg-linear-to-r from-(--background)/90 via-(--background)/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-(--background)/40 via-(--background)/40 to-transparent" />
 
         {/* Contenido con la estética limpia del SearchBox */}
         <div className="relative z-10 max-w-4xl mx-auto h-full px-6 flex items-center justify-center sm:justify-start">

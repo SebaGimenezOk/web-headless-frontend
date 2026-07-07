@@ -35,7 +35,7 @@ export default function BioContent() {
         
         {/* La foto del autor */}
         <Image
-          src="/benavides%203.jpg"
+          src="/benavides 3.png"
           alt="Foto del Autor"
           fill
           sizes="(max-width: 768px) 100vw, 308px"

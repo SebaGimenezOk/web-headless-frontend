@@ -8,7 +8,7 @@ export default function Hero() {
 
   return (
     <>
-      {/* HERO VISUAL */}
+      {/* HERO VISUAL */} 
       <section className="relative w-full h-[40vh] min-h-60 overflow-hidden">
         {/* Imagen de fondo */}
         <Image

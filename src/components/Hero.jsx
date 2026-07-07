@@ -17,16 +17,15 @@ export default function Hero() {
           alt="Wolfgang Amadeus Mozart"
           fill
           priority
-          className="object-cover object-center" 
+          className="object-cover object-center"
         />
 
-        {/* Overlay sutil que ayuda a fundir los bordes */}
-        <div className="absolute inset-0 bg-linear-to-t from-(--background) via-(--background)/50 to-transparent from-0% via-50% to-100%"/>
+      
+        <div className="absolute inset-0 bg-linear-to-t from-(--background) via-(--background)/50 to-transparent from-0% via-50% to-100%" />
 
-        {/* Contenido con la estética limpia del SearchBox */}
-        <div className="relative z-10 max-w-4xl mx-auto h-full px-6 flex items-center justify-center sm:justify-start">
+    
+        <div className="relative z-10 max-w-4xl mx-auto h-full px-6 pb-20 flex items-end justify-center sm:justify-start">
           <div className="max-w-2xl space-y-4 text-center sm:text-left">
-
             {/* Frase */}
             <h1 className="text-xl md:text-2xl uppercase tracking-wider font-normal text-(--text-strong) leading-relaxed">
               {t("hero.quote")}
@@ -39,7 +38,7 @@ export default function Hero() {
           </div>
         </div>
       </section>
-  
+
       {/* TEXTO DE BAJADA */}
       <section className="w-full max-w-4xl mx-auto px-6 py-12 flex flex-col items-center">
         <p className="w-[95%] mx-auto text-xs tracking-wider font-medium text-(--text-strong) uppercase leading-relaxed text-center">

@@ -16,14 +16,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
    
-      <body className="min-h-screen overflow-x-hidden text-neutral-900 pb-48">
+      <body className="flex flex-col min-h-screen bg-background text-text">
         
         {/* 3. Envolvemos todo el contenido visual con el fondo Canson */}
         <PaperBackground>
           <ReproductorProvider>
             <I18nProvider>
               <Navbar />
-              <main className="relative">{children}</main>
+              <main className="relative grow">{children}</main>
               <Footer />
             </I18nProvider>
             <Player />

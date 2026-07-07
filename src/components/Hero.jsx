@@ -18,7 +18,8 @@ export default function Hero() {
           priority
           className="object-cover object-center"
         />
-
+{/* Overlay sutil que respeta el fondo de tu web */}
+        <div className="absolute inset-0 bg-linear-to-r from-[var(--background)]/90 via-[var(--background)]/70 to-transparent" />
     
         {/* Contenido con la estética del SearchBox */}
         <div className="relative z-10 max-w-4xl mx-auto h-full px-6 flex items-center justify-center sm:justify-start">

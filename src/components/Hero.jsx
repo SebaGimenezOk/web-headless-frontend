@@ -21,7 +21,7 @@ export default function Hero() {
         />
 
         {/* Overlay sutil que ayuda a fundir los bordes */}
-        <div className="absolute inset-0 bg-linear-to-t from-(--background)/70 via-(--background)/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-(--background)/70  to-transparent" />
 
         {/* Contenido con la estética limpia del SearchBox */}
         <div className="relative z-10 max-w-4xl mx-auto h-full px-6 flex items-center justify-center sm:justify-start">

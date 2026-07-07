@@ -22,7 +22,7 @@
       {/* Imagen del Autor a la Derecha */}
       <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 overflow-hidden rounded-full border-2 border-neutral-300 sm:mt-2">
         <Image
-          src="/wolfang.jpg" // Cambiala por la que prefieras de tu carpeta public
+          src="/benavides 3.jpg" // Cambiala por la que prefieras de tu carpeta public
           alt="Foto del Autor"
           fill
           sizes="(max-width: 768px) 96px, 128px"

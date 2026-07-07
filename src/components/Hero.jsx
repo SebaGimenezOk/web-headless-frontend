@@ -21,7 +21,7 @@ export default function Hero() {
         />
 
       
-        <div className="absolute inset-0 bg-linear-to-t from-(--background) via-(--background)/30 to-transparent from-0% via-70% to-100%" />
+        <div className="absolute inset-0 bg-linear-to-t from-(--background) via-(--background)/30 to-transparent from-0% via-90% to-100%" />
 
     
         <div className="relative z-10 max-w-4xl mx-auto h-full px-6 pb-20 flex items-end justify-center sm:justify-start">

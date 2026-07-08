@@ -10,7 +10,7 @@ export default function Hero() {
     <>
       {/* HERO VISUAL */}
       {/* Añadimos bg-[var(--background)] por si la imagen se aclara contra el fondo de la web */}
-      <section className="relative w-full h-[70vh] overflow-hidden bg-(--background)">
+      <section className="relative w-full h-[40vh] overflow-hidden bg-(--background)">
         {/* Imagen de fondo con opacidad reducida para mejorar legibilidad */}
         <Image
           src="/SalaColonExtendida.jpg"
@@ -21,7 +21,7 @@ export default function Hero() {
         />
 
       
-        <div className="absolute inset-0 bg-linear-to-r from-(--background) via-(--background)/80 to-transparent from-0% via-50% to-100%" />
+        <div className="absolute inset-0 bg-linear-to-r from-(--background) via-(--background)/20 to-transparent from-0% via-50% to-100%" />
 
     
         <div className="relative z-10 max-w-4xl mx-auto h-full px-6 pb-20 flex items-end justify-center sm:justify-start">

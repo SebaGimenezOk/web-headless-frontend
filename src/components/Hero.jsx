@@ -13,7 +13,7 @@ export default function Hero() {
       <section className="relative w-full h-[30vh] overflow-hidden bg-(--background)">
         {/* Imagen de fondo con opacidad reducida para mejorar legibilidad */}
         <Image
-          src="/MotzartWide.jpg"
+          src="/Motzart.jpg"
           alt="Wolfgang Amadeus Mozart"
           fill
           priority

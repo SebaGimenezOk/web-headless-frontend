@@ -10,7 +10,7 @@ export default function Hero() {
     <>
       {/* HERO VISUAL */}
       {/* Añadimos bg-[var(--background)] por si la imagen se aclara contra el fondo de la web */}
-      <section className="relative w-full h-[60vh] overflow-hidden bg-(--background)">
+      <section className="relative w-full h-[30vh] overflow-hidden bg-(--background)">
         {/* Imagen de fondo con opacidad reducida para mejorar legibilidad */}
         <Image
           src="/AmadeusPerfil.png"

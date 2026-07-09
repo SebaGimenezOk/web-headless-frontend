@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <nav
       style={{ backgroundColor: palette.primary }}
-      className="w-full border-b border-black/5 select-none"
+      className="w-full  select-none"
     >
       {/* ========================================================================= */}
       {/* DESKTOP LAYOUT (Grid de doble fila con línea divisora) */}

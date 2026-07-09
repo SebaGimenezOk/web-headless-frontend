@@ -8,39 +8,37 @@ export default function Hero() {
 
   return (
     <>
-      {/* HERO VISUAL */}
-      {/* Añadimos bg-[var(--background)] por si la imagen se aclara contra el fondo de la web */}
-      <section className="relative w-full h-[40vh] overflow-hidden bg-(--background)">
-        {/* Imagen de fondo con opacidad reducida para mejorar legibilidad */}
-        <Image
-          src="/SalaColonExtendida.jpg"
-          alt="Wolfgang Amadeus Mozart" 
-          fill
-          priority
-          className="object-cover object-center"
-        />
-
-      
-        <div className="absolute inset-0 bg-linear-to-r from-(--background) via-(--background)/90 to-transparent from-0% via-80% to-100%" />
-
-    
-        <div className="relative z-10 max-w-4xl mx-auto h-full px-6 pb-20 flex items-end justify-center sm:justify-start">
-          <div className="max-w-2xl space-y-4 text-center sm:text-left">
-            {/* Frase */}
-            <h1 className="text-xl md:text-2xl uppercase tracking-wider font-normal text-(--text-strong) leading-relaxed">
-              {t("hero.quote")}
-            </h1>
-
-            {/* Autor */}
-            <h3 className="text-xs uppercase tracking-widest opacity-60 font-medium text-(--text-strong)">
-              {t("hero.author")}
-            </h3>
+      {/* HERO VISUAL (Lienzo puro para tus imágenes con el texto tipográfico ya incrustado) */}
+      <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-8">
+        <div className="relative w-full aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-sm bg-(--background)">
+          
+          {/* Versión MOBILE */}
+          <div className="block md:hidden absolute inset-0">
+            <Image
+              src="/encabezadocronicasmobile.jpg" // Tu imagen con el texto incrustado adaptado a pantallas chicas
+              alt="Hero Mobile"
+              fill
+              priority
+              className="object-cover object-center"
+            />
           </div>
+
+          {/* Versión DESKTOP (1920x1280 - Relación 3:2 estricta) */}
+          <div className="hidden md:block absolute inset-0">
+            <Image
+              src="/encabezadocronicas.jpg" // Tu imagen de 1920x1280 con el texto diseñado a la izquierda
+              alt="Hero Desktop"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+          </div>
+
         </div>
       </section>
 
       {/* TEXTO DE BAJADA */}
-      <section className="w-full max-w-4xl mx-auto px-6 py-12 flex flex-col items-center">
+      <section className="w-full max-w-4xl mx-auto px-6 pb-12 flex flex-col items-center">
         <p className="w-[95%] mx-auto text-xs tracking-wider font-medium text-(--text-strong) uppercase leading-relaxed text-center">
           {t("hero.description")}
         </p>

@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Versión MOBILE: Ancho total, proporción exacta 1100x900 */}
       <div className="block md:hidden relative w-full aspect-11/9 overflow-hidden">
         <Image
-          src="/EncabezadoCronicasMobile.jpg"
+          src="/Encabezado-Cronicas-Mobile.jpg"
           alt="Hero Mobile"
           fill
           priority
@@ -20,7 +20,7 @@ export default function Hero() {
       {/* Versión DESKTOP: Ancho total de pantalla a pantalla, proporción exacta 1920x600 */}
       <div className="hidden md:block relative w-full aspect-192/60 overflow-hidden">
         <Image
-          src="/EncabezadoCronicas.jpg"
+          src="/Encabezado-Cronicas.jpg"
           alt="Hero Desktop"
           fill
           priority

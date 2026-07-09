@@ -10,12 +10,12 @@ export default function Hero() {
     <>
       {/* HERO VISUAL (Lienzo puro para tus imágenes con el texto tipográfico ya incrustado) */}
       <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-8">
-        <div className="relative w-full aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-sm bg-(--background)">
+        <div className="relative w-full aspect-4/3 md:aspect-3/2 overflow-hidden rounded-sm bg-(--background)">
           
           {/* Versión MOBILE */}
           <div className="block md:hidden absolute inset-0">
             <Image
-              src="/encabezadocronicasmobile.jpg" // Tu imagen con el texto incrustado adaptado a pantallas chicas
+              src="/EncabezadoCronicasMobile.jpg" // Tu imagen con el texto incrustado adaptado a pantallas chicas
               alt="Hero Mobile"
               fill
               priority
@@ -26,7 +26,7 @@ export default function Hero() {
           {/* Versión DESKTOP (1920x1280 - Relación 3:2 estricta) */}
           <div className="hidden md:block absolute inset-0">
             <Image
-              src="/encabezadocronicas.jpg" // Tu imagen de 1920x1280 con el texto diseñado a la izquierda
+              src="/EncabezadoCronicas.jpg" // Tu imagen de 1920x1280 con el texto diseñado a la izquierda
               alt="Hero Desktop"
               fill
               priority

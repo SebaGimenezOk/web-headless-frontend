@@ -162,14 +162,12 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      
+
       {/* LÍNEA DIVISORA FINA CON COLOR DE ISOLOGO Y SANGRÍA DE 10PX */}
       <div className="px-2.5 w-full">
         <div className="h-px bg-[#bfa15f] opacity-40 w-full" />
       </div>
-    
-    
-   
+
       {/* MOBILE LAYOUT */}
 
       <div className="md:hidden flex items-center justify-between px-4 py-4">

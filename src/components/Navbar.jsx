@@ -40,7 +40,7 @@ export default function Navbar() {
       {/* ========================================================================= */}
       {/* DESKTOP LAYOUT (Grid de doble fila con línea divisora) */}
       {/* ========================================================================= */}
-      <div className="hidden md:block max-w-7xl mx-auto pt-6 pb-4">
+      <div className="hidden md:block max-w-7xl mx-auto pt-6 pb-6">
         {/* FILA 1: Menús e Isologo */}
         <div className="grid grid-cols-3 items-center px-8 pb-4">
           {/* IZQUIERDA: Enlaces Secundarios */}
@@ -164,7 +164,7 @@ export default function Navbar() {
       </div>
 
       {/* LÍNEA DIVISORA FINA CON COLOR DE ISOLOGO Y SANGRÍA DE 10PX */}
-      <div className="px-2.5 w-full">
+      <div className="px-2.5 w-full mb-2" >
         <div className="h-px bg-[#bfa15f] opacity-40 w-full" />
       </div>
 

@@ -25,7 +25,7 @@ export default function CategoryHero({ slug, categoryName }) {
       </div>
 
       {/* Versión DESKTOP: Ancho total de pantalla a pantalla, proporción exacta 1920x600 */}
-      <div className="hidden md:block relative w-full h-80 lg:h-96 overflow-hidden">
+      <div className="hidden md:block relativew-full h-[400px] lg:h-[450px] overflow-hidden">
         <Image
           src={`/encabezado-${currentSlug}.jpg`}
           alt={`Encabezado Desktop ${categoryName || ""}`}

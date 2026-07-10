@@ -21,7 +21,7 @@ export default async function ProgramasList() {
         <header className="mb-16 max-w-4xl mx-auto bg-transparent p-4 md:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             
-            {/* IMAGEN DE LOS CONDUCTORES Fija en 180x180 */}
+            {/* IMAGEN Fija en 180x180 */}
             <div className="relative w-45 h-45 shrink-0">
               <Image
                 src="/benavidescompleto.png" 

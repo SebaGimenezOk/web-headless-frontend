@@ -37,8 +37,7 @@ export default async function ProgramasList() {
             <div className="text-center sm:text-left flex-1">
               {/* Título ligero */}
               <h1 className="text-2xl md:text-4xl font-medium text-white tracking-wide uppercase drop-shadow-md">
-                Bajo Estas Estrellas:{" "}
-                <span className="font-light text-white/80">Colección</span>
+                Bajo Estas Estrellas: Colección
               </h1>
               
               {/* Frase descriptiva integrada en la misma tarjeta */}

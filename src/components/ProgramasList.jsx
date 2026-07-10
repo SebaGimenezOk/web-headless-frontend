@@ -17,11 +17,11 @@ export default async function ProgramasList() {
       <div className="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 z-10">
         {/* 🌟 ENCABEZADO PRINCIPAL DE LA SECCIÓN */}
         <header className="text-center mb-16 max-w-2xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight uppercase drop-shadow-md">
+          <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase drop-shadow-md">
             Bajo Estas Estrellas:{" "}
             <span className="font-light text-white/80">Colección</span>
           </h1>
-          <p className="mt-4 text-sm md:text-base text-white/70 font-medium italic leading-relaxed drop-shadow">
+          <p className="mt-4 text-sm md:text-base text-white/70 font-light leading-relaxed drop-shadow">
             Todas las ediciones grabadas de cada temporada, en cada estación
             donde se realizaron.
           </p>

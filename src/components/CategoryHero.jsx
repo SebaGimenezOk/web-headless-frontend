@@ -19,7 +19,7 @@ export default function CategoryHero({ slug, categoryName }) {
           className="object-cover object-center"
           // Si una imagen no existe todavía, evita que rompa la pantalla
           onError={(e) => {
-            e.currentTarget.src = "/encabezadocronicasmobile.jpg";
+            e.currentTarget.src = "/encabezado-cronicas-mobile.jpg";
           }}
         />
       </div>
@@ -33,7 +33,7 @@ export default function CategoryHero({ slug, categoryName }) {
           priority
           className="object-cover object-center"
           onError={(e) => {
-            e.currentTarget.src = "/encabezadocronicas.jpg";
+            e.currentTarget.src = "/encabezado-cronicas.jpg";
           }}
         />
       </div>

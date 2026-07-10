@@ -1,5 +1,5 @@
 // =========================================================================
-// 1. TU FUNCIÓN ORIGINAL (Totalmente intacta, no tocamos nada del Player)
+// 1. TU FUNCIÓN ORIGINAL (Intacta y clave para conseguir los streams)
 // =========================================================================
 export async function resolveTrack(url) {
   const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
@@ -13,83 +13,80 @@ export async function resolveTrack(url) {
   return {
     streamUrl: `${data.stream_url}?client_id=${client_id}`,
     title: data.title,
+    id: data.id,
+    artwork_url: data.artwork_url || null
   };
 }
 
 // =========================================================================
-// 2. NUEVA ESTRATEGIA: LECTURA DIRECTA DESDE TU PÁGINA PÚBLICA (HTML PARSER)
+// 2. LOGICA MEJORADA: Rascar URLs y resolver sus Streams reales
 // =========================================================================
-export async function getProgramasYEntrevistas() {
+async function getHydratedTracks(playlistUrl) {
+  const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
+  
   try {
-    // Le pegamos directo a la web pública de tus listas
-    const [resProg, resEntr] = await Promise.all([
-      fetch("https://soundcloud.com/bajoestasestrellas/sets/programas-completos", {
-        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-        next: { revalidate: 60 } // Cache corta de 1 minuto para pruebas rápidos
-      }),
-      fetch("https://soundcloud.com/bajoestasestrellas/sets/entrevistas", {
-        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-        next: { revalidate: 60 }
+    const res = await fetch(playlistUrl, {
+      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
+      next: { revalidate: 60 }
+    });
+
+    if (!res.ok) return [];
+    const html = await res.text();
+    const matches = html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g);
+    
+    const urlsAResolver = [];
+    let count = 0;
+
+    for (const match of matches) {
+      if (count >= 4) break;
+      const link = match[1];
+      if (link.includes("/sets/")) continue;
+
+      const fullUrl = link.startsWith("http") ? link : `https://soundcloud.com${link}`;
+      urlsAResolver.push(fullUrl);
+      count++;
+    }
+
+    // 🔥 LA MAGIA: Convertimos cada URL web en data real de reproductor en paralelo
+    const tracksHidratados = await Promise.all(
+      urlsAResolver.map(async (url) => {
+        try {
+          const trackData = await resolveTrack(url);
+          return {
+            id: trackData.id,
+            title: trackData.title,
+            permalink_url: url,
+            streamUrl: trackData.streamUrl,
+            artwork_url: trackData.artwork_url,
+            date: new Date().toLocaleDateString("es-AR")
+          };
+        } catch {
+          return null; // Si uno falla, no rompemos toda la lista
+        }
       })
-    ]);
+    );
 
-    const programas = [];
-    const entrevistas = [];
-
-    // PROCESAMOS PROGRAMAS
-    if (resProg.ok) {
-      const html = await resProg.text();
-      // Buscamos los patrones de links que SoundCloud deja para motores de búsqueda como Google
-      const matches = html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g);
-      let count = 0;
-      for (const match of matches) {
-        if (count >= 4) break;
-        const link = match[1];
-        const title = match[2].trim();
-        if (link.includes("/sets/")) continue; // Ignoramos links internos al álbum
-
-        programas.push({
-          id: `prog-${count}`,
-          title: title,
-          permalink_url: link.startsWith("http") ? link : `https://soundcloud.com${link}`,
-          artwork_url: null,
-          date: new Date().toLocaleDateString("es-AR")
-        });
-        count++;
-      }
-    }
-
-    // PROCESAMOS ENTREVISTAS
-    if (resEntr.ok) {
-      const html = await resEntr.text();
-      const matches = html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g);
-      let count = 0;
-      for (const match of matches) {
-        if (count >= 4) break;
-        const link = match[1];
-        const title = match[2].trim();
-        if (link.includes("/sets/")) continue;
-
-        entrevistas.push({
-          id: `entr-${count}`,
-          title: title,
-          permalink_url: link.startsWith("http") ? link : `https://soundcloud.com${link}`,
-          artwork_url: null,
-          date: new Date().toLocaleDateString("es-AR")
-        });
-        count++;
-      }
-    }
-
-    // NUEVO LOG IMPRESO (Si ves el cartel viejo, es porque el archivo no se guardó)
-    console.log("--- NUEVO SISTEMA LMDX ---");
-    console.log("Programas parseados:", programas.length);
-    console.log("Entrevistas parseadas:", entrevistas.length);
-
-    return { programas, entrevistas };
+    // Filtramos si alguno devolvió null por error
+    return tracksHidratados.filter(t => t !== null);
 
   } catch (error) {
-    console.error("Error crítico leyendo las listas:", error);
-    return { programas: [], entrevistas: [] };
+    console.error(`Error hidratando tracks de ${playlistUrl}:`, error);
+    return [];
   }
+}
+
+export async function getProgramasYEntrevistas() {
+  const URL_PROGRAMAS = "https://soundcloud.com/bajoestasestrellas/sets/programas-completos";
+  const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
+
+  const [programas, entrevistas] = await Promise.all([
+    getHydratedTracks(URL_PROGRAMAS),
+    getHydratedTracks(URL_ENTREVISTAS),
+  ]);
+
+  console.log("--- AUDIO REPRODUCTOR CONFIGURADO ---");
+  console.log("Programas listos para sonar:", programas.length);
+  console.log("Entrevistas listas para sonar:", entrevistas.length);
+
+  return { programas, entrevistas };
 }

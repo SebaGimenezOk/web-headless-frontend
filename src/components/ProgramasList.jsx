@@ -1,4 +1,4 @@
-import { getProgramasYEntrevistas } from "@/services/soundcloud";
+import { getProgramasYEntrevistas } from "@/lib/soundcloud";
 import Image from "next/image";
 
 export default async function ProgramasList() {

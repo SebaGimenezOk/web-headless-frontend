@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0", // <-- Agregá esta línea acá
     "paths": {
       "@/*": ["./src/*"]
     },

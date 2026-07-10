@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getCategoriaBySlug } from "@/services/taxonomies";
 import { getPodcastsByCategoriaId } from "@/services/podcasts";
 import { getAllPodcasts } from "@/services/podcasts";
-import CategoryHero from "@/components/CategoryHero"; // <-- Asegurarte de que la ruta a tu componente sea la correcta
+import CategoryHero from "@/components/CategoryHero"; 
 
 export default async function CategoriaPage({ params }) {
   // 🔥 Next 16 → params async

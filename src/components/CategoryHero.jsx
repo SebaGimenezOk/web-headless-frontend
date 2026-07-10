@@ -10,7 +10,7 @@ export default function CategoryHero({ slug, categoryName }) {
     <section className="w-full bg-(--background)">
       
       {/* Versión MOBILE: Ancho total, proporción exacta 1100x900 */}
-      <div className="block md:hidden relative w-full aspect-[11/9] overflow-hidden">
+      <div className="block md:hidden relative w-full aspect-11/9 overflow-hidden">
         <Image
           src={`/encabezado-${currentSlug}-mobile.jpg`}
           alt={`Encabezado Mobile ${categoryName || ""}`}
@@ -25,7 +25,7 @@ export default function CategoryHero({ slug, categoryName }) {
       </div>
 
       {/* Versión DESKTOP: Ancho total de pantalla a pantalla, proporción exacta 1920x600 */}
-      <div className="hidden md:block relative w-full aspect-[192/60] overflow-hidden">
+      <div className="hidden md:block relative w-full aspect-192/60 overflow-hidden">
         <Image
           src={`/encabezado-${currentSlug}.jpg`}
           alt={`Encabezado Desktop ${categoryName || ""}`}

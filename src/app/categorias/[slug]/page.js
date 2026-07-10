@@ -10,7 +10,6 @@ const categoryTitles = {
   cine: { es: "Cine", en: "Cinema" },
   ballet: { es: "Ballet", en: "Ballet" },
   cronicas: { es: "Crónicas", en: "Chronicles" },
-  // Agregá acá los que falten
 };
 
 export default async function CategoriaPage({ params }) {
@@ -36,18 +35,26 @@ export default async function CategoriaPage({ params }) {
   const isEnglish = slug.endsWith("-en") || slug.includes("/en/"); 
   const currentLang = isEnglish ? "en" : "es";
 
-  // 2. Buscamos la traducción limpia. Si no existe en el diccionario, usa el name de WP.
+  // 2. Buscamos la traducción limpia
   const baseSlug = slug.replace("-en", ""); 
   const displayTitle = categoryTitles[baseSlug]?.[currentLang] || categoria.name;
 
   return (
     <main className="w-full bg-(--background)">
       
-      {/* 1. ENCABEZADO DINÁMICO: Le pasamos el displayTitle corregido por código */}
+      {/* 1. ENCABEZADO DINÁMICO: Imagen 100% limpia sin textos arriba */}
       <CategoryHero slug={slug} categoryName={displayTitle} />
 
-      {/* 2. CONTENIDO INFERIOR: Mantiene la grilla de podcasts centrada y ordenada */}
+      {/* 2. CONTENIDO INFERIOR: Contenedor con ancho máximo y márgenes alineados */}
       <section className="px-6 py-12 max-w-6xl mx-auto">
+        
+        {/* Título de la categoría: Abajo, a la izquierda, color fuerte/negro */}
+        <header className="mb-10 text-left">
+          <h1 className="text-3xl md:text-4xl font-black text-(--text-strong) tracking-wide uppercase">
+            {displayTitle}
+          </h1>
+          <div className="mt-2 h-[2px] w-16 bg-(--text-strong) opacity-80" /> {/* Detalle visual: subrayado corto elegante */}
+        </header>
         
         {podcasts.length === 0 ? (
           <p className="text-center text-(--text-muted) py-8">

@@ -41,7 +41,7 @@ export default async function CategoriaPage({ params }) {
           <h1 className="text-3xl md:text-4xl font-black text-(--text-strong) tracking-wide uppercase">
             {categoria.name}
           </h1>
-          <div className="mt-2 h-[2px] w-16 bg-(--text-strong) opacity-80" />
+          <div className="mt-2 h-0.5 w-16 bg-(--text-strong) opacity-80" />
         </header>
         
         {podcasts.length === 0 ? (

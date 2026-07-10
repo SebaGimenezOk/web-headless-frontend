@@ -11,7 +11,7 @@ export default async function ProgramasList() {
       style={{ backgroundImage: `url('/teatrowidevacio.png')` }}
     >
       {/* Capa oscura superior opcional */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm pointer-events-none" />
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-none" />
 
       {/* Contenido real por encima del background */}
       <div className="relative max-w-6xl mx-auto z-10">
@@ -29,14 +29,14 @@ export default async function ProgramasList() {
             Todas las ediciones grabadas de cada temporada, en cada estación
             donde se realizaron.
           </p>
-          <div className="mt-6 h-0.5 w-16 bg-[#bfa15f] mx-auto opacity-80" />
+          <div className="mt-6 h-0.5 w-fit bg-[#bfa15f] mx-auto opacity-80" />
         </header>
 
         {/* CONTENEDOR GRID SÓLO PARA LAS LISTAS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           {/* COLUMNA 1: OLIVA CON ALPHA */}
-          <div className="rounded-2xl p-6 md:p-8 bg-(--olive)/60 backdrop-blur-md shadow-2xl border border-white/5">
+          <div className="rounded-2xl p-6 md:p-8 bg-(--olive)/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source"> {/* Aplicamos Source Sans 3 al bloque */}
               <h2 className="text-xl font-bold uppercase text-white tracking-wide">
                 Programas
@@ -56,7 +56,7 @@ export default async function ProgramasList() {
           </div>
 
           {/* COLUMNA 2: DORADO MATE CON ALPHA */}
-          <div className="rounded-2xl p-6 md:p-8 bg-[#bfa15f]/60 backdrop-blur-md shadow-2xl border border-white/5">
+          <div className="rounded-2xl p-6 md:p-8 bg-[#bfa15f]/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source"> {/* Aplicamos Source Sans 3 al bloque */}
               <h2 className="text-xl font-bold uppercase text-white tracking-wide">
                 Entrevistas

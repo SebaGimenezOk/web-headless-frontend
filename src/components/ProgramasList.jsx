@@ -24,7 +24,7 @@ export default async function ProgramasList() {
             {/* IMAGEN DE LOS CONDUCTORES Fija en 180x180 */}
             <div className="relative w-45 h-45 shrink-0">
               <Image
-                src="/benavides-transparente.png" 
+                src="/benavidescompleto.png" 
                 alt="Conductores"
                 width={180}
                 height={180}

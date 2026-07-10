@@ -26,10 +26,10 @@ export default async function ProgramasList() {
             {/* IMAGEN DE LOS CONDUCTORES (Ahora a la izquierda) */}
             <div className="relative w-45 h-45 md:w-62.5 md:h-62.5 max-w-75 max-h-75 shrink-0">
               <Image
-                src="/conductores.png" 
+                src="/benavides-transparente.png" 
                 alt="Conductores"
-                width={300}
-                height={300}
+                width={150}
+                height={150}
                 className="object-contain"
                 priority
               />

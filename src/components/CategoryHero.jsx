@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function CategoryHero({ slug, categoryName }) {
   // Si por alguna razón no hay slug, ponemos un fallback seguro
   const currentSlug = slug || "default";
-
+console.log("Next.js está buscando este archivo exacto en /public ->", `encabezado-${currentSlug}.jpg`);
   return (
     <section className="w-full bg-(--background)">
       

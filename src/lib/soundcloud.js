@@ -1,76 +1,68 @@
 // =========================================================================
-// 1. TU FUNCIÓN ORIGINAL (Intacta y clave para conseguir los streams)
+// 1. TU FUNCIÓN ORIGINAL (La dejamos por compatibilidad)
 // =========================================================================
 export async function resolveTrack(url) {
   const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
-
   const res = await fetch(
     `https://api.soundcloud.com/resolve?url=${url}&client_id=${client_id}`
   );
-
   const data = await res.json();
-
   return {
-    streamUrl: `${data.stream_url}?client_id=${client_id}`,
+    streamUrl: url, // Cambiado: le pasamos la url pública que le gusta a tu iframe
     title: data.title,
-    id: data.id,
-    artwork_url: data.artwork_url || null
   };
 }
 
 // =========================================================================
-// 2. LOGICA MEJORADA: Rascar URLs y resolver sus Streams reales
+// 2. PARSEO ADAPTADO A TU REPRODUCTOR (Iframe-Friendly)
 // =========================================================================
-async function getHydratedTracks(playlistUrl) {
-  const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
-  
+async function getTracksFromStaticPlaylist(playlistUrl) {
   try {
     const res = await fetch(playlistUrl, {
-      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
+      headers: { 
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" 
+      },
       next: { revalidate: 60 }
     });
 
     if (!res.ok) return [];
     const html = await res.text();
-    const matches = html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g);
-    
-    const urlsAResolver = [];
-    let count = 0;
 
+    const tracks = [];
+    
+    // Rascamos las urls públicas directas de los tracks dentro de la playlist
+    const matches = [...html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g)];
+    
+    let count = 0;
     for (const match of matches) {
-      if (count >= 4) break;
+      if (count >= 4) break; // Límite de 4 items por sección
+      
       const link = match[1];
+      const title = match[2].trim();
+
+      // Saltamos si el link es el de la playlist misma
       if (link.includes("/sets/")) continue;
 
       const fullUrl = link.startsWith("http") ? link : `https://soundcloud.com${link}`;
-      urlsAResolver.push(fullUrl);
+
+      tracks.push({
+        id: `track-${count}-${Date.now()}`, // ID temporal para iterar en React
+        title: title,
+        permalink_url: fullUrl,
+        // 🔥 ESTA ES LA CLAVE: Tu context tiene que guardar la URL pública normal,
+        // porque es la que tu componente Player inyecta en el iframe de SoundCloud
+        streamUrl: fullUrl, 
+        artwork_url: null, 
+        date: new Date().toLocaleDateString("es-AR")
+      });
+      
       count++;
     }
 
-    // 🔥 LA MAGIA: Convertimos cada URL web en data real de reproductor en paralelo
-    const tracksHidratados = await Promise.all(
-      urlsAResolver.map(async (url) => {
-        try {
-          const trackData = await resolveTrack(url);
-          return {
-            id: trackData.id,
-            title: trackData.title,
-            permalink_url: url,
-            streamUrl: trackData.streamUrl,
-            artwork_url: trackData.artwork_url,
-            date: new Date().toLocaleDateString("es-AR")
-          };
-        } catch {
-          return null; // Si uno falla, no rompemos toda la lista
-        }
-      })
-    );
-
-    // Filtramos si alguno devolvió null por error
-    return tracksHidratados.filter(t => t !== null);
+    return tracks;
 
   } catch (error) {
-    console.error(`Error hidratando tracks de ${playlistUrl}:`, error);
+    console.error(`Error extrayendo tracks para el Widget:`, error);
     return [];
   }
 }
@@ -80,13 +72,10 @@ export async function getProgramasYEntrevistas() {
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([
-    getHydratedTracks(URL_PROGRAMAS),
-    getHydratedTracks(URL_ENTREVISTAS),
+    getTracksFromStaticPlaylist(URL_PROGRAMAS),
+    getTracksFromStaticPlaylist(URL_ENTREVISTAS),
   ]);
 
-  console.log("--- AUDIO REPRODUCTOR CONFIGURADO ---");
-  console.log("Programas listos para sonar:", programas.length);
-  console.log("Entrevistas listas para sonar:", entrevistas.length);
-
+  console.log("--- CONFIGURACIÓN PARA IFRAME LISTA ---");
   return { programas, entrevistas };
 }

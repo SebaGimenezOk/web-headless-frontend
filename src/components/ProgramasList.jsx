@@ -8,7 +8,7 @@ export default async function ProgramasList() {
     /* 1. CONTENEDOR CON IMAGEN DE BACKGROUND: Usamos una imagen de tu carpeta public/ */
     <section 
       className="relative w-full py-20 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed"
-      style={{ backgroundImage: `url('/encabezado-cronicas-mobile.jpg')` }} // <-- Podés cambiar este asset por la foto que quieras de fondo
+      style={{ backgroundImage: `url('/teatrowidevacio.png')` }} 
     >
       {/* Capa oscura superior opcional para dar contraste y que se lea bien la data */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-none" />

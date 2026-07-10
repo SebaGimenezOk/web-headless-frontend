@@ -17,38 +17,41 @@ export default async function ProgramasList() {
       {/* Contenido real por encima del background */}
       <div className="relative max-w-6xl mx-auto z-10">
         
-        {/* 🌟 ENCABEZADO PRINCIPAL */}
-        <header className="text-center mb-16 max-w-4xl mx-auto">
-          
-          {/* Contenedor Flex con la imagen primero (a la izquierda en pantallas sm) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-4">
+        {/* 🌟 ENCABEZADO PRINCIPAL (Estructurado como CARD transparente) */}
+        <header className="mb-16 max-w-4xl mx-auto bg-transparent p-4 md:p-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             
-            {/* IMAGEN DE LOS CONDUCTORES (Ahora a la izquierda) */}
-            <div className="relative w-45 h-45 md:w-62.5 md:h-62.5 max-w-75 max-h-75 shrink-0">
+            {/* IMAGEN DE LOS CONDUCTORES Fija en 180x180 */}
+            <div className="relative w-45 h-45 shrink-0">
               <Image
                 src="/benavides-transparente.png" 
                 alt="Conductores"
-                width={150}
-                height={150}
+                width={180}
+                height={180}
                 className="object-contain"
                 priority
               />
             </div>
 
-            {/* Título: sm:text-right para que apunte estéticamente hacia la imagen */}
-            <h1 className="text-2xl md:text-4xl font-medium text-white tracking-wide uppercase drop-shadow-md text-center sm:text-left">
-              Bajo Estas Estrellas:{" "}
-              <span className="font-light text-white/80">Colección</span>
-            </h1>
+            {/* BLOQUE DE TEXTOS (Título y frase alineados juntos a la derecha de la foto) */}
+            <div className="text-center sm:text-left flex-1">
+              {/* Título ligero */}
+              <h1 className="text-2xl md:text-4xl font-medium text-white tracking-wide uppercase drop-shadow-md">
+                Bajo Estas Estrellas:{" "}
+                <span className="font-light text-white/80">Colección</span>
+              </h1>
+              
+              {/* Frase descriptiva integrada en la misma tarjeta */}
+              <p className="mt-3 text-sm md:text-base text-white/70 font-light font-source leading-relaxed drop-shadow">
+                Todas las ediciones grabadas de cada temporada, en cada estación
+                donde se realizaron.
+              </p>
+              
+              {/* Línea decorativa alineada al texto */}
+              <div className="mt-4 h-0.5 w-16 bg-[#bfa15f] mx-auto sm:mx-0 opacity-80" />
+            </div>
 
           </div>
-          
-          {/* Bajada: Aplicamos la clase font-source (Source Sans 3) */}
-          <p className="mt-4 text-sm md:text-base text-white/70 font-light font-source leading-relaxed drop-shadow">
-            Todas las editions grabadas de cada temporada, en cada estación
-            donde se realizaron.
-          </p>
-          <div className="mt-6 h-0.5 w-16 bg-[#bfa15f] mx-auto opacity-80" />
         </header>
 
         {/* CONTENEDOR GRID SÓLO PARA LAS LISTAS (2 Columnas) */}

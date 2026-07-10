@@ -5,13 +5,6 @@ import { getPodcastsByCategoriaId } from "@/services/podcasts";
 import { getAllPodcasts } from "@/services/podcasts";
 import CategoryHero from "@/components/CategoryHero"; 
 
-// 📝 Diccionario para que el título cambie de verdad según el slug actual
-const categoryTitles = {
-  cine: { es: "Cine", en: "Cinema" },
-  ballet: { es: "Ballet", en: "Ballet" },
-  cronicas: { es: "Crónicas", en: "Chronicles" },
-};
-
 export default async function CategoriaPage({ params }) {
   // 🔥 Next 16 → params async
   const resolvedParams = await params;
@@ -31,34 +24,29 @@ export default async function CategoriaPage({ params }) {
 
   const podcasts = await getPodcastsByCategoriaId(categoria.id);
 
-  // 1. Detectamos si la URL actual corresponde a la versión en inglés
+  // Guardamos si es inglés por si Weglot necesita ayuda con el texto del "no hay podcasts"
   const isEnglish = slug.endsWith("-en") || slug.includes("/en/"); 
-  const currentLang = isEnglish ? "en" : "es";
-
-  // 2. Buscamos la traducción limpia
-  const baseSlug = slug.replace("-en", ""); 
-  const displayTitle = categoryTitles[baseSlug]?.[currentLang] || categoria.name;
 
   return (
     <main className="w-full bg-(--background)">
       
-      {/* 1. ENCABEZADO DINÁMICO: Imagen 100% limpia sin textos arriba */}
-      <CategoryHero slug={slug} categoryName={displayTitle} />
+      {/* 1. ENCABEZADO DINÁMICO: Mandamos el slug e imagen limpia */}
+      <CategoryHero slug={slug} categoryName={categoria.name} />
 
-      {/* 2. CONTENIDO INFERIOR: Contenedor con ancho máximo y márgenes alineados */}
+      {/* 2. CONTENIDO INFERIOR: Título abajo a la izquierda en negro */}
       <section className="px-6 py-12 max-w-6xl mx-auto">
         
-        {/* Título de la categoría: Abajo, a la izquierda, color fuerte/negro */}
+        {/* Weglot va a agarrar este h1 y va a traducir "Cine" a "Cinema" automáticamente */}
         <header className="mb-10 text-left">
           <h1 className="text-3xl md:text-4xl font-black text-(--text-strong) tracking-wide uppercase">
-            {displayTitle}
+            {categoria.name}
           </h1>
-          <div className="mt-2 h-[2px] w-16 bg-(--text-strong) opacity-80" /> {/* Detalle visual: subrayado corto elegante */}
+          <div className="mt-2 h-[2px] w-16 bg-(--text-strong) opacity-80" />
         </header>
         
         {podcasts.length === 0 ? (
           <p className="text-center text-(--text-muted) py-8">
-            {isEnglish ? "No podcasts found in this category." : "No hay podcasts en esta categoría."}
+            No hay podcasts en esta categoría.
           </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -4,18 +4,20 @@ import Image from "next/image";
 import { useReproductor } from "@/context/ReproductorContext";
 
 export default function TrackRowClient({ item, index }) {
-  const { setTrackUrl } = useReproductor();
+  // 🟢 CORRECCIÓN: Traemos 'playTrack' que es lo que tu contexto realmente exporta
+  const { playTrack } = useReproductor();
 
   const imageSrc = item.artwork_url 
     ? item.artwork_url.replace("-large.", "-t500x500.") 
     : "/encabezado-cronicas-mobile.jpg"; 
 
   const handlePlay = (e) => {
-    // 1. Evitamos que abra la pestaña de SoundCloud externa
     e.preventDefault();
     
-    // 2. Le inyectamos la URL de reproducción a tu reproductor global
-    setTrackUrl(item.streamUrl);
+    console.log("Despachando audio al reproductor:", item.streamUrl);
+    
+    // 🟢 CORRECCIÓN: Usamos la función correcta
+    playTrack(item.streamUrl);
   };
 
   return (

@@ -20,7 +20,7 @@ export default async function ProgramasList() {
               <h2 className="text-xl md:text-2xl font-black text-text tracking-wide uppercase">
                 Programas Completos
               </h2>
-              <div className="mt-1.5 h-[2px] w-12 bg-text opacity-80" />
+              <div className="mt-1.5 h-0.5 w-12 bg-text opacity-80" />
             </header>
 
             <div className="divide-y divide-text/10">
@@ -39,7 +39,7 @@ export default async function ProgramasList() {
               <h2 className="text-xl md:text-2xl font-black text-text tracking-wide uppercase">
                 Entrevistas Destacadas
               </h2>
-              <div className="mt-1.5 h-[2px] w-12 bg-text opacity-80" />
+              <div className="mt-1.5 h-0.5 w-12 bg-text opacity-80" />
             </header>
 
             <div className="divide-y divide-text/10">
@@ -69,14 +69,14 @@ function TrackRow({ item, index }) {
       href={item.permalink_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-between py-4 group transition-colors duration-200 hover:bg-black/[0.02] rounded-lg px-2 -mx-2"
+      className="flex items-center justify-between py-4 group transition-colors duration-200 hover:bg-black/2 rounded-lg px-2 -mx-2"
     >
       <div className="flex items-center gap-4 pr-3">
         <span className="text-xs font-bold text-text/30 w-4 text-right group-hover:text-text">
           {(index + 1).toString().padStart(2, "0")}
         </span>
 
-        <div className="relative w-10 h-10 rounded-md overflow-hidden flex-shrink-0 grayscale group-hover:grayscale-0 transition-all duration-300">
+        <div className="relative w-10 h-10 rounded-md overflow-hidden shrink-0 grayscale group-hover:grayscale-0 transition-all duration-300">
           <Image
             src={imageSrc}
             alt={item.title}
@@ -95,9 +95,9 @@ function TrackRow({ item, index }) {
         </div>
       </div>
 
-      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full border border-text/15 group-hover:border-text group-hover:bg-text transition-all duration-200">
+      <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full border border-text/15 group-hover:border-text group-hover:bg-text transition-all duration-200">
         <svg
-          className="w-3 h-3 text-text group-hover:text-background translate-x-[1px] transition-colors duration-200"
+          className="w-3 h-3 text-text group-hover:text-background translate-x-px transition-colors duration-200"
           fill="currentColor"
           viewBox="0 0 24 24"
                 >

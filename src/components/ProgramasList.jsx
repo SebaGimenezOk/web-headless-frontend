@@ -1,6 +1,6 @@
 import { getProgramasYEntrevistas } from "@/lib/soundcloud";
 import TrackRowClient from "./TrackRowClient";
-import Image from "next/image"; // IMPORTANTE: Agregamos la importación de Next Image
+import Image from "next/image"; 
 
 export default async function ProgramasList() {
   const { programas, entrevistas } = await getProgramasYEntrevistas();
@@ -17,21 +17,16 @@ export default async function ProgramasList() {
       {/* Contenido real por encima del background */}
       <div className="relative max-w-6xl mx-auto z-10">
         
-        {/* 🌟 ENCABEZADO PRINCIPAL (Subimos el max-w para dar espacio a la imagen al lado) */}
+        {/* 🌟 ENCABEZADO PRINCIPAL */}
         <header className="text-center mb-16 max-w-4xl mx-auto">
           
-          {/* Contenedor Flex para alinear título e imagen horizontalmente */}
+          {/* Contenedor Flex con la imagen primero (a la izquierda en pantallas sm) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-4">
-            {/* Título: Más ligero (font-medium) y tamaño equilibrado (text-2xl a text-4xl) */}
-            <h1 className="text-2xl md:text-4xl font-medium text-white tracking-wide uppercase drop-shadow-md text-center sm:text-left">
-              Bajo Estas Estrellas:{" "}
-              <span className="font-light text-white/80">Colección</span>
-            </h1>
-
-            {/* IMAGEN DE LOS CONDUCTORES (Máximo 300x300, fondo transparente) */}
-            <div className="relative w-[180px] h-[180px] md:w-[250px] md:h-[250px] max-w-[300px] max-h-[300px] flex-shrink-0">
+            
+            {/* IMAGEN DE LOS CONDUCTORES (Ahora a la izquierda) */}
+            <div className="relative w-45 h-45 md:w-62.5 md:h-62.5 max-w-75 max-h-75 shrink-0">
               <Image
-                src="/conductores.png" // Cambiá acá el nombre exacto de tu archivo en /public
+                src="/conductores.png" 
                 alt="Conductores"
                 width={300}
                 height={300}
@@ -39,11 +34,18 @@ export default async function ProgramasList() {
                 priority
               />
             </div>
+
+            {/* Título: sm:text-right para que apunte estéticamente hacia la imagen */}
+            <h1 className="text-2xl md:text-4xl font-medium text-white tracking-wide uppercase drop-shadow-md text-center sm:text-left">
+              Bajo Estas Estrellas:{" "}
+              <span className="font-light text-white/80">Colección</span>
+            </h1>
+
           </div>
           
           {/* Bajada: Aplicamos la clase font-source (Source Sans 3) */}
           <p className="mt-4 text-sm md:text-base text-white/70 font-light font-source leading-relaxed drop-shadow">
-            Todas las ediciones grabadas de cada temporada, en cada estación
+            Todas las editions grabadas de cada temporada, en cada estación
             donde se realizaron.
           </p>
           <div className="mt-6 h-0.5 w-16 bg-[#bfa15f] mx-auto opacity-80" />
@@ -54,7 +56,6 @@ export default async function ProgramasList() {
           
           {/* COLUMNA 1: OLIVA CON ALPHA */}
           <div className="rounded-2xl p-6 md:p-8 bg-(--olive)/40 backdrop-blur-md shadow-2xl border border-white/5">
-            {/* Forzamos Source Sans 3 en toda la cabecera interna */}
             <header className="mb-8 font-source"> 
               <h2 className="text-xl font-bold uppercase text-white tracking-wide">
                 Programas
@@ -62,7 +63,6 @@ export default async function ProgramasList() {
               <div className="mt-2 h-1 w-12 bg-white/30" />
             </header>
             
-            {/* Forzamos Source Sans 3 en la lista de tracks */}
             <div className="flex flex-col gap-4 font-source">
               {programas.map((item, index) => (
                 <TrackRowClient
@@ -77,7 +77,6 @@ export default async function ProgramasList() {
 
           {/* COLUMNA 2: DORADO MATE CON ALPHA */}
           <div className="rounded-2xl p-6 md:p-8 bg-[#bfa15f]/40 backdrop-blur-md shadow-2xl border border-white/5">
-            {/* Forzamos Source Sans 3 en toda la cabecera interna */}
             <header className="mb-8 font-source"> 
               <h2 className="text-xl font-bold uppercase text-white tracking-wide">
                 Entrevistas
@@ -85,7 +84,6 @@ export default async function ProgramasList() {
               <div className="mt-2 h-1 w-12 bg-white/30" />
             </header>
             
-            {/* Forzamos Source Sans 3 en la lista de tracks */}
             <div className="flex flex-col gap-4 font-source">
               {entrevistas.map((item, index) => (
                 <TrackRowClient

@@ -24,7 +24,7 @@ export default async function ProgramasList() {
             {/* IMAGEN Fija en 180x180 */}
             <div className="relative w-45 h-45 shrink-0 overflow-hidden rounded-2xl">
               <Image
-                src="/fantastique3.png" 
+                src="/benavides-solos.png" 
                 alt="Conductores"
                 width={180}
                 height={180}

@@ -1,17 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 export default function NewsletterBanner() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // 'idle', 'loading', 'success', 'error'
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
 
     setStatus("loading");
-    
+
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setStatus("success");
@@ -24,14 +25,23 @@ export default function NewsletterBanner() {
   return (
     <section className="w-full border-y border-(--border) bg-[#090303]  py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        
         {/* Izquierda: Título y Frase */}
+        {/* Izquierda: Título (con Isologo) y Frase */}
         <div className="max-w-xl space-y-3">
-          <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl  font-serif tracking-wide">
-           LEELO ANTES QUE TODOS
-          </h2>
-          <p className="font-body text-white/80 text-sm md:text-base leading-relaxed opacity-90 antialiased">
-            Suscribite a nuestro Newsletter para recibir novedades sobre nuestas crónicas, newsletters, análisis y sugerencias.
+          <div className="flex items-center gap-3">
+            {/* Isologo en línea antes del H2 */}
+            <Image
+              src="/IsologoPluma.png"
+              alt="Isologo Crónicas"
+              className="h-7 w-auto object-contain brightness-0 invert opacity-90"
+            />
+            <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none">
+              LEELO ANTES QUE TODOS
+            </h2>
+          </div>
+          <p className="font-body text-white/70 text-sm md:text-base leading-relaxed opacity-90 antialiased">
+            Suscribite a nuestro Newsletter para recibir primero nuestras
+            crónicas, análisis y sugerencias.
           </p>
         </div>
 
@@ -42,7 +52,10 @@ export default function NewsletterBanner() {
               ¡Gracias por suscribirse! Pronto recibirá nuestras novedades.
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-2 w-full"
+            >
               <div className="relative grow">
                 <input
                   type="email"
@@ -70,7 +83,6 @@ export default function NewsletterBanner() {
             </p>
           )}
         </div>
-
       </div>
     </section>
   );

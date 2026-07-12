@@ -22,12 +22,12 @@ export default function NewsletterBanner() {
   };
 
   return (
-    <section className="w-full border-y border-(--border) bg-(--surface) py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
+    <section className="w-full border-y border-(--border) bg-(--surface)/40 py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         
         {/* Izquierda: Título y Frase */}
         <div className="max-w-xl space-y-3">
-          <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl text-(--text-strong) font-serif tracking-wide">
+          <h2 className="font-heading text-xl md:text-2xl lg:text-3xl text-(--text-strong) font-serif tracking-wide">
            LEELO ANTES QUE TODOS
           </h2>
           <p className="font-body text-(--text) text-sm md:text-base leading-relaxed opacity-90">

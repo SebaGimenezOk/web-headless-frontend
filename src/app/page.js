@@ -20,8 +20,8 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <HomeContent podcasts={podcasts} />
       <NewsletterBanner/>
+      <HomeContent podcasts={podcasts} />
       <InstitutionalLinks />
 
     </>

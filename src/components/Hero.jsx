@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="w-full bg-(--background) ">
+    <section className="w-full bg-transparent mb-6 ">
       {/* Versión MOBILE: Ancho total, proporción exacta 1100x900 */}
       <div className="block md:hidden relative w-full aspect-11/9 overflow-hidden">
         <Image
@@ -27,7 +27,7 @@ export default function Hero() {
         />
       </div>
       {/* 2. Línea divisoria con aire arriba (mt-6) y alineada a los márgenes generales */}
-      <div className="w-full px-6 mt-6 mb-2">
+      <div className="w-full px-6 bg-transparent pt-4">
         <div className="h-px bg-[#bfa15f] w-full" />
       </div>
     </section>

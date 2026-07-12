@@ -29,14 +29,14 @@ export default function NewsletterBanner() {
         {/* Izquierda: Título (con Isologo) y Frase */}
         <div className="max-w-xl space-y-3">
           <div className="flex items-center gap-3">
-            <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none">
+            <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none mr-1">
               LEELO ANTES QUE TODOS
             </h2>
             {/* El isologo colocado detrás del texto */}
             <Image
               src="/IsologoPluma.png"
               alt="Isologo Crónicas"
-              className="h-7 w-auto object-contain opacity-90"
+              className="h-9 w-auto object-contain opacity-90"
               style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
             />
           </div>

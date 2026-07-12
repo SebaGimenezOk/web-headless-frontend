@@ -12,32 +12,34 @@
     --olive: #6f7f4e;
     --beige: #d2c4b2;
     --ocre: #936917;
-    /* Tipografías */
-  
+    
+    /* Tipografías - Corregido el nombre de Adobe con guiones */
     --font-heading: "magister", serif;
-    --font-body: "source sans 3", sans-serif;
+    --font-body: "source-sans-3", sans-serif; 
     --font-article: "source-serif-4", serif;
   }
+
   /* Fuerza a que los contenedores principales sean transparentes y dejen ver el shader */
-html, body, main, #__next {
-  background-color: transparent !important;
-}
+  html, body, main, #__next {
+    background-color: transparent !important;
+  }
+
+  /* El cuerpo de la nota */
   .article-content {
-    font-family: var(--font-article);
+    font-family: var(--font-body); 
     font-weight: 400;
     font-size: 1.125rem;
     line-height: 1.85;
     margin-top: 4rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
-    display:flow-root;
+    display: flow-root;
   }
 
   .article-content h2 {
     font-family: var(--font-heading);
     font-weight: 400;
     font-size: 2rem;
-    
   }
 
   .article-content h3 {
@@ -45,6 +47,7 @@ html, body, main, #__next {
     font-weight: 400;
     font-size: 1.5rem;
   }
+
   .article-subtitle {
     max-width: 720px;
     margin: 2rem auto;
@@ -53,8 +56,9 @@ html, body, main, #__next {
     color: var(--text-strong);
     text-align: center;
   }
+
   .podcast-bajada {
-    font-family: var(--font-article);
+    font-family: var(--font-body);
     font-size: 1.35rem;
     line-height: 1.7;
     color: var(--text-strong);
@@ -63,6 +67,7 @@ html, body, main, #__next {
     margin-bottom: 2rem;
     text-transform: uppercase;
   }
+
   .article-content p:first-of-type::first-letter {
     float: left;
     font-family: var(--font-heading);
@@ -73,16 +78,12 @@ html, body, main, #__next {
     color: var(--text-strong);
     margin-bottom: 1.2rem;
   }
+
   body {
     font-family: var(--font-body);
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }
 }

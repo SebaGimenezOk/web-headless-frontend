@@ -22,7 +22,7 @@ export default function NewsletterBanner() {
   };
 
   return (
-    <section className="w-full border-y border-(--border) bg-(--surface)/40 py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
+    <section className="w-full border-y border-(--border) bg-[#e9e2cf]  py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         
         {/* Izquierda: Título y Frase */}

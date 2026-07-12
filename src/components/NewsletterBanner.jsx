@@ -28,10 +28,10 @@ export default function NewsletterBanner() {
         {/* Izquierda: Título y Frase */}
         <div className="max-w-xl space-y-3">
           <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl text-(--text-strong) font-serif tracking-wide">
-            Manténgase al día
+           Leelo antes que  todos
           </h2>
           <p className="font-body text-(--text) text-sm md:text-base leading-relaxed opacity-90">
-            Reciba nuestras últimas crónicas, análisis culturales y reseñas exclusivas directo en su bandeja de entrada.
+            Suscribite a nuestro Newsletter para recibir novedades sobre nuestas crónicas, newsletters, análisis y sugerencias.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default function NewsletterBanner() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Su correo electrónico"
+                  placeholder="email"
                   disabled={status === "loading"}
                   className="w-full px-4 py-3 font-body text-sm bg-(--background) border border-(--border) text-(--text-strong) placeholder:text-(--text)/50 focus:outline-none focus:border-(--ocre) transition-colors rounded-sm disabled:opacity-50"
                 />

@@ -22,7 +22,7 @@ export default function NewsletterBanner() {
   };
 
   return (
-    <section className="w-full border-y border-(--border) bg-[#17140a]  py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
+    <section className="w-full border-y border-(--border) bg-[#090303]  py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         
         {/* Izquierda: Título y Frase */}
@@ -30,7 +30,7 @@ export default function NewsletterBanner() {
           <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl  font-serif tracking-wide">
            LEELO ANTES QUE TODOS
           </h2>
-          <p className="font-body text-white/70 text-sm md:text-base leading-relaxed opacity-90">
+          <p className="font-body text-white/80 text-sm md:text-base leading-relaxed opacity-90 antialiased">
             Suscribite a nuestro Newsletter para recibir novedades sobre nuestas crónicas, newsletters, análisis y sugerencias.
           </p>
         </div>

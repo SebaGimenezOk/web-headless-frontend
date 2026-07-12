@@ -17,7 +17,7 @@ export default function Hero() {
       </div>
 
       {/* Versión DESKTOP: Ancho total de pantalla a pantalla, proporción exacta 1920x600 */}
-      <div className="hidden md:block relative w-full aspect-192/60 overflow-hidden">
+      <div className="hidden md:block relative w-full aspect-192/60 overflow-hidden mb-10">
         <Image
           src="/encabezado-cronicas.jpg"
           alt="Hero Desktop"

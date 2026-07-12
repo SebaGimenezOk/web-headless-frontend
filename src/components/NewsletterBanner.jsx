@@ -28,7 +28,7 @@ export default function NewsletterBanner() {
         {/* Izquierda: Título y Frase */}
         {/* Izquierda: Título (con Isologo) y Frase */}
         <div className="max-w-xl space-y-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-baseline gap-3">
             <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none mr-1">
               LEELO ANTES QUE TODOS
             </h2>

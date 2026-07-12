@@ -28,7 +28,7 @@ export default function NewsletterBanner() {
         {/* Izquierda: Título y Frase */}
         <div className="max-w-xl space-y-3">
           <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl text-(--text-strong) font-serif tracking-wide">
-           Leelo antes que  todos
+           LEELO ANTES QUE TODOS
           </h2>
           <p className="font-body text-(--text) text-sm md:text-base leading-relaxed opacity-90">
             Suscribite a nuestro Newsletter para recibir novedades sobre nuestas crónicas, newsletters, análisis y sugerencias.
@@ -57,6 +57,7 @@ export default function NewsletterBanner() {
               <button
                 type="submit"
                 disabled={status === "loading"}
+                placeholder="enviar"
                 className="px-6 py-3 font-heading font-medium text-xs tracking-wider uppercase bg-(--text-strong) text-(--surface) hover:bg-(--ocre) hover:text-(--text-strong) transition-all duration-300 rounded-sm disabled:opacity-50 cursor-pointer whitespace-nowrap"
               >
                 {status === "loading" ? "Enviando..." : "Suscribirse"}

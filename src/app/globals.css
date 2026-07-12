@@ -26,14 +26,17 @@
 
   /* El cuerpo de la nota */
   .article-content {
-      font-family: var(--font-body); /* Fuerza a que use "source-sans-3" */
+    font-family: var(--font-body); /* Fuerza a que use "source-sans-3" */
     font-weight: 400;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     line-height: 1.85;
     margin-top: 4rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     display: flow-root;
+
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
   }
 
   .article-content h2 {

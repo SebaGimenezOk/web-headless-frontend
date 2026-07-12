@@ -11,7 +11,7 @@ export default function HomeContent({ podcasts }) {
     <main className="max-w-7xl mx-auto px-6 py-16 space-y-20">
       <section className="pt-12 space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl uppercase font-semibold">
+          <h2 className="text-xl md:text-2xl uppercase font-normal text-(--text-strong) tracking-wide">
             {t("home.recentEpisodes")}
           </h2>
 
@@ -24,9 +24,7 @@ export default function HomeContent({ podcasts }) {
         </div>
 
         {podcasts.length === 0 ? (
-          <p className="text-gray-500 italic">
-            {t("home.noPodcasts")}
-          </p>
+          <p className="text-gray-500 italic">{t("home.noPodcasts")}</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {podcasts.map((podcast) => (

@@ -38,7 +38,7 @@ export default async function PodcastDetailPage({ params }) {
           href="/podcasts"
           className="text-sm text-gray-500 hover:text-indigo-600"
         >
-          ← Volver a podcasts
+          ← Volver a crónicas
         </Link>
       </main>
     );
@@ -51,7 +51,7 @@ export default async function PodcastDetailPage({ params }) {
           href="/podcasts"
           className="text-sm text-gray-500 hover:text-indigo-600"
         >
-          ← Volver a podcasts
+          ← Volver a crónicas
         </Link>
       </div>
 
@@ -102,7 +102,7 @@ export default async function PodcastDetailPage({ params }) {
   </div>
 
   <div
-    className="article-content mt-8"
+    className="article-content antialiased mt-8"
     dangerouslySetInnerHTML={{ __html: post.content }}
   />
 

@@ -26,7 +26,7 @@
 
   /* El cuerpo de la nota */
   .article-content {
-    font-family: var(--font-body); 
+      font-family: var(--font-body); /* Fuerza a que use "source-sans-3" */
     font-weight: 400;
     font-size: 1.125rem;
     line-height: 1.85;
@@ -58,7 +58,7 @@
   }
 
   .podcast-bajada {
-    font-family: var(--font-body);
+    font-family: var(--font-article);
     font-size: 1.35rem;
     line-height: 1.7;
     color: var(--text-strong);

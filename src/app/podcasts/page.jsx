@@ -10,12 +10,12 @@ export default async function PodcastsPage() {
     <main className="max-w-7xl mx-auto px-6 py-10">
       
       <h1 className="text-3xl font-bold uppercase mb-6">
-        Podcasts
+        CRÓNICAS
       </h1>
 
       {posts.length === 0 ? (
         <p className="text-gray-500">
-          No hay podcasts disponibles.
+          No hay crónicas disponibles.
         </p>
       ) : (
         <PodcastList posts={posts} />

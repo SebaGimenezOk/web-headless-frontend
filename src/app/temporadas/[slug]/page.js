@@ -3,7 +3,7 @@ export const revalidate = 60;
 import { getTemporadaBySlug } from "@/services/taxonomies";
 import { getPodcastsByTemporadaId } from "@/services/podcasts";
 import { getAllPodcasts } from "@/services/podcasts";
-
+import Image from "next/image";
 export default async function TemporadaPage({ params }) {
   // 🔥 CLAVE: hay que esperar params
   const resolvedParams = await params;
@@ -54,7 +54,7 @@ export default async function TemporadaPage({ params }) {
 
               {/* IMAGEN */}
               {p.imageUrl && (
-                <img
+                <Image
                   src={p.imageUrl}
                   alt={p.title}
                   className="w-full h-48 object-cover group-hover:scale-105 transition"

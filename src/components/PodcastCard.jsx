@@ -62,7 +62,7 @@ export default function PodcastCard({ post, className = "" }) {
       {/* AUDIO */}
       {audioUrl && (
         <div className="mt-3">
-          <PlayButton url={audioUrl} label="Posee Entrevista 🎧" />
+          <PlayButton url={audioUrl} label=" Entrevista 🎙️" />
         </div>
       )}
     </article>

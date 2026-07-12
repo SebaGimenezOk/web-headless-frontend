@@ -18,7 +18,7 @@ export default async function ProgramasList() {
       <div className="relative max-w-6xl mx-auto z-10">
         
         {/* 🌟 ENCABEZADO PRINCIPAL (Estructurado como CARD transparente) */}
-        <header className="mb-16 max-w-4xl mx-auto bg-transparent p-4 md:p-6">
+        <header className="mb-16 max-w-5xl mx-auto bg-transparent p-4 md:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             
             {/* IMAGEN Fija en 180x180 */}

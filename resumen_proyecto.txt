@@ -1,0 +1,206 @@
+==================================================
+ESTRUCTURA DEL PROYECTO
+==================================================
+.
+./eslint.config.mjs
+./jsconfig.json
+./next.config.mjs
+./package-lock.json
+./package.json
+./postcss.config.mjs
+./public
+./public/Alejandro-Claudia.png
+./public/benavides 3.png
+./public/benavides-solos.png
+./public/benavidescompleto.png
+./public/CMGris.jpg
+./public/encabezado-ballet-mobile.jpg
+./public/encabezado-ballet.jpg
+./public/encabezado-cine-mobile.jpg
+./public/encabezado-cine.jpg
+./public/encabezado-concierto-mobile.jpg
+./public/encabezado-concierto.jpg
+./public/encabezado-cronicas-mobile.jpg
+./public/encabezado-cronicas.jpg
+./public/encabezado-literatura-mobile.jpg
+./public/encabezado-literatura.jpg
+./public/encabezado-opera-mobile.jpg
+./public/encabezado-opera.jpg
+./public/encabezado-teatro-mobile.jpg
+./public/encabezado-teatro.jpg
+./public/file.svg
+./public/globe.svg
+./public/IsologoPluma.png
+./public/LaPrensaGris.jpg
+./public/LogoCronicas001.png
+./public/Motzart.jpg
+./public/MotzartWide.jpg
+./public/MozarteumGris.jpg
+./public/next.svg
+./public/PalacioLibertadgris.jpg
+./public/placeholder-podcast.jpg
+./public/SalaColonExtendida.jpg
+./public/TeatroColonGris.jpg
+./public/teatrowidevacio.png
+./public/vercel.svg
+./public/window.svg
+./README.md
+./resumen_proyecto.txt
+./src
+./src/app
+./src/app/bio
+./src/app/categorias
+./src/app/contacto
+./src/app/favicon.ico
+./src/app/globals.css
+./src/app/layout.js
+./src/app/page.js
+./src/app/podcasts
+./src/app/search
+./src/app/temporadas
+./src/app/test
+./src/components
+./src/components/benavidescompleto.png
+./src/components/BioContent.jsx
+./src/components/CategoryHero.jsx
+./src/components/ContactForm.jsx
+./src/components/editorial
+./src/components/Footer.jsx
+./src/components/Header.jsx
+./src/components/Hero.jsx
+./src/components/HomeContent.jsx
+./src/components/I18nProvider.jsx
+./src/components/InstitutionalLinks.jsx
+./src/components/Navbar.jsx
+./src/components/PaperBackground.jsx
+./src/components/PlayButton.jsx
+./src/components/Player.jsx
+./src/components/PodcastCard.jsx
+./src/components/PodcastDetail.jsx
+./src/components/PodcastList.jsx
+./src/components/PostEntry.jsx
+./src/components/ProgramasList.jsx
+./src/components/SeasrchBox.jsx
+./src/components/TrackRowClient.jsx
+./src/context
+./src/context/ReproductorContext.jsx
+./src/data
+./src/data/institutionalLinks.js
+./src/lib
+./src/lib/contentModel.js
+./src/lib/i18n.js
+./src/lib/locales
+./src/lib/palette.js
+./src/lib/soundcloud.js
+./src/lib/wordpress.js
+./src/services
+./src/services/podcasts.js
+./src/services/posts.js
+./src/services/taxonomies.js
+./src/services/wordpress.js
+./src/styles
+./src/types
+./tailwind.config.js
+
+==================================================
+ARCHIVOS CLAVE DE CONFIGURACIÓN Y CÓDIGO
+==================================================
+
+--------------------------------------------------
+ARCHIVO: package.json
+--------------------------------------------------
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@paper-design/shaders-react": "^0.0.77",
+    "framer-motion": "^12.38.0",
+    "i18next": "^25.8.18",
+    "lucide-react": "^1.6.0",
+    "next": "16.1.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-i18next": "^16.5.8",
+    "soundcloud-widget": "^0.2.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/page": "^1.11.9",
+    "autoprefixer": "^10.4.23",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  }
+}
+
+--------------------------------------------------
+ARCHIVO: next.config.mjs
+--------------------------------------------------
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // output: "export",
+
+  images: {
+    unoptimized: true, // Mantenemos tu configuración intacta para el export fijo
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.cronicasdeunespectador.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.sndcdn.com", // El CDN de SoundCloud para las miniaturas nuevas
+        pathname: "/**",
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+--------------------------------------------------
+ARCHIVO: tailwind.config.js
+--------------------------------------------------
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/app/**/*.{js,jsx}",
+    "./src/components/**/*.{js,jsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        surface: "var(--surface)",
+        border: "var(--border)",
+        text: "var(--text)",
+        textStrong: "var(--text-strong)",
+        olive: "var(--olive)",
+        beige: "var(--beige)",
+        ocre: "var(--ocre)",
+      },
+      fontFamily: {
+        heading: "var(--font-heading)",
+        body: "var(--font-body)",
+      },
+    },
+  },
+  plugins: [],
+};
+
+--------------------------------------------------
+ARCHIVO: .env.local
+--------------------------------------------------
+
+NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID=4UBpi35NOKe8gSOYeOphEMWyeIjKPXyN
+NEXT_PUBLIC_API_URL=https://api.cronicasdeunespectador.com/wp-json

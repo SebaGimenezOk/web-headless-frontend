@@ -47,7 +47,7 @@ export default function NewsletterBanner() {
         </div>
 
         {/* Derecha: Formulario / Placeholder para Mail */}
-        <div className="w-full md:w-auto md:min-w-100">
+        <div className="w-full md:w-auto md:min-w-100 px-1.5">
           {status === "success" ? (
             <div className="font-body text-sm text-(--olive) border border-(--olive) bg-(--olive)/5 p-4 rounded-sm text-center animate-fade-in">
               ¡Gracias por suscribirse! Pronto recibirá nuestras novedades.

@@ -17,7 +17,7 @@ export default function Hero() {
       </div>
 
       {/* Versión DESKTOP: Ancho total de pantalla a pantalla, proporción exacta 1920x600 */}
-      <div className="hidden md:block relative w-full aspect-192/60 overflow-hidden mb-10">
+      <div className="hidden md:block relative w-full aspect-192/60 overflow-hidden">
         <Image
           src="/encabezado-cronicas.jpg"
           alt="Hero Desktop"
@@ -26,7 +26,7 @@ export default function Hero() {
           className="object-cover object-center"
         />
       </div>
-      <div className="px-2.5 w-full mb-2">
+      <div className="px-2.5 w-full mb-10">
         <div className="h-px bg-[#bfa15f] opacity-40 w-full" />
       </div>
     </section>

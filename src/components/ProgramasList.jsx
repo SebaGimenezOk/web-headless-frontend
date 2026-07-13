@@ -42,8 +42,7 @@ export default async function ProgramasList() {
               
               {/* Frase descriptiva integrada en la misma tarjeta */}
               <p className="mt-3 text-sm md:text-base text-white/70 font-light font-source leading-relaxed drop-shadow">
-                Todas las ediciones grabadas de cada temporada, en cada estación
-                donde se realizaron.
+                Todas las ediciones grabadas de cada estación donde se realizaron.
               </p>
               
               {/* Línea decorativa alineada al texto */}
@@ -60,7 +59,7 @@ export default async function ProgramasList() {
           <div className="rounded-2xl p-6 md:p-8 bg-(--olive)/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source"> 
               <h2 className="text-xl font-bold uppercase text-white tracking-wide">
-                Programas
+                Bajo estas Estrellas: Programas
               </h2>
               <div className="mt-2 h-1 w-12 bg-white/30" />
             </header>
@@ -81,7 +80,7 @@ export default async function ProgramasList() {
           <div className="rounded-2xl p-6 md:p-8 bg-[#bfa15f]/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source"> 
               <h2 className="text-xl font-bold uppercase text-white tracking-wide">
-                Entrevistas
+                Bajo Estas Estrellas: Entrevistas
               </h2>
               <div className="mt-2 h-1 w-12 bg-white/30" />
             </header>

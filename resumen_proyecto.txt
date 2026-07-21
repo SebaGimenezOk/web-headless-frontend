@@ -9,6 +9,7 @@ ESTRUCTURA DEL PROYECTO
 ./package.json
 ./postcss.config.mjs
 ./public
+./public/Alejandro-Claudia-2.png
 ./public/Alejandro-Claudia.png
 ./public/benavides 3.png
 ./public/benavides-solos.png
@@ -28,6 +29,12 @@ ESTRUCTURA DEL PROYECTO
 ./public/encabezado-opera.jpg
 ./public/encabezado-teatro-mobile.jpg
 ./public/encabezado-teatro.jpg
+./public/EncabezadoTemporada2024.jpg
+./public/EncabezadoTemporada2024mobile.jpg
+./public/EncabezadoTemporada2025.jpg
+./public/EncabezadoTemporada2025mobile.jpg
+./public/EncabezadoTemporada2026.jpg
+./public/EncabezadoTemporada2026mobile.jpg
 ./public/file.svg
 ./public/globe.svg
 ./public/IsologoPluma.png
@@ -59,6 +66,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/app/search
 ./src/app/temporadas
 ./src/app/test
+./src/comando resumen pryecto.env
 ./src/components
 ./src/components/benavidescompleto.png
 ./src/components/BioContent.jsx
@@ -72,6 +80,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/components/I18nProvider.jsx
 ./src/components/InstitutionalLinks.jsx
 ./src/components/Navbar.jsx
+./src/components/NewsletterBanner.jsx
 ./src/components/PaperBackground.jsx
 ./src/components/PlayButton.jsx
 ./src/components/Player.jsx

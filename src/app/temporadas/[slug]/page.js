@@ -30,7 +30,7 @@ export default async function TemporadaPage({ params }) {
 
       <div className="px-6 py-8 max-w-6xl mx-auto">
         {/* TÍTULO */}
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">
+        <h1 className="text-3xl md:text-4xl font-heading uppercase mb-8">
           {temporada.name}
         </h1>
 

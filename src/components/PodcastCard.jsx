@@ -9,7 +9,7 @@ export default function PodcastCard({ post, className = "" }) {
   const {
     title = "Sin título",
     category = "Sin categoría",
-    location = post.ubicacion || null, // Soporta tanto 'location' como 'ubicacion'
+    location = post.ubicacion || post.location || null, 
     imageUrl = null,
     slug = "#",
     audioUrl = null,
@@ -65,7 +65,7 @@ export default function PodcastCard({ post, className = "" }) {
       {/* AUDIO */}
       {audioUrl && (
         <div className="mt-3">
-          <PlayButton url={audioUrl} label=" Escuchar entrevista 🎙️" />
+          <PlayButton url={audioUrl} label=" Posee entrevista 🎙️" />
         </div>
       )}
     </article>

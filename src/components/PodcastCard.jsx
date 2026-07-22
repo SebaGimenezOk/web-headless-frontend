@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import PlayButton from "@/components/PlayButton";
-import { getAllPodcasts } from "@/services/podcasts";
+import { MapPin } from "lucide-react";
 
 export default function PodcastCard({ post, className = "" }) {
   if (!post || typeof post !== "object") return null;
 
   const {
     title = "Sin título",
-    author = "Autor desconocido",
     category = "Sin categoría",
+    location = post.ubicacion || null, // Soporta tanto 'location' como 'ubicacion'
     imageUrl = null,
     slug = "#",
     audioUrl = null,
@@ -54,15 +54,18 @@ export default function PodcastCard({ post, className = "" }) {
         {category}
       </div>
 
-      {/* AUTOR */}
-      <div className="text-sm text-gray-400">
-        {author}
-      </div>
+      {/* UBICACIÓN CON ÍCONO */}
+      {location && (
+        <div className="text-sm text-gray-500 mt-1 flex items-center gap-1.5">
+          <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+          <span>{location}</span>
+        </div>
+      )}
 
       {/* AUDIO */}
       {audioUrl && (
         <div className="mt-3">
-          <PlayButton url={audioUrl} label=" Entrevista 🎙️" />
+          <PlayButton url={audioUrl} label=" Escuchar entrevista 🎙️" />
         </div>
       )}
     </article>

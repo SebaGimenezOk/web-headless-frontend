@@ -36,6 +36,8 @@ function mapPost(post) {
 
     duration: post.acf?.duration || null,
 
+    location: post.acf?.ubicacion || post.acf?.location || null,
+
     // 🔥 TAXONOMÍAS
     category: categorias.length
       ? categorias.join(", ")

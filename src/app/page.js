@@ -3,6 +3,7 @@ import HomeContent from "@/components/HomeContent";
 import { getAllPodcasts } from "@/services/podcasts";
 import InstitutionalLinks from "@/components/InstitutionalLinks";
 import NewsletterBanner from "@/components/NewsletterBanner";
+import PlateanetBanner from "@/components/PlateanetBanner";
 
 export const revalidate = 60; 
 
@@ -21,6 +22,7 @@ export default async function HomePage() {
     <>
       <Hero />
       <HomeContent podcasts={podcasts} />
+      <PlateanetBanner/>
       <InstitutionalLinks />
       <NewsletterBanner/>
 

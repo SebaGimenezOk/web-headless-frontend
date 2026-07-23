@@ -7,6 +7,7 @@ import { ReproductorProvider } from "@/context/ReproductorContext";
 import Player from "@/components/Player";
 import Script from "next/script";
 import PaperBackground from "@/components/PaperBackground"; 
+import AlternativaTeatralBanner from "@/components/AlternativaTeatralBanner";
 
 export const metadata = {
   title: "Crónicas de un Espectador",
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
               
               {/* 🔥 Colocamos el listado acá: mantiene la textura y se renderiza en todas las páginas antes del footer */}
               <ProgramasList /> 
-              
+              <AlternativaTeatralBanner/>
               <Footer />
             </I18nProvider>
             <Player />

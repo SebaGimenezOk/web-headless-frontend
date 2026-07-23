@@ -12,8 +12,8 @@ export default function PlayButton({ url, label = "▶ Reproducir" }) {
   return (
     <button
       onClick={handleClick}
-      className="hover:bg-stone-700 text-white px-4 py-2 rounded transition"
-       style={{ backgroundColor: "var(--ocre)" }}>
+      className="hover:bg-stone-700 text-strong px-4 py-2 rounded transition"
+       style={{ backgroundColor: "var(--beige)" }}>
       {label}
     </button>
   );

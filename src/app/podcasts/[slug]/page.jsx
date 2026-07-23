@@ -11,7 +11,7 @@ export const revalidate = 60;
 export const dynamicParams = true;
 
 export default async function PodcastDetailPage({ params }) {
-  // ✅ params ahora es una Promise en Next.js moderno
+  // ✅ params es Promise en Next.js moderno
   const { slug } = await params;
 
   if (!slug) {
@@ -44,6 +44,16 @@ export default async function PodcastDetailPage({ params }) {
     );
   }
 
+  // Formateo de fecha de emisión (publishedAt o date)
+  const rawDate = post.publishedAt || post.date;
+  const formattedDate = rawDate
+    ? new Date(rawDate).toLocaleDateString("es-AR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+
   return (
     <main className="max-w-4xl mx-auto px-6 py-10">
       <div className="flex justify-end">
@@ -55,58 +65,62 @@ export default async function PodcastDetailPage({ params }) {
         </Link>
       </div>
 
-    <article className="mt-6 space-y-6">
+      <article className="mt-6 space-y-6">
+        {/* TÍTULO */}
+        <h1 className="text-4xl uppercase font-medium leading-tight">
+          {post.title}
+        </h1>
 
-  <h1 className="text-4xl uppercase font-medium leading-tight">
-    {post.title}
-  </h1>
+        {/* FECHA DE EMISIÓN | AUTOR / DURACIÓN / AUDIO */}
+        <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2">
+          {formattedDate && <span>{formattedDate}</span>}
+          {formattedDate && post.author && <span>|</span>}
+          {post.author && (
+            <span>
+              autor: <strong>{post.author}</strong>
+            </span>
+          )}
 
-  <div className="text-sm text-gray-500 flex flex-wrap items-center gap-3">
-    {post.author && (
-      <span>
-        <strong>Autor:</strong> {post.author}
-      </span>
-    )}
+          {post.duration && (
+            <span>
+              • <strong>Duración:</strong> {post.duration}
+            </span>
+          )}
 
-    {post.duration && (
-      <span>
-        <strong>Duración:</strong> {post.duration}
-      </span>
-    )}
+          {post.audioUrl && (
+            <>
+              <span>•</span>
+              <PlayButton url={post.audioUrl} />
+            </>
+          )}
+        </div>
 
-    {post.audioUrl && (
-      <>
-        <span>•</span>
-        <PlayButton url={post.audioUrl} />
-      </>
-    )}
-  </div>
+        {/* BAJADA */}
+        {post.bajada && (
+          <p className="podcast-bajada">
+            {post.bajada}
+          </p>
+        )}
 
-  {post.bajada && (
-    <p className="podcast-bajada">
-      {post.bajada}
-    </p>
-  )}
+        {/* IMAGEN */}
+        <div className="w-full my-12">
+          {post.imageUrl && (
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              className="object-cover w-full rounded-2xl shadow-md"
+              width={800}
+              height={400}
+            />
+          )}
+        </div>
 
-  
-  <div className="w-full my-12">
-    {post.imageUrl && (
-      <Image
-        src={post.imageUrl}
-        alt={post.title}
-        className="object-cover w-full rounded-2xl shadow-md"
-        width={800}
-        height={400}
-      />
-    )}
-  </div>
-
-  <div
-    className="article-content antialiased mt-8"
-    dangerouslySetInnerHTML={{ __html: post.content }}
-  />
-
-</article>
+        {/* CONTENIDO */}
+        <div
+          className="article-content antialiased mt-8"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      </article>
     </main>
   );
 }

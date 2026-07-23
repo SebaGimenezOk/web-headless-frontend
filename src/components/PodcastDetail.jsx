@@ -2,6 +2,7 @@
 
 import PlayButton from "@/components/PlayButton";
 import Image from "next/image";
+
 export default function PodcastDetail({ post }) {
   if (!post) return null;
 
@@ -32,24 +33,30 @@ export default function PodcastDetail({ post }) {
         {title}
       </h1>
 
+      {/* AUTOR Y FECHA DE EMISIÓN */}
+      <div className="text-sm text-gray-600 font-medium">
+        {formattedDate && <span>{formattedDate}</span>}
+        {formattedDate && author && <span> | </span>}
+        {author && <span>autor: {author}</span>}
+      </div>
+
       {/* IMG */}
       {imageUrl && (
         <Image
           src={imageUrl}
           alt={title}
-          className="w-full h-100 object-cover rounded-xl"
+          width={1200}
+          height={600}
+          className="w-full h-auto max-h-[500px] object-cover rounded-xl"
         />
       )}
 
-      {/* META */}
-      <div className="text-sm text-gray-500 flex flex-wrap gap-2">
-        <span>{category}</span>
-        <span>• {author}</span>
-        {formattedDate && <span>• {formattedDate}</span>}
+      {/* META SECUNDARIA / AUDIO */}
+      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+        {category && <span className="bg-neutral-100 px-3 py-1 rounded-full">{category}</span>}
         {duration && <span>• {duration} min</span>}
       </div>
 
-      {/* AUDIO */}
       {audioUrl && (
         <div className="pt-2">
           <PlayButton url={audioUrl} label="Posee Entrevista 🎧" />

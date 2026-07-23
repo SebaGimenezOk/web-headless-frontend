@@ -90,7 +90,7 @@ export default async function PodcastDetailPage({ params }) {
           {post.audioUrl && (
             <>
               <span>•</span>
-              <PlayButton url={post.audioUrl} />
+              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️"/>
             </>
           )}
         </div>

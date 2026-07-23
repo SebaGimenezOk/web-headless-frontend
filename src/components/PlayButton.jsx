@@ -13,7 +13,7 @@ export default function PlayButton({ url, label = "▶ Reproducir" }) {
     <button
       onClick={handleClick}
       className="hover:bg-stone-700 text-white px-4 py-2 rounded transition"
-       style={{ backgroundColor: "var(--olive)" }}>
+       style={{ backgroundColor: "var(--ocre)" }}>
       {label}
     </button>
   );

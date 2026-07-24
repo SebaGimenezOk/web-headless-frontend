@@ -17,10 +17,10 @@ export default function AlternativaTeatralBanner({
               {title}
             </h2>
             <Image
-              src="/IsologoPluma.png"
-              alt="Isologo Crónicas"
-              width={36}
-              height={36}
+              src="/logo alternatia.jpeg"
+              alt="Logo Alternativa Teatral"
+              width={40}
+              height={40}
               className="h-9 w-auto object-contain opacity-90"
               style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
             />

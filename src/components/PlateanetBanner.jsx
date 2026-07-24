@@ -19,7 +19,7 @@ export default function PlateanetBanner({
             <Image
               src="/logo plateanet.svg"
               alt="Logo Plateanet"
-              width={200}
+              width={36 }
               height={36}
               className="h-9 w-auto object-contain opacity-90"
               style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}

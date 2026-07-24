@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function PlateanetBanner({
   href = "https://www.plateanet.com",
-  title = "COMPRÁ TUS ENTRADAS",
+  title = "COMPRÁ TUS ENTRADAS DE:",
   description = "Conseguí tus ubicaciones y entradas de forma rápida a través de Plateanet para las próximas funciones.",
   buttonText = "IR A PLATEANET",
 }) {
@@ -21,7 +21,7 @@ export default function PlateanetBanner({
               alt="Logo Plateanet"
               width={36 }
               height={36}
-              className="h-4 w-auto object-contain opacity-90"
+              className="h-6 w-auto object-contain opacity-90"
               style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
             />
           </div>

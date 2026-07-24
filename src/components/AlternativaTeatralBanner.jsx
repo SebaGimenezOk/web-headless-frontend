@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AlternativaTeatralBanner({
   href = "https://www.alternativateatral.com",
-  title = "CARTELERA Y RESERVAS DE: ",
+  title = "CARTELERA Y RESERVAS DE:",
   description = "Consultá las funciones, ficha técnica y reservá tus localidades a través de Alternativa Teatral.",
   buttonText = "ir a ALTERNATIVA TEATRAL",
 }) {
@@ -16,13 +16,13 @@ export default function AlternativaTeatralBanner({
             <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none mr-1">
               {title}
             </h2>
-            <div className="rounded-full overflow-hidden shrink-0 flex items-baseline justify-center bg-white/5 border border-white/10">
+            <div className="w-10 h-10 min-w-10 rounded-full overflow-hidden shrink-0 flex items-center justify-center bg-white/5 border border-white/10">
               <Image
                 src="/logo alternativa.jpeg"
                 alt="Logo Alternativa Teatral"
-                width={30}
-                height={30}
-                className="w-full h-full object-cover opacity-90"
+                width={40}
+                height={40}
+                className="w-full h-9 object-cover opacity-90"
                 style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
               />
             </div>

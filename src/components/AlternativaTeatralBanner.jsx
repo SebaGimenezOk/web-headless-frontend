@@ -17,7 +17,7 @@ export default function AlternativaTeatralBanner({
               {title}
             </h2>
             <Image
-              src="/logo alternatia.jpeg"
+              src="/logo alternativa.jpeg"
               alt="Logo Alternativa Teatral"
               width={40}
               height={40}

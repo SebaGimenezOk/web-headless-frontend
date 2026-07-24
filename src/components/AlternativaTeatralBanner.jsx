@@ -3,9 +3,9 @@ import Image from "next/image";
 
 export default function AlternativaTeatralBanner({
   href = "https://www.alternativateatral.com",
-  title = "CARTELERA Y RESERVAS",
+  title = "CARTELERA Y RESERVAS DE: ",
   description = "Consultá las funciones, ficha técnica y reservá tus localidades a través de Alternativa Teatral.",
-  buttonText = "VER EN ALTERNATIVA",
+  buttonText = "ir a ALTERNATIVA TEATRAL",
 }) {
   return (
     <section className="w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
@@ -20,8 +20,8 @@ export default function AlternativaTeatralBanner({
               <Image
                 src="/logo alternativa.jpeg"
                 alt="Logo Alternativa Teatral"
-                width={40}
-                height={40}
+                width={30}
+                height={30}
                 className="w-full h-full object-cover opacity-90"
                 style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
               />

@@ -18,7 +18,7 @@ export default function AlternativaTeatralBanner({
             </h2>
             <div className="flex items-center justify-center bg-white/5 border border-white/10">
               <Image
-                src="/logo alternativaLargoB.png"
+                src="/logo-alternativaLargoB.png"
                 alt="Logo Alternativa Teatral"
                 width={200}
                 height={40}

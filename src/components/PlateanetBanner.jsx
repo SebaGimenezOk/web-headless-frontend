@@ -17,9 +17,9 @@ export default function PlateanetBanner({
               {title}
             </h2>
             <Image
-              src="/IsologoPluma.png"
-              alt="Isologo Crónicas"
-              width={36}
+              src="/logo plateanet.svg"
+              alt="Logo Plateanet"
+              width={200}
               height={36}
               className="h-9 w-auto object-contain opacity-90"
               style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}

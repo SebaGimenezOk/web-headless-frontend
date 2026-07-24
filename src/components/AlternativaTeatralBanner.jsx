@@ -16,7 +16,7 @@ export default function AlternativaTeatralBanner({
             <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1">
               {title}
             </h2>
-            <div className="flex items-center justify-center bg-white/5 border border-white/10">
+            <div className="flex items-center justify-center ">
               <Image
                 src="/logo-alternativaLargoB.png"
                 alt="Logo Alternativa Teatral"

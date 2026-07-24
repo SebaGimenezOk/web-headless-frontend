@@ -16,14 +16,16 @@ export default function AlternativaTeatralBanner({
             <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none mr-1">
               {title}
             </h2>
-            <Image
-              src="/logo alternativa.jpeg"
-              alt="Logo Alternativa Teatral"
-              width={40}
-              height={40}
-              className="h-9 w-auto object-contain opacity-90"
-              style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
-            />
+            <div className="w-10 h-10 min-w-10 rounded-full overflow-hidden shrink-0 flex items-center justify-center bg-white/5 border border-white/10">
+              <Image
+                src="/logo alternativa.jpeg"
+                alt="Logo Alternativa Teatral"
+                width={40}
+                height={40}
+                className="w-full h-full object-cover opacity-90"
+                style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
+              />
+            </div>
           </div>
           <p className="font-body text-white/70 text-sm md:text-base leading-relaxed opacity-90 antialiased">
             {description}

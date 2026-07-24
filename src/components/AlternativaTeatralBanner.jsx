@@ -13,18 +13,19 @@ export default function AlternativaTeatralBanner({
         {/* Izquierda: Título (con Isologo) y Frase */}
         <div className="max-w-xl space-y-3">
           <div className="flex items-baseline gap-3">
-            <h2 className="font-heading text-white/90 text-xl md:text-2xl lg:text-3xl font-serif tracking-wide uppercase leading-none mr-1">
+            <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1">
               {title}
             </h2>
-
-            <Image
-              src="/logo alternativaLargo.png"
-              alt="Logo Alternativa Teatral"
-              width={40}
-              height={40}
-              className="w-full h-6 object-cover opacity-90"
-              style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
-            />
+            <div className="flex items-center justify-center bg-white/5 border border-white/10">
+              <Image
+                src="/logo alternativaLargo.png"
+                alt="Logo Alternativa Teatral"
+                width={200}
+                height={40}
+                className="w-full h-6 object-cover opacity-90"
+                style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
+              />
+            </div>
           </div>
           <p className="font-body text-white/70 text-sm md:text-base leading-relaxed opacity-90 antialiased">
             {description}

@@ -9,7 +9,7 @@ export default async function ProgramasList() {
     /* 1. CONTENEDOR CON IMAGEN DE BACKGROUND SE MANTIENE FIJO CON TAILWIND */
     <section
       className="relative w-full py-20 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed"
-      style={{ backgroundImage: `url('/teatrowidevacio.png')` }}
+      style={{ backgroundImage: `url('/bg-MiguelAngel.png')` }}
     >
       {/* Capa oscura superior con desenfoque para dar contraste */}
       <div className="absolute inset-0 bg-white/80 backdrop-blur-sm pointer-events-none" />

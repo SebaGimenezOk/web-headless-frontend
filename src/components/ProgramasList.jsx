@@ -12,7 +12,7 @@ export default async function ProgramasList() {
       style={{ backgroundImage: `url('/teatrowidevacio.png')` }}
     >
       {/* Capa oscura superior con desenfoque para dar contraste */}
-      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-none" />
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm pointer-events-none" />
 
       {/* Contenido real por encima del background */}
       <div className="relative max-w-6xl mx-auto z-10">
@@ -36,12 +36,12 @@ export default async function ProgramasList() {
             {/* BLOQUE DE TEXTOS (Título y frase alineados juntos a la derecha de la foto) */}
             <div className="text-center sm:text-left flex-1">
               {/* Título ligero */}
-              <h1 className="text-2xl md:text-4xl font-medium text-white tracking-wide uppercase drop-shadow-md">
+              <h1 className="text-2xl md:text-4xl font-medium text-zinc-900 tracking-wide uppercase drop-shadow-md">
                 Bajo Estas Estrellas: Colección
               </h1>
               
               {/* Frase descriptiva integrada en la misma tarjeta */}
-              <p className="mt-3 text-sm md:text-base text-white/70 font-light font-source leading-relaxed drop-shadow">
+              <p className="mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed drop-shadow">
                 Todas las ediciones grabadas de cada estación donde se realizaron.
               </p>
               
@@ -58,7 +58,7 @@ export default async function ProgramasList() {
           {/* COLUMNA 1: OLIVA CON ALPHA */}
           <div className="rounded-2xl p-6 md:p-8 bg-(--olive)/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source"> 
-              <h2 className="text-xl font-bold uppercase text-white tracking-wide">
+              <h2 className="text-xl font-bold uppercase text-zinc-700 tracking-wide">
                 Bajo estas Estrellas: Programas
               </h2>
               <div className="mt-2 h-1 w-12 bg-white/30" />
@@ -79,7 +79,7 @@ export default async function ProgramasList() {
           {/* COLUMNA 2: DORADO MATE CON ALPHA */}
           <div className="rounded-2xl p-6 md:p-8 bg-[#bfa15f]/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source"> 
-              <h2 className="text-xl font-bold uppercase text-white tracking-wide">
+              <h2 className="text-xl font-bold uppercase text-zinc-900 tracking-wide">
                 Bajo Estas Estrellas: Entrevistas
               </h2>
               <div className="mt-2 h-1 w-12 bg-white/30" />

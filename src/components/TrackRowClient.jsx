@@ -28,12 +28,25 @@ export default function TrackRowClient({ item, index, variant }) {
         <p className="text-[10px] uppercase text-zinc-700 tracking-wider">
           Episodio {(index + 1).toString().padStart(2, "0")}
         </p>
-        <h3 className="font-bold text-white text-sm truncate">{item.title}</h3>
+        <h3
+          style={{
+            fontFamily: "var(--font-body)",
+          }}
+          className="font-bold text-zinc-700 text-sm truncate"
+        >
+          {item.title}
+        </h3>
       </div>
 
-      <div className={`shrink-0 flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-300
-        ${isPlayingNow ? "bg-white text-black" : "border-white/20 text-white"}`}>
-        {isPlayingNow ? <Pause size={14} fill="currentColor" className="animate-pulse" /> : <Play size={14} fill="currentColor" />}
+      <div
+        className={`shrink-0 flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-300
+        ${isPlayingNow ? "bg-white text-black" : "border-white/20 text-white"}`}
+      >
+        {isPlayingNow ? (
+          <Pause size={14} fill="currentColor" className="animate-pulse" />
+        ) : (
+          <Play size={14} fill="currentColor" />
+        )}
       </div>
     </button>
   );

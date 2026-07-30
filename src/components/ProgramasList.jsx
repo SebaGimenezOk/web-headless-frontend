@@ -12,7 +12,7 @@ export default async function ProgramasList() {
       style={{ backgroundImage: `url('/bg-MiguelAngel.png')` }}
     >
       {/* Capa oscura superior con desenfoque para dar contraste */}
-      <div className="absolute inset-0 bg-white/60 backdrop-blur-sm pointer-events-none" />
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-sm/20  pointer-events-none" />
 
       {/* Contenido real por encima del background */}
       <div className="relative max-w-6xl mx-auto z-10">

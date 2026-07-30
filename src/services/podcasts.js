@@ -37,6 +37,10 @@ function mapPost(post) {
     duration: post.acf?.duration || null,
 
     location: post.acf?.ubicacion || post.acf?.location || null,
+    
+    plateanetUrl: post.acf?.plateanet || null, 
+
+    alternativaUrl: post.acf?.alternativa_teatral || null,
 
     // 🔥 TAXONOMÍAS
     category: categorias.length

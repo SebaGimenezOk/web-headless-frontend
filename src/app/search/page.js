@@ -9,7 +9,7 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     const trimmedQuery = query.trim().toLowerCase();
 
     if (!trimmedQuery) {
@@ -23,10 +23,7 @@ useEffect(() => {
 
     const timer = setTimeout(async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.cronicasdeunespectador.com/wp-json";
-        
-        
-       const endpoint = `https://api.cronicasdeunespectador.com/wp-json/wp/v2/podcast?per_page=100&_embed`;
+        const endpoint = `https://api.cronicasdeunespectador.com/wp-json/wp/v2/podcast?per_page=100&_embed`;
 
         const res = await fetch(endpoint);
 
@@ -34,16 +31,34 @@ useEffect(() => {
 
         const posts = await res.json();
 
-        // Filtramos en cliente para abarcar títulos, slugs, resúmenes y taxonomías
+        // Filtramos abarcando Título, Slug, Excerpt, Contenido completo, Meta/ACF y Taxonomías
         const filteredPosts = posts.filter((post) => {
           const title = post.title?.rendered ? post.title.rendered.toLowerCase() : "";
           const slug = post.slug ? post.slug.toLowerCase() : "";
           const excerpt = post.excerpt?.rendered ? post.excerpt.rendered.toLowerCase() : "";
+          
+          // Contenido completo de la entrada sin HTML
+          const rawContent = post.content?.rendered 
+            ? post.content.rendered.replace(/<[^>]*>?/gm, "").toLowerCase() 
+            : "";
+
+          // Nombres de todas las taxonomías asociadas (categorías, temporadas, etc.)
+          const terms = post._embedded?.["wp:term"]
+            ? post._embedded["wp:term"].flat().map((t) => t.name.toLowerCase()).join(" ")
+            : "";
+
+          // Búsqueda profunda en meta / ACF (si existen)
+          const metaString = post.meta ? JSON.stringify(post.meta).toLowerCase() : "";
+          const acfString = post.acf ? JSON.stringify(post.acf).toLowerCase() : "";
 
           return (
             title.includes(trimmedQuery) ||
             slug.includes(trimmedQuery) ||
-            excerpt.includes(trimmedQuery)
+            excerpt.includes(trimmedQuery) ||
+            rawContent.includes(trimmedQuery) ||
+            terms.includes(trimmedQuery) ||
+            metaString.includes(trimmedQuery) ||
+            acfString.includes(trimmedQuery)
           );
         });
 

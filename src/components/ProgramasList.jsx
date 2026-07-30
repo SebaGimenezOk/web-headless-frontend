@@ -54,12 +54,9 @@ export default async function ProgramasList() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* COLUMNA 1: OLIVA CON ALPHA */}
           <div className="rounded-2xl p-6 md:p-8 bg-(--olive)/40 backdrop-blur-md shadow-2xl border border-white/5">
-            <header className="mb-8 font-source">
+            <header className="mb-8 ">
               <h2
-                style={{
-                  fontFamily: "var(--font-body)",
-                }}
-                className="text-xl  uppercase text-zinc-700 tracking-wide"
+                className="text-xl font-bold uppercase text-zinc-700 tracking-wide"
               >
                 Bajo estas Estrellas: Programas
               </h2>
@@ -82,9 +79,7 @@ export default async function ProgramasList() {
           <div className="rounded-2xl p-6 md:p-8 bg-[#bfa15f]/40 backdrop-blur-md shadow-2xl border border-white/5">
             <header className="mb-8 font-source">
               <h2
-                style={{
-                  fontFamily: "var(--font-body)",
-                }}
+               
                 className="text-xl  uppercase text-zinc-700 tracking-wide"
               >
                 Bajo Estas Estrellas: Entrevistas

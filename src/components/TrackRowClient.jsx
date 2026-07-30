@@ -25,14 +25,14 @@ export default function TrackRowClient({ item, index, variant }) {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-[10px] uppercase text-zinc-700 tracking-wider">
+        <p className="text-[10px] font-bold uppercase text-zinc-700 tracking-wider">
           Episodio {(index + 1).toString().padStart(2, "0")}
         </p>
         <h3
           style={{
             fontFamily: "var(--font-body)",
           }}
-          className="font-bold text-zinc-700 text-sm truncate"
+          className=" text-zinc-700 text-sm truncate"
         >
           {item.title}
         </h3>

@@ -9,8 +9,8 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
-  useEffect(() => {
-    const trimmedQuery = query.trim();
+useEffect(() => {
+    const trimmedQuery = query.trim().toLowerCase();
 
     if (!trimmedQuery) {
       setResults([]);
@@ -24,41 +24,61 @@ export default function SearchPage() {
     const timer = setTimeout(async () => {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.cronicasdeunespectador.com/wp-json";
-        const endpoint = `${baseUrl}/wp/v2/podcast?search=${encodeURIComponent(trimmedQuery)}&_embed&per_page=10`;
+        
+        // Traemos las publicaciones recientes del CPT 'podcast' (hasta 100)
+        const endpoint = `${baseUrl}/wp/v2/podcast?per_page=100&_embed`;
 
         const res = await fetch(endpoint);
 
-        if (!res.ok) throw new Error("Error fetching search results");
+        if (!res.ok) throw new Error("Error en la respuesta de la API");
 
         const posts = await res.json();
 
-        const formattedResults = posts.map((post) => {
+        // Filtramos en cliente para abarcar títulos, slugs, resúmenes y taxonomías
+        const filteredPosts = posts.filter((post) => {
+          const title = post.title?.rendered ? post.title.rendered.toLowerCase() : "";
+          const slug = post.slug ? post.slug.toLowerCase() : "";
+          const excerpt = post.excerpt?.rendered ? post.excerpt.rendered.toLowerCase() : "";
+
+          return (
+            title.includes(trimmedQuery) ||
+            slug.includes(trimmedQuery) ||
+            excerpt.includes(trimmedQuery)
+          );
+        });
+
+        const formattedResults = filteredPosts.map((post) => {
           const cleanTitle = post.title?.rendered
-            ? post.title.rendered.replace(/<[^>]*>?/gm, "").replace(/&#8211;/g, "-")
+            ? post.title.rendered
+                .replace(/<[^>]*>?/gm, "")
+                .replace(/&#8211;/g, "-")
+                .replace(/&#8217;/g, "'")
             : "";
+
           const cleanExcerpt = post.excerpt?.rendered
             ? post.excerpt.rendered.replace(/<[^>]*>?/gm, "")
             : "";
-          const categoryName = post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Podcast";
+
+          const categoryTerm = post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Podcast";
 
           return {
             id: post.id,
             title: cleanTitle,
             slug: post.slug,
             excerpt: cleanExcerpt,
-            categoryName,
+            categoryName: categoryTerm,
           };
         });
 
         setResults(formattedResults);
       } catch (error) {
-        console.error("Error en la búsqueda:", error);
+        console.error("Error al buscar podcasts:", error);
         setResults([]);
       } finally {
         setLoading(false);
         setHasSearched(true);
       }
-    }, 350);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, [query]);

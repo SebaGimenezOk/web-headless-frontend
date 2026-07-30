@@ -37,8 +37,8 @@ function mapPost(post) {
     duration: post.acf?.duration || null,
 
     location: post.acf?.ubicacion || post.acf?.location || null,
-    
-    plateanetUrl: post.acf?.plateanet || null, 
+
+    plateanetUrl: post.acf?.link_plateanet || null, 
 
     alternativaUrl: post.acf?.alternativa_teatral || null,
 

@@ -80,7 +80,7 @@ export default async function ProgramasList() {
             <header className="mb-8 font-source">
               <h2
                
-                className="text-xl  uppercase text-zinc-700 tracking-wide"
+                className="text-xl font-bold uppercase text-zinc-700 tracking-wide"
               >
                 Bajo Estas Estrellas: Entrevistas
               </h2>

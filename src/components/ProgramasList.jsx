@@ -12,7 +12,7 @@ export default async function ProgramasList() {
       style={{ backgroundImage: `url('/bg-MiguelAngel.png')` }}
     >
       {/* Capa oscura superior con desenfoque para dar contraste */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm pointer-events-none" />
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-sm pointer-events-none" />
 
       {/* Contenido real por encima del background */}
       <div className="relative max-w-6xl mx-auto z-10">
@@ -36,12 +36,12 @@ export default async function ProgramasList() {
             {/* BLOQUE DE TEXTOS (Título y frase alineados juntos a la derecha de la foto) */}
             <div className="text-center sm:text-left flex-1">
               {/* Título ligero */}
-              <h1 className="text-2xl md:text-4xl font-medium text-zinc-900 tracking-wide uppercase drop-shadow-md">
+              <h1 className="text-2xl md:text-4xl font-medium text-zinc-900 tracking-wide uppercase">
                 Bajo Estas Estrellas: Colección
               </h1>
               
               {/* Frase descriptiva integrada en la misma tarjeta */}
-              <p className="mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed drop-shadow">
+              <p className="mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed">
                 Todas las ediciones grabadas de cada estación donde se realizaron.
               </p>
               

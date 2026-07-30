@@ -25,7 +25,7 @@ export default function SearchBox() {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.cronicasdeunespectador.com/wp-json";
         
-        // CPT registrado en WP con rest_base -> 'podcast'
+       
         const endpoint = `${baseUrl}/wp/v2/podcast?search=${encodeURIComponent(trimmedQuery)}&_embed&per_page=10`;
 
         const res = await fetch(endpoint);

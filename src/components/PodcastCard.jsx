@@ -78,7 +78,7 @@ export default function PodcastCard({ post, className = "" }) {
           {season && (
             <>
               <span>•</span>
-              <span className="font-semibold text-neutral-700 bg-neutral-100 px-2 py-0.5 rounded text-xs">
+              <span className="uppercase text-zinc-700  px-2 py-0.5 rounded text-sm">
                 {season}
               </span>
             </>

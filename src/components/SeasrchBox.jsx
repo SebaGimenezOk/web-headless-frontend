@@ -23,23 +23,22 @@ export default function SearchBox() {
 
     const timer = setTimeout(async () => {
       try {
-        // Leemos directamente tu variable NEXT_PUBLIC_API_URL ("https://api.cronicasdeunespectador.com/wp-json")
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.cronicasdeunespectador.com/wp-json";
         
-        // Construimos la URL agregando solo /wp/v2/posts
-        const endpoint = `${baseUrl}/wp/v2/posts?search=${encodeURIComponent(trimmedQuery)}&_embed&per_page=10`;
+        // Apuntamos al endpoint singular `/wp/v2/podcast`
+        const endpoint = `${baseUrl}/wp/v2/podcast?search=${encodeURIComponent(trimmedQuery)}&_embed&per_page=10`;
 
         const res = await fetch(endpoint);
 
-        if (!res.ok) throw new Error("Error fetching search results");
+        if (!res.ok) throw new Error("Error consultando la API de podcast");
 
         const posts = await res.json();
 
-        // Formateamos los resultados para limpiar tags HTML
+        // Mapeamos los podcasts recibidos
         const formattedResults = posts.map((post) => {
           const cleanTitle = post.title?.rendered ? post.title.rendered.replace(/<[^>]*>?/gm, "") : "";
           const cleanExcerpt = post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>?/gm, "") : "";
-          const categoryName = post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Crónica";
+          const categoryName = post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Podcast";
 
           return {
             id: post.id,
@@ -52,7 +51,7 @@ export default function SearchBox() {
 
         setResults(formattedResults);
       } catch (error) {
-        console.error("Error al buscar crónicas:", error);
+        console.error("Error al buscar podcasts:", error);
         setResults([]);
       } finally {
         setLoading(false);
@@ -65,7 +64,7 @@ export default function SearchBox() {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      {/* INPUT MANTENIDO TAL CUAL */}
+      {/* INPUT */}
       <div className="max-w-xl mx-auto mb-12">
         <input
           type="text"
@@ -76,7 +75,7 @@ export default function SearchBox() {
         />
       </div>
 
-      {/* ESTADO DE CARGA / LOADER */}
+      {/* ESTADO CARGANDO */}
       {loading && (
         <p className="text-center text-xs uppercase tracking-widest text-neutral-400 animate-pulse">
           Buscando crónicas, obras y artistas...
@@ -86,7 +85,7 @@ export default function SearchBox() {
       {/* SIN RESULTADOS */}
       {!loading && hasSearched && results.length === 0 && (
         <p className="text-center text-sm italic text-neutral-500">
-          No se encontraron crónicas para &quot;{query}&quot;.
+          No se encontraron resultados para &quot;{query}&quot;.
         </p>
       )}
 
@@ -96,7 +95,7 @@ export default function SearchBox() {
           {results.map((item) => (
             <Link 
               key={item.id} 
-              href={`/post/${item.slug}`} 
+              href={`/podcasts/${item.slug}`}
               className="block group border-b border-black/5 pb-6 transition-opacity hover:opacity-80"
             >
               <span className="text-xs uppercase tracking-widest opacity-60 text-black">
@@ -105,9 +104,11 @@ export default function SearchBox() {
               <h2 className="text-xl uppercase tracking-wider my-2 font-normal text-black group-hover:underline">
                 {item.title}
               </h2>
-              <p className="text-sm normal-case tracking-normal text-neutral-600 line-clamp-2">
-                {item.excerpt}
-              </p>
+              {item.excerpt && (
+                <p className="text-sm normal-case tracking-normal text-neutral-600 line-clamp-2">
+                  {item.excerpt}
+                </p>
+              )}
             </Link>
           ))}
         </div>

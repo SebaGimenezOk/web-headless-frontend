@@ -11,12 +11,27 @@ export default function PodcastCard({ post, className = "" }) {
     title = "Sin título",
     category = "Sin categoría",
     season = post.season || post.temporada || post.acf?.temporada || null,
-    location = post.ubicacion || post.location || post.acf?.ubicacion || post.acf?.teatro || null, 
+    location = post.ubicacion ||
+      post.location ||
+      post.acf?.ubicacion ||
+      post.acf?.teatro ||
+      null,
     imageUrl = null,
     slug = "#",
-    audioUrl = post.audioUrl || post.audio_url || post.acf?.audio_url || post.acf?.audio || null,
-    plateanetUrl = post.plateanetUrl || post.plateanet || post.acf?.plateanet || null,
-    alternativaUrl = post.alternativaUrl || post.alternativa_teatral || post.acf?.alternativa_teatral || post.acf?.alternativa || null,
+    audioUrl = post.audioUrl ||
+      post.audio_url ||
+      post.acf?.audio_url ||
+      post.acf?.audio ||
+      null,
+    plateanetUrl = post.plateanetUrl ||
+      post.plateanet ||
+      post.acf?.plateanet ||
+      null,
+    alternativaUrl = post.alternativaUrl ||
+      post.alternativa_teatral ||
+      post.acf?.alternativa_teatral ||
+      post.acf?.alternativa ||
+      null,
   } = post;
 
   return (
@@ -92,7 +107,7 @@ export default function PodcastCard({ post, className = "" }) {
                 href={plateanetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full py-2 px-3 bg-black text-white text-center text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors rounded-xl font-medium"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#f8f5ee] hover:bg-[#efece4] text-neutral-800 border border-[#e5e0d8] text-xs uppercase tracking-wider transition-colors rounded-xl font-medium shadow-sm"
               >
                 <Ticket className="w-3.5 h-3.5" />
                 <span>Plateanet</span>
@@ -104,7 +119,7 @@ export default function PodcastCard({ post, className = "" }) {
                 href={alternativaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full py-2 px-3 border border-black text-black text-center text-xs uppercase tracking-wider hover:bg-black hover:text-white transition-colors rounded-xl font-medium"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#f8f5ee] hover:bg-[#efece4] text-neutral-800 border border-[#e5e0d8] text-xs uppercase tracking-wider transition-colors rounded-xl font-medium shadow-sm"
               >
                 <Ticket className="w-3.5 h-3.5" />
                 <span>Alternativa Teatral</span>

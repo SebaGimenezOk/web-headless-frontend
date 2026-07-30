@@ -9,7 +9,6 @@ export default function SearchBox() {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
-  // EFECTO DE BÚSQUEDA CON DEBOUNCE (espera 400ms después de que el usuario deja de escribir)
   useEffect(() => {
     const trimmedQuery = query.trim();
 
@@ -24,24 +23,22 @@ export default function SearchBox() {
 
     const timer = setTimeout(async () => {
       try {
-        const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "";
+        // Leemos directamente tu variable NEXT_PUBLIC_API_URL ("https://api.cronicasdeunespectador.com/wp-json")
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.cronicasdeunespectador.com/wp-json";
         
-        // Consultamos la API REST de WordPress buscando en posts
-        const res = await fetch(
-          `${WP_URL}/wp-json/wp/v2/posts?search=${encodeURIComponent(trimmedQuery)}&_embed&per_page=10`
-        );
+        // Construimos la URL agregando solo /wp/v2/posts
+        const endpoint = `${baseUrl}/wp/v2/posts?search=${encodeURIComponent(trimmedQuery)}&_embed&per_page=10`;
+
+        const res = await fetch(endpoint);
 
         if (!res.ok) throw new Error("Error fetching search results");
 
         const posts = await res.json();
 
-        // Formateamos los posts recibidos
+        // Formateamos los resultados para limpiar tags HTML
         const formattedResults = posts.map((post) => {
-          // Limpiamos etiquetas HTML de los títulos/excerpts
-          const cleanTitle = post.title.rendered.replace(/<[^>]*>?/gm, "");
-          const cleanExcerpt = post.excerpt.rendered.replace(/<[^>]*>?/gm, "");
-
-          // Extraemos el nombre de la categoría principal si existe
+          const cleanTitle = post.title?.rendered ? post.title.rendered.replace(/<[^>]*>?/gm, "") : "";
+          const cleanExcerpt = post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>?/gm, "") : "";
           const categoryName = post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Crónica";
 
           return {
@@ -99,7 +96,7 @@ export default function SearchBox() {
           {results.map((item) => (
             <Link 
               key={item.id} 
-              href={`/cronicas/${item.slug}`} // Ajustá este path según cómo manejes la ruta de la crónica
+              href={`/post/${item.slug}`} 
               className="block group border-b border-black/5 pb-6 transition-opacity hover:opacity-80"
             >
               <span className="text-xs uppercase tracking-widest opacity-60 text-black">

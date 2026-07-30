@@ -14,6 +14,7 @@ ESTRUCTURA DEL PROYECTO
 ./public/benavides 3.png
 ./public/benavides-solos.png
 ./public/benavidescompleto.png
+./public/bg-MiguelAngel.png
 ./public/CMGris.jpg
 ./public/encabezado-ballet-mobile.jpg
 ./public/encabezado-ballet.jpg
@@ -39,6 +40,10 @@ ESTRUCTURA DEL PROYECTO
 ./public/globe.svg
 ./public/IsologoPluma.png
 ./public/LaPrensaGris.jpg
+./public/logo alternativa.jpeg
+./public/logo alternativaLargo.png
+./public/logo plateanet.svg
+./public/logo-alternativaLargoB.png
 ./public/LogoCronicas001.png
 ./public/Motzart.jpg
 ./public/MotzartWide.jpg
@@ -68,6 +73,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/app/test
 ./src/comando resumen pryecto.env
 ./src/components
+./src/components/AlternativaTeatralBanner.jsx
 ./src/components/benavidescompleto.png
 ./src/components/BioContent.jsx
 ./src/components/CategoryHero.jsx
@@ -82,6 +88,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/components/Navbar.jsx
 ./src/components/NewsletterBanner.jsx
 ./src/components/PaperBackground.jsx
+./src/components/PlateanetBanner.jsx
 ./src/components/PlayButton.jsx
 ./src/components/Player.jsx
 ./src/components/PodcastCard.jsx
@@ -89,6 +96,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/components/PodcastList.jsx
 ./src/components/PostEntry.jsx
 ./src/components/ProgramasList.jsx
+./src/components/SeasonHero.jsx
 ./src/components/SeasrchBox.jsx
 ./src/components/TrackRowClient.jsx
 ./src/context

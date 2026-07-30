@@ -25,8 +25,8 @@ useEffect(() => {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.cronicasdeunespectador.com/wp-json";
         
-        // Traemos las publicaciones recientes del CPT 'podcast' (hasta 100)
-        const endpoint = `${baseUrl}/wp/v2/podcast?per_page=100&_embed`;
+        
+     const endpoint = `https://api.cronicasdeunespectador.com/wp-json/wp/v2/podcast?per_page=100&_embed`;
 
         const res = await fetch(endpoint);
 

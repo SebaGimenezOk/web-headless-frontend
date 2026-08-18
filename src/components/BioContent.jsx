@@ -16,7 +16,7 @@ export default function BioContent() {
       </div>
 
       {/* Bloque de Texto Debajo (Casi ancho completo y con tu tipografía) */}
-      <div className="w-[95%] px-4 space-y-4">
+      <div className="w-[95%] px-4 space-y-4 text-justify">
         <p
           style={{ fontFamily: "var(--font-article)" }}
           className="text-lg text-(--text-strong) leading-relaxed"

@@ -19,8 +19,8 @@ export default function BioContent() {
       <div className="w-[95%] px-4 space-y-4 text-justify">
         <p
           style={{ fontFamily: "var(--font-article)" }}
-          className="text-base text-[var(--text-strong)] leading-relaxed"
-        >
+          className="text-lg text-(--text-strong) leading-relaxed"
+>
           Alejandro Domínguez Benavides es un referente de destacada trayectoria
           en el pensamiento académico, la docencia universitaria y el análisis
           crítico de la cultura. Doctor y docente en el Doctorado en Ciencias

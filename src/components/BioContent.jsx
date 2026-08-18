@@ -1,9 +1,8 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function BioContent() {
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col gap-6">
-      
       {/* Imagen Horizontal Arriba (Formato apaisado nítido) */}
       <div className="relative w-full aspect-video sm:aspect-21/9 overflow-hidden">
         <Image
@@ -19,17 +18,23 @@ export default function BioContent() {
       {/* Bloque de Texto Debajo (Casi ancho completo y con tu tipografía) */}
       <div className="w-[95%] px-4 space-y-4 text-justify">
         <p className="text-xs tracking-wider font-medium text-(--text-strong) uppercase leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac diam id lorem tincidunt 
-          consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 
-          Aliquam erat volutpat.
-        </p>
-        <p className="text-xs tracking-wider font-medium text-(--text-strong) uppercase leading-relaxed">
-          Morbi eget efficitur turpis. Praesent ut accumsan nisi. Mauris feugiat lacus in lectus 
-          viverra, quis convallis magna erat volutpat. Cras elementum, velit id varius interdum, 
-          dui felis vulputate felis, vitae sodales lorem nisl id turpis.
+          Alejandro Domínguez Benavides es un referente de destacada trayectoria
+          en el pensamiento académico, la docencia universitaria y el análisis
+          crítico de la cultura. Doctor y docente en el Doctorado en Ciencias
+          Jurídicas de la Pontificia Universidad Católica Argentina (UCA), su
+          perspectiva combina el rigor conceptual e institucional con una
+          profunda agudeza estética e intelectual. Como columnista y ensayista
+          en el diario La Prensa, su firma se ha consolidado en el ámbito de la
+          crítica cultural y de arte, abordando con mirada incisiva las
+          expresiones plásticas, el patrimonio simbólico y las dinámicas
+          artísticas contemporáneas. Su labor crítica destaca por enaltecer la
+          belleza, la verdad y el valor ético del arte, tendiendo puentes entre
+          la filosofía, el derecho, la historia y la sensibilidad poética. Su
+          perfil académico e intelectual lo posiciona como un observador lúcido
+          de la cultura, cuya prosa lúcida y compromiso con la divulgación
+          enriquecen el debate estético e institucional de la región.
         </p>
       </div>
-
     </div>
   );
 }

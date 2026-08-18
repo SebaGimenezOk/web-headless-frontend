@@ -20,22 +20,20 @@ export default function BioContent() {
         <p
           style={{ fontFamily: "var(--font-article)" }}
           className="text-lg text-(--text-strong) leading-relaxed"
->
+        >
           Alejandro Domínguez Benavides es un referente de destacada trayectoria
-          en el pensamiento académico, la docencia universitaria y el análisis
-          crítico de la cultura. Doctor y docente en el Doctorado en Ciencias
-          Jurídicas de la Pontificia Universidad Católica Argentina (UCA), su
-          perspectiva combina el rigor conceptual e institucional con una
-          profunda agudeza estética e intelectual. Como columnista y ensayista
-          en el diario La Prensa, su firma se ha consolidado en el ámbito de la
-          crítica cultural y de arte, abordando con mirada incisiva las
-          expresiones plásticas, el patrimonio simbólico y las dinámicas
-          artísticas contemporáneas. Su labor crítica destaca por enaltecer la
-          belleza, la verdad y el valor ético del arte, tendiendo puentes entre
-          la filosofía, el derecho, la historia y la sensibilidad poética. Su
-          perfil académico e intelectual lo posiciona como un observador lúcido
-          de la cultura, cuya prosa lúcida y compromiso con la divulgación
-          enriquecen el debate estético e institucional de la región.
+          en el pensamiento académico y la crítica cultural. Doctor y docente en
+          el Doctorado en Ciencias Jurídicas de la Pontificia Universidad
+          Católica Argentina (UCA), su labor analítica combina el rigor
+          conceptual con una profunda devoción por las artes escénicas y
+          literarias. Como ensayista y crítico en el diario La Prensa, su firma
+          se ha consolidado como un faro de análisis en las disciplinas del
+          teatro, la ópera, el ballet, el concierto y la literatura. Con una
+          mirada incisiva y una prosa de alta sensibilidad poética, aborda la
+          puesta en escena, la interpretación musical y el texto literario no
+          solo como hechos estéticos, sino como manifestaciones fundamentales de
+          la condición humana, enalteciendo la belleza, la verdad y el valor
+          simbólico de la cultura.
         </p>
       </div>
     </div>

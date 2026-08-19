@@ -17,7 +17,7 @@ export default function LaPrensaBanner({
               {title}
             </h2>
             {/* Usamos un margen superior negativo (-mt-4 o -mt-6) o -translate-y para subir la imagen */}
-            <div className="flex items-center justify-center h-44 w-auto -mt-6">
+            <div className="flex items-center justify-center h-44 w-auto -mt-2">
               <Image
                 src="/BenavidesLaPrensa.png"
                 alt="Logo BenavidesLaPrensa"

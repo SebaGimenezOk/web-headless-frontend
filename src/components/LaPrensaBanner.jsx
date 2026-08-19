@@ -20,7 +20,7 @@ export default function LaPrensaBanner({
             {/* Altura ajustada a h-16/h-20 para eliminar el vacío. Con -translate-y-1 la subís sutilmente */}
             <div className="flex items-center justify-center h-16 md:h-20 w-auto -translate-y-1">
               <Image
-                src="/BenavidesLaPrensa.png"
+                src="/BenavidesLaPrensa2.jpg"
                 alt="Logo BenavidesLaPrensa"
                 width={300}
                 height={300}

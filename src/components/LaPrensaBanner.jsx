@@ -11,7 +11,7 @@ export default function LaPrensaBanner({
     <section className="relative w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
       {/* Imagen de fondo en proporciones originales sin filtros */}
       <Image
-        src="/BenavidesLaPrensa2.jpg"
+        src="/BenavidesLaPrensa3.jpg"
         alt="Fondo La Prensa"
         fill
         sizes="100vw"

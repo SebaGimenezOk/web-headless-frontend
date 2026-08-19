@@ -8,26 +8,28 @@ export default function LaPrensaBanner({
   buttonText = "ir a La Prensa ",
 }) {
   return (
-    <section className="w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        {/* Izquierda: Título (con Isologo) y Frase */}
+    <section className="relative w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
+      {/* Imagen de fondo con Next.js Image */}
+      <Image
+        src="/BenavidesLaPrensa2.jpg"
+        alt="Fondo La Prensa"
+        fill
+        sizes="100vw"
+        priority
+        className="object-cover object-center opacity-30" 
+      />
+
+      {/* Capa de contraste u Overlay (Opcional, previene problemas de legibilidad) */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+
+      {/* Contenido principal sobre el fondo (z-10 para quedar arriba) */}
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        {/* Izquierda: Título y Frase */}
         <div className="max-w-2xl space-y-3">
           <div className="flex items-center gap-3">
             <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1 whitespace-nowrap">
               {title}
             </h2>
-            
-            {/* Altura ajustada a h-16/h-20 para eliminar el vacío. Con -translate-y-1 la subís sutilmente */}
-            <div className="flex items-center justify-center h-16 md:h-20 w-auto -translate-y-1">
-              <Image
-                src="/BenavidesLaPrensa2.jpg"
-                alt="Logo BenavidesLaPrensa"
-                width={300}
-                height={300}
-                className="h-full w-auto object-contain opacity-90"
-                style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
-              />
-            </div>
           </div>
           <p className="font-body text-white/70 text-sm md:text-base leading-relaxed opacity-90 antialiased">
             {description}

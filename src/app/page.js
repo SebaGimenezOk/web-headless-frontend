@@ -4,6 +4,7 @@ import { getAllPodcasts } from "@/services/podcasts";
 import InstitutionalLinks from "@/components/InstitutionalLinks";
 import NewsletterBanner from "@/components/NewsletterBanner";
 import PlateanetBanner from "@/components/PlateanetBanner";
+import LaPrensaBanner from "@/components/LaPrensaBanner";
 
 export const revalidate = 60; 
 
@@ -21,6 +22,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <LaPrensaBanner/>
       <HomeContent podcasts={podcasts} />
       <PlateanetBanner/>
       <InstitutionalLinks />

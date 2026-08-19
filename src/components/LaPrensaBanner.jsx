@@ -5,7 +5,7 @@ export default function LaPrensaBanner({
   href = "https://www.laprensa.com.ar/author.aspx?author=282",
   title = "ALEJANDRO BENAVIDES EN LA PRENSA:",
   description = "Consultá las notas que escribe Alejandro Benavides en diario La Prensa; lee sus opiniones en el ámbito cultural y artístico.",
-  buttonText = "ir a La Prensa",
+  buttonText = "ir a La Prensa ",
 }) {
   return (
     <section className="w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">

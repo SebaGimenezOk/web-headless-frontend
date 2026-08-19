@@ -1,23 +1,22 @@
-
 import React from "react";
 import Image from "next/image";
 
 export default function LaPrensaBanner({
   href = "https://www.laprensa.com.ar/author.aspx?author=282",
   title = "ALEJANDRO BENAVIDES EN LA PRENSA:",
-  description = "Consultá las notas que escribe Alejandro Benavides en diario La Prensa; lee sus opiniones  en el ámbito cultural y artístico.",
-  buttonText = "ir a La Prensa ",
+  description = "Consultá las notas que escribe Alejandro Benavides en diario La Prensa; lee sus opiniones en el ámbito cultural y artístico.",
+  buttonText = "ir a La Prensa",
 }) {
   return (
     <section className="w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         {/* Izquierda: Título (con Isologo) y Frase */}
-        <div className="max-w-xl space-y-3">
-          <div className="flex items-baseline gap-3">
-            <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1">
+        <div className="max-w-2xl space-y-3">
+          <div className="flex items-center gap-3">
+            <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1 whitespace-nowrap shrink-0">
               {title}
             </h2>
-            <div className="flex items-center justify-center h-44 w-auto ">
+            <div className="flex items-center justify-center h-16 md:h-20 w-auto">
               <Image
                 src="/BenavidesLaPrensa.png"
                 alt="Logo BenavidesLaPrensa"
@@ -48,9 +47,3 @@ export default function LaPrensaBanner({
     </section>
   );
 }
-
-
-
-
-
- 

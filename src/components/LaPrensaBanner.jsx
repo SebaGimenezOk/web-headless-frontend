@@ -23,7 +23,7 @@ export default function LaPrensaBanner({
                 alt="Logo BenavidesLaPrensa"
                 width={300}
                 height={300}
-                className="w-full h-6 object-cover opacity-90"
+                className="h-full w-auto object-contain opacity-90"
                 style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
               />
             </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function LaPrensaBanner({
   href = "https://www.laprensa.com.ar/author.aspx?author=282",
-  title = "ALEJANDRO BENAVIDES EN LA PRENSA:",
+  title = "ALEJANDRO BENAVIDES EN:",
   description = "Consultá las notas que escribe Alejandro Benavides en diario La Prensa; lee sus opiniones en el ámbito cultural y artístico.",
   buttonText = "ir a La Prensa ",
 }) {

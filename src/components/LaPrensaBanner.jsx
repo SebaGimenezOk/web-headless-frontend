@@ -9,20 +9,17 @@ export default function LaPrensaBanner({
 }) {
   return (
     <section className="relative w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
-      {/* Imagen de fondo con Next.js Image */}
+      {/* Imagen de fondo en proporciones originales sin filtros */}
       <Image
         src="/BenavidesLaPrensa2.jpg"
         alt="Fondo La Prensa"
         fill
         sizes="100vw"
         priority
-        className="object-cover object-center opacity-30" 
+        className="object-contain object-center opacity-100"
       />
 
-      {/* Capa de contraste u Overlay (Opcional, previene problemas de legibilidad) */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
-
-      {/* Contenido principal sobre el fondo (z-10 para quedar arriba) */}
+      {/* Contenido flotando sobre la imagen */}
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         {/* Izquierda: Título y Frase */}
         <div className="max-w-2xl space-y-3">

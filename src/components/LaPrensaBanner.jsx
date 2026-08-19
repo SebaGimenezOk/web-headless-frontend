@@ -10,14 +10,14 @@ export default function LaPrensaBanner({
 }) {
   return (
     <section className="w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         {/* Izquierda: Título (con Isologo) y Frase */}
         <div className="max-w-xl space-y-3">
           <div className="flex items-baseline gap-3">
             <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1">
               {title}
             </h2>
-            <div className="flex items-center justify-center h-36 w-auto ">
+            <div className="flex items-center justify-center h-44 w-auto ">
               <Image
                 src="/BenavidesLaPrensa.png"
                 alt="Logo BenavidesLaPrensa"

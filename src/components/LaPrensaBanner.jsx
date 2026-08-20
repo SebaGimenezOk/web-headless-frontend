@@ -8,10 +8,10 @@ export default function LaPrensaBanner({
   buttonText = "ir a La Prensa ",
 }) {
   return (
-    <section className="relative w-full h-full border-y border-(--border) bg-[#090303] py-1 md:py-1 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
+    <section className="relative w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
       {/* Imagen cubriendo todo el contenedor sin deformarse */}
       <Image
-        src="/BenavidesLaPrensa2.jpg"
+        src="/BenavidesLaPrensa4.jpg"
         alt="Fondo La Prensa"
         fill
         sizes="100vw"

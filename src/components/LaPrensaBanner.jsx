@@ -26,7 +26,7 @@ export default function LaPrensaBanner({
         className="block md:hidden object-cover object-center"
       />
 
-      {/* Contenido en columna centrada en mobile */}
+      {/* Contenido en columna centrada en mobile y horizontal en desktop */}
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center text-center md:text-left md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
         
         <div className="flex flex-col items-center md:items-start space-y-4 max-w-2xl">
@@ -35,14 +35,14 @@ export default function LaPrensaBanner({
             ALEJANDRO DOMINGUEZ BENAVIDES EN:
           </h2>
 
-          {/* 2) Logo La Prensa */}
-          <div className="py-1">
+          {/* 2) Logo La Prensa — SOLO VISIBLE EN MOBILE */}
+          <div className="py-2 flex justify-center w-full block md:hidden">
             <Image
               src="/LaPrensaBlanco.png"
               alt="Logo La Prensa"
-              width={300}
-              height={300}
-              className="h-10 md:h-10 w-auto object-contain"
+              width={400}
+              height={100}
+              className="w-48 sm:w-64 h-auto object-contain"
             />
           </div>
 

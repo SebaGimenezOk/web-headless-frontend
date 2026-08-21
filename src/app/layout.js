@@ -11,7 +11,11 @@ import AlternativaTeatralBanner from "@/components/AlternativaTeatralBanner";
 
 export const metadata = {
   title: "Crónicas de un Espectador",
-  description: "contenidos y análisis culturales",
+  icons: {
+    icon: "/IsologoPluma.png",
+    shortcut: "/IsologoPluma.png",
+    apple: "/IsologoPluma.png",
+  },
 };
 
 export default function RootLayout({ children }) {

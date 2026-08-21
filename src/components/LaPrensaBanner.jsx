@@ -40,9 +40,9 @@ export default function LaPrensaBanner({
             <Image
               src="/LaPrensaBlanco.png"
               alt="Logo La Prensa"
-              width={180}
-              height={40}
-              className="h-8 md:h-10 w-auto object-contain"
+              width={300}
+              height={300}
+              className="h-10 md:h-10 w-auto object-contain"
             />
           </div>
 

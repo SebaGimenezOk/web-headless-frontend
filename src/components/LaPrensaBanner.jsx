@@ -38,7 +38,7 @@ export default function LaPrensaBanner({
           {/* 2) Logo La Prensa */}
           <div className="py-1">
             <Image
-              src="/logo-la-prensa.png"
+              src="/LaPrensaBlanco.png"
               alt="Logo La Prensa"
               width={180}
               height={40}

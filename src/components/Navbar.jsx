@@ -168,40 +168,48 @@ export default function Navbar() {
         <div className="h-px bg-[#bfa15f] opacity-40 w-full" />
       </div>
 
-      {/* MOBILE LAYOUT */}
-      <div className="md:hidden flex items-center justify-between px-4 py-3">
-        {/* Mobile Brand Centrado con Pluma */}
-        <Link href="/" className="flex items-center gap-2">
+      {/* MOBILE LAYOUT (3 Columnas: Nombre / Logo Pluma Centrado / Hamburguesa) */}
+      <div className="md:hidden grid grid-cols-3 items-center px-4 py-3">
+        {/* IZQUIERDA: Marca */}
+        <Link href="/" className="flex flex-col justify-center">
           <span
             style={{ fontFamily: "var(--font-heading)" }}
-            className="text-xs sm:text-sm uppercase tracking-wider text-(--text-strong) font-bold leading-tight"
+            className="text-xs uppercase tracking-wider text-(--text-strong) font-bold leading-tight"
           >
             Crónicas de
           </span>
-          <Image
-            src="/IsologoPluma.png"
-            alt="cronicas-isologo"
-            width={28}
-            height={28}
-            className="object-contain shrink-0"
-            priority
-          />
           <span
             style={{ fontFamily: "var(--font-heading)" }}
-            className="text-xs sm:text-sm uppercase tracking-widest text-(--text-strong) font-normal leading-tight"
+            className="text-[10px] uppercase tracking-widest text-(--text-strong) font-normal leading-tight"
           >
             un Espectador
           </span>
         </Link>
 
-        {/* Hamburger Button */}
-        <button
-          className="text-2xl p-1 text-(--text-strong) focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+        {/* CENTRO: Logo Pluma */}
+        <div className="flex justify-center items-center">
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <Image
+              src="/IsologoPluma.png"
+              alt="cronicas-isologo"
+              width={32}
+              height={32}
+              className="object-contain"
+              priority
+            />
+          </Link>
+        </div>
+
+        {/* DERECHA: Botón Hamburguesa */}
+        <div className="flex justify-end items-center">
+          <button
+            className="text-2xl p-1 text-(--text-strong) focus:outline-none"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE MENU DROPDOWN */}

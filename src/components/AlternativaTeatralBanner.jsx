@@ -10,19 +10,20 @@ export default function AlternativaTeatralBanner({
   return (
     <section className="w-full border-y border-(--border) bg-[#090303] py-10 md:py-14 px-4 sm:px-6 lg:px-8 my-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        
         {/* Izquierda: Título (con Isologo) y Frase */}
         <div className="max-w-xl space-y-3">
-          <div className="flex items-baseline gap-3">
-            <h2 className="font-heading text-white/90 text-xl md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none mr-1">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+            <h2 className="font-heading text-white/90 text-lg md:text-xl lg:text-2xl font-serif tracking-wide uppercase leading-none">
               {title}
             </h2>
-            <div className="flex items-center justify-center ">
+            <div className="flex items-center">
               <Image
                 src="/logo-alternativaLargoB.png"
                 alt="Logo Alternativa Teatral"
                 width={200}
                 height={40}
-                className="w-full h-6 object-cover opacity-90"
+                className="w-36 sm:w-48 h-auto object-contain opacity-90"
                 style={{ filter: "drop-shadow(0 0 0 #bfa15f)" }}
               />
             </div>

@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <nav
       style={{ backgroundColor: palette.primary }}
-      className="w-full  select-none"
+      className="w-full select-none"
     >
       {/* ========================================================================= */}
       {/* DESKTOP LAYOUT (Grid de doble fila con línea divisora) */}
@@ -164,24 +164,31 @@ export default function Navbar() {
       </div>
 
       {/* LÍNEA DIVISORA FINA CON COLOR DE ISOLOGO Y SANGRÍA DE 10PX */}
-      <div className="px-2.5 w-full mb-2" >
+      <div className="px-2.5 w-full mb-2">
         <div className="h-px bg-[#bfa15f] opacity-40 w-full" />
       </div>
 
       {/* MOBILE LAYOUT */}
-
-      <div className="md:hidden flex items-center justify-between px-4 py-4">
-        {/* Mobile Brand */}
-        <Link href="/" className="flex flex-col">
+      <div className="md:hidden flex items-center justify-between px-4 py-3">
+        {/* Mobile Brand Centrado con Pluma */}
+        <Link href="/" className="flex items-center gap-2">
           <span
             style={{ fontFamily: "var(--font-heading)" }}
-            className="text-lg uppercase tracking-wider text-(--text-strong) font-bold leading-tight"
+            className="text-xs sm:text-sm uppercase tracking-wider text-(--text-strong) font-bold leading-tight"
           >
             Crónicas de
           </span>
+          <Image
+            src="/IsologoPluma.png"
+            alt="cronicas-isologo"
+            width={28}
+            height={28}
+            className="object-contain shrink-0"
+            priority
+          />
           <span
             style={{ fontFamily: "var(--font-heading)" }}
-            className="text-sm uppercase tracking-widest text-(--text-strong) font-normal"
+            className="text-xs sm:text-sm uppercase tracking-widest text-(--text-strong) font-normal leading-tight"
           >
             un Espectador
           </span>
@@ -189,7 +196,7 @@ export default function Navbar() {
 
         {/* Hamburger Button */}
         <button
-          className="text-2xl p-2 text-(--text-strong) focus:outline-none"
+          className="text-2xl p-1 text-(--text-strong) focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle Menu"
         >
@@ -217,7 +224,7 @@ export default function Navbar() {
             <button
               onClick={() =>
                 setActiveDropdown(
-                  activeDropdown === "temporadas" ? null : "temporadas",
+                  activeDropdown === "temporadas" ? null : "temporadas"
                 )
               }
               className="w-full flex justify-between items-center uppercase"
@@ -249,7 +256,7 @@ export default function Navbar() {
             <button
               onClick={() =>
                 setActiveDropdown(
-                  activeDropdown === "categorias" ? null : "categorias",
+                  activeDropdown === "categorias" ? null : "categorias"
                 )
               }
               className="w-full flex justify-between items-center uppercase"

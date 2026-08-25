@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
-import Article from "@/components/editorial/Article";
+import PlayButton from "@/components/PlayButton";
+import Image from "next/image";
 
 /**
  * 🔥 Configuración de revalidación
@@ -53,15 +54,6 @@ export default async function PodcastDetailPage({ params }) {
       })
     : "";
 
-  // 📸 Armamos el array de imágenes para el slider
-  // Junta las imágenes ACF y la imagen principal si existen
-  const imagenesSlider = [
-    post.imageUrl,
-    post.acf?.imagen_1,
-    post.acf?.imagen_2,
-    post.acf?.imagen_3,
-  ].filter(Boolean);
-
   return (
     <main className="max-w-4xl mx-auto px-6 py-10">
       <div className="flex justify-end">
@@ -73,24 +65,62 @@ export default async function PodcastDetailPage({ params }) {
         </Link>
       </div>
 
-      <Article
-        title={post.title}
-        author={post.author || "Crónicas de un Espectador"}
-        date={formattedDate}
-        readingTime={post.duration ? `Duración: ${post.duration}` : ""}
-        audioUrl={post.audioUrl}
-        imagenes={imagenesSlider}
-      >
-        {/* Bajada opcional arriba del texto */}
+      <article className="mt-6 space-y-6">
+        {/* TÍTULO */}
+        <h1 className="text-4xl uppercase font-medium leading-tight">
+          {post.title}
+        </h1>
+
+        {/* FECHA DE EMISIÓN | AUTOR / DURACIÓN / AUDIO */}
+        <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2">
+          {formattedDate && <span>{formattedDate}</span>}
+          {formattedDate && post.author && <span>|</span>}
+          {post.author && (
+            <span>
+              autor: <strong>{post.author}</strong>
+            </span>
+          )}
+
+          {post.duration && (
+            <span>
+              • <strong>Duración:</strong> {post.duration}
+            </span>
+          )}
+
+          {post.audioUrl && (
+            <>
+              <span>•</span>
+              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️"/>
+            </>
+          )}
+        </div>
+
+        {/* BAJADA */}
         {post.bajada && (
-          <p className="podcast-bajada text-lg font-medium mb-6 text-zinc-600">
+          <p className="podcast-bajada">
             {post.bajada}
           </p>
         )}
 
-        {/* HTML del cuerpo principal */}
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      </Article>
+        {/* IMAGEN */}
+        <div className="w-full my-12">
+          {post.imageUrl && (
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              className="object-cover w-full rounded-2xl shadow-md"
+              width={800}
+              height={400}
+            />
+          )}
+        </div>
+
+        {/* CONTENIDO */}
+        <div
+          className="article-content antialiased mt-8"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      </article>
     </main>
   );
 }

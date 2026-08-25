@@ -1,18 +1,17 @@
+// article body modificado:
+// article body modificado
 import { palette } from "@/lib/palette";
-import SliderImagenes from "@/components/SliderImagenes"; // Importamos el slider
 
-export default function ArticleBody({ children, imagenes = [] }) {
+export default function ArticleBody({ children }) {
   return (
+   
     <article 
       className="prose prose-neutral prose-sans w-full text-text"
       style={{ 
         fontFamily: 'var(--font-body)',
-        '--tw-prose-body': 'var(--font-body)'
+        '--tw-prose-body': 'var(--font-body)' // Esto fuerza a los <p> de prose a usar tu fuente
       }}
     >
-      {/* Si vienen imágenes en el array, las renderizamos antes del contenido */}
-      {imagenes.length > 0 && <SliderImagenes imagenes={imagenes} />}
-
       {children}
     </article>
   );

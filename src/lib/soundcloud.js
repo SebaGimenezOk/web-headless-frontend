@@ -51,7 +51,7 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
 }
 
 export async function getProgramasYEntrevistas() {
-  const URL_PROGRAMAS = "https://soundcloud.com/bajoestasestrellas/sets/programas";
+  const URL_PROGRAMAS = "https://soundcloud.com/bajoestasestrellas/sets/temporada-2026";
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([

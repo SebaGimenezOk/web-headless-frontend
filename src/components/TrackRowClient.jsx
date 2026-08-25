@@ -4,9 +4,11 @@ import Image from "next/image";
 import { useReproductor } from "@/context/ReproductorContext";
 import { Play, Pause } from "lucide-react";
 
-export default function TrackRowClient({ item, index, variant }) {
+export default function TrackRowClient({ item, index, variant, temporada = "2026" }) {
   const { trackUrl, playTrack } = useReproductor();
   const isPlayingNow = trackUrl === item.streamUrl;
+
+  const episodeNumber = (index + 1).toString().padStart(2, "0");
 
   return (
     <button
@@ -26,7 +28,7 @@ export default function TrackRowClient({ item, index, variant }) {
 
       <div className="flex-1 min-w-0">
         <p className="text-[10px] font-bold uppercase text-zinc-700 tracking-wider">
-          Episodio {(index + 1).toString().padStart(2, "0")}
+          Episodio {episodeNumber} | Temporada {temporada}
         </p>
         <h3
           style={{

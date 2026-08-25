@@ -112,3 +112,30 @@
   object-fit: cover;
   border-radius: 0.75rem;
 }
+
+/* Personalización de controles de Swiper */
+.slider-custom .swiper-button-next,
+.slider-custom .swiper-button-prev {
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+}
+
+.slider-custom .swiper-button-next::after,
+.slider-custom .swiper-button-prev::after {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.slider-custom .swiper-pagination-bullet {
+  background: #ffffff;
+  opacity: 0.5;
+}
+
+.slider-custom .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #ffffff;
+}

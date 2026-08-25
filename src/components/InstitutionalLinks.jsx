@@ -25,7 +25,7 @@ export default function InstitutionalLinks() {
                 alt={site.name}
                 width={360}
                 height={140}
-                className="h-28 w-auto opacity-85 transition-all duration-300 hover:opacity-100 hover:-translate-y-1"
+                className="h-56 w-auto opacity-85 transition-all duration-300 hover:opacity-100 hover:-translate-y-1"
               />
             </Link>
           ))}

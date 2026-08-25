@@ -8,7 +8,7 @@ export default function Article({
   date,
   readingTime,
   audioUrl,
-  children,
+  imagenes = [], 
 }) {
   return (
     <section className="max-w-5xl p-6 md:p-8 rounded-lg">
@@ -21,7 +21,8 @@ export default function Article({
         audioUrl={audioUrl}
       />
 
-      <ArticleBody>{children}</ArticleBody>
+      {/* Se las mandamos a ArticleBody */}
+      <ArticleBody imagenes={imagenes}>{children}</ArticleBody>
     </section>
   );
 }

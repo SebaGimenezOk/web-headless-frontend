@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
-import Image from "next/image";
+import SliderImagenes from "@/components/SliderImagenes"; // 1. Importamos el slider
 
 /**
  * 🔥 Configuración de revalidación
@@ -54,6 +54,14 @@ export default async function PodcastDetailPage({ params }) {
       })
     : "";
 
+  // 2. Armamos la lista con la foto principal + campos de ACF que existan
+  const imagenesSlider = [
+    post.imageUrl,
+    post.acf?.imagen_1,
+    post.acf?.imagen_2,
+    post.acf?.imagen_3,
+  ].filter(Boolean);
+
   return (
     <main className="max-w-4xl mx-auto px-6 py-10">
       <div className="flex justify-end">
@@ -102,17 +110,9 @@ export default async function PodcastDetailPage({ params }) {
           </p>
         )}
 
-        {/* IMAGEN */}
+        {/* SLIDER / IMAGEN */}
         <div className="w-full my-12">
-          {post.imageUrl && (
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              className="object-cover w-full rounded-2xl shadow-md"
-              width={800}
-              height={400}
-            />
-          )}
+          <SliderImagenes imagenes={imagenesSlider} />
         </div>
 
         {/* CONTENIDO */}

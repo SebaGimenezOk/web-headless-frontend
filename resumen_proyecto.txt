@@ -14,6 +14,11 @@ ESTRUCTURA DEL PROYECTO
 ./public/benavides 3.png
 ./public/benavides-solos.png
 ./public/benavidescompleto.png
+./public/BenavidesLaPrensa.png
+./public/BenavidesLaPrensa2.jpg
+./public/BenavidesLaPrensa3.jpg
+./public/BenavidesLaPrensa4.jpg
+./public/BenavidesLaPrensaMobile.jpg
 ./public/bg-MiguelAngel.png
 ./public/CMGris.jpg
 ./public/encabezado-ballet-mobile.jpg
@@ -26,6 +31,8 @@ ESTRUCTURA DEL PROYECTO
 ./public/encabezado-cronicas.jpg
 ./public/encabezado-literatura-mobile.jpg
 ./public/encabezado-literatura.jpg
+./public/encabezado-musica-mobile.jpg
+./public/encabezado-musica.jpg
 ./public/encabezado-opera-mobile.jpg
 ./public/encabezado-opera.jpg
 ./public/encabezado-teatro-mobile.jpg
@@ -39,6 +46,7 @@ ESTRUCTURA DEL PROYECTO
 ./public/file.svg
 ./public/globe.svg
 ./public/IsologoPluma.png
+./public/LaPrensaBlanco.png
 ./public/LaPrensaGris.jpg
 ./public/logo alternativa.jpeg
 ./public/logo alternativaLargo.png
@@ -63,8 +71,8 @@ ESTRUCTURA DEL PROYECTO
 ./src/app/bio
 ./src/app/categorias
 ./src/app/contacto
-./src/app/favicon.ico
 ./src/app/globals.css
+./src/app/IsologoPluma.png
 ./src/app/layout.js
 ./src/app/page.js
 ./src/app/podcasts
@@ -74,7 +82,6 @@ ESTRUCTURA DEL PROYECTO
 ./src/comando resumen pryecto.env
 ./src/components
 ./src/components/AlternativaTeatralBanner.jsx
-./src/components/benavidescompleto.png
 ./src/components/BioContent.jsx
 ./src/components/CategoryHero.jsx
 ./src/components/ContactForm.jsx
@@ -85,6 +92,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/components/HomeContent.jsx
 ./src/components/I18nProvider.jsx
 ./src/components/InstitutionalLinks.jsx
+./src/components/LaPrensaBanner.jsx
 ./src/components/Navbar.jsx
 ./src/components/NewsletterBanner.jsx
 ./src/components/PaperBackground.jsx
@@ -98,6 +106,7 @@ ESTRUCTURA DEL PROYECTO
 ./src/components/ProgramasList.jsx
 ./src/components/SeasonHero.jsx
 ./src/components/SeasrchBox.jsx
+./src/components/SliderImagenes.jsx
 ./src/components/TrackRowClient.jsx
 ./src/context
 ./src/context/ReproductorContext.jsx
@@ -145,7 +154,8 @@ ARCHIVO: package.json
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-i18next": "^16.5.8",
-    "soundcloud-widget": "^0.2.1"
+    "soundcloud-widget": "^0.2.1",
+    "swiper": "^14.1.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

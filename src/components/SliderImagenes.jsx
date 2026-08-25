@@ -4,16 +4,32 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
 
-// Importar los estilos core de Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function SliderImagenes({ imagenes = [] }) {
+  // 1. Si no hay imágenes, no renderiza nada
   if (!imagenes || imagenes.length === 0) return null;
 
+  // 2. Si hay solo UNA imagen, renderiza un contenedor estático limpio (sin slider ni flechas)
+  if (imagenes.length === 1) {
+    return (
+      <div className="w-full h-[350px] md:h-[480px] relative rounded-2xl overflow-hidden shadow-xl">
+        <Image
+          src={imagenes[0]}
+          alt="Imagen principal"
+          fill
+          className="object-cover"
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  // 3. Si hay 2 o más imágenes, activa el slider completo
   return (
-    <div className="w-full my-8 relative rounded-2xl overflow-hidden shadow-xl">
+    <div className="w-full relative rounded-2xl overflow-hidden shadow-xl">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
@@ -28,7 +44,7 @@ export default function SliderImagenes({ imagenes = [] }) {
           <SwiperSlide key={index} className="relative w-full h-full">
             <Image
               src={src}
-              alt={`Diapositiva ${index + 1}`}
+              alt={`Imagen ${index + 1}`}
               fill
               className="object-cover"
               unoptimized

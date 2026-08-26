@@ -27,7 +27,7 @@ function mapPost(post) {
       post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
       null,
 
-    // 🔥 ACF FIELDS
+    // 🔥 ACF FIELDS INDIVIDUALES
     author: post.acf?.author || "Autor desconocido",
 
     bajada: post.acf?.bajada || "",
@@ -41,6 +41,9 @@ function mapPost(post) {
     plateanetUrl: post.acf?.link_plateanet || null, 
 
     alternativaUrl: post.acf?.alternativa_teatral || null,
+
+    // 👈 ¡AQUÍ ESTÁ LA CLAVE! Pasa todo el objeto ACF intacto para las imágenes del slider
+    acf: post.acf || {},
 
     // 🔥 TAXONOMÍAS
     category: categorias.length

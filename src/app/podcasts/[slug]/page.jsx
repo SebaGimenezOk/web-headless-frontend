@@ -48,20 +48,11 @@ export default async function PodcastDetailPage({ params }) {
       })
     : "";
 
-  // 📸 EXTRAER IMÁGENES DE FORMA SEGURA (Filtra IDs numéricos si los hay)
+  // Toma imageUrl + cualquier propiedad en post.acf que empiece con "imagen_"
   const acfImages = Object.keys(post?.acf || {})
     .filter((key) => key.startsWith("imagen_"))
-    .map((key) => {
-      const val = post.acf[key];
-      if (!val) return null;
-      // Si ya es un string con URL
-      if (typeof val === "string" && val.startsWith("http")) return val;
-      // Si es un objeto de ACF con .url
-      if (typeof val === "object" && val?.url) return val.url;
-      // Si es un número (ID de WP) se ignora para no romper la app
-      return null;
-    })
-    .filter(Boolean);
+    .map((key) => post.acf[key])
+    .filter((url) => typeof url === "string" && url.startsWith("http"));
 
   const imagenesSlider = [post.imageUrl, ...acfImages].filter(Boolean);
 

@@ -29,7 +29,7 @@ export default function SliderImagenes({ imagenes = [] }) {
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
         loop={true}
         className="w-full h-[350px] md:h-[480px] slider-custom"
       >

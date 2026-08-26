@@ -18,20 +18,20 @@
     --ocre: #936917;
     --beige-suave: #cdc7be;
     
-    /* Tipografías - Corregido el nombre de Adobe con guiones */
+    /* Tipografías */
     --font-heading: "magister", serif;
     --font-body: "source-sans-3", sans-serif; 
     --font-article: "source-serif-4", serif;
   }
 
-  /* Fuerza a que los contenedores principales sean transparentes y dejen ver el shader */
+  /* Fuerza a que los contenedores principales sean transparentes */
   html, body, main, #__next {
     background-color: transparent !important;
   }
 
   /* El cuerpo de la nota */
   .article-content {
-    font-family: var(--font-body); /* Fuerza a que use "source-sans-3" */
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 1.0625rem;
     line-height: 1.85;

@@ -2,16 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
-import SliderImagenes from "@/components/SliderImagenes"; // 1. Importamos el slider
+import SliderImagenes from "@/components/SliderImagenes";
 
-/**
- * 🔥 Configuración de revalidación
- */
 export const revalidate = 60;
 export const dynamicParams = true;
 
 export default async function PodcastDetailPage({ params }) {
-  // ✅ params es Promise en Next.js moderno
   const { slug } = await params;
 
   if (!slug) {
@@ -26,7 +22,6 @@ export default async function PodcastDetailPage({ params }) {
     console.error("Error obteniendo podcast:", error);
   }
 
-  // 🔥 Fallback si no existe el post
   if (!post) {
     return (
       <main className="max-w-4xl mx-auto p-10">
@@ -44,7 +39,6 @@ export default async function PodcastDetailPage({ params }) {
     );
   }
 
-  // Formateo de fecha de emisión (publishedAt o date)
   const rawDate = post.publishedAt || post.date;
   const formattedDate = rawDate
     ? new Date(rawDate).toLocaleDateString("es-AR", {
@@ -54,13 +48,15 @@ export default async function PodcastDetailPage({ params }) {
       })
     : "";
 
-  // 2. Armamos la lista con la foto principal + campos de ACF que existan
-  const imagenesSlider = [
-    post.imageUrl,
-    post.acf?.imagen_1,
-    post.acf?.imagen_2,
-    post.acf?.imagen_3,
-  ].filter(Boolean);
+  // Extrae dinámicamente post.imageUrl + cualquier clave acf que empiece con "imagen_"
+  const acfImages = Object.keys(post?.acf || {})
+    .filter((key) => key.startsWith("imagen_"))
+    .map((key) => {
+      const val = post.acf[key];
+      return typeof val === "string" ? val : val?.url;
+    });
+
+  const imagenesSlider = [post.imageUrl, ...acfImages].filter(Boolean);
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-10">
@@ -74,12 +70,10 @@ export default async function PodcastDetailPage({ params }) {
       </div>
 
       <article className="mt-6 space-y-6">
-        {/* TÍTULO */}
         <h1 className="text-4xl uppercase font-medium leading-tight">
           {post.title}
         </h1>
 
-        {/* FECHA DE EMISIÓN | AUTOR / DURACIÓN / AUDIO */}
         <div className="text-sm text-gray-500 flex flex-wrap items-center gap-2">
           {formattedDate && <span>{formattedDate}</span>}
           {formattedDate && post.author && <span>|</span>}
@@ -103,19 +97,16 @@ export default async function PodcastDetailPage({ params }) {
           )}
         </div>
 
-        {/* BAJADA */}
         {post.bajada && (
           <p className="podcast-bajada">
             {post.bajada}
           </p>
         )}
 
-        {/* SLIDER / IMAGEN */}
         <div className="w-full my-12">
           <SliderImagenes imagenes={imagenesSlider} />
         </div>
 
-        {/* CONTENIDO */}
         <div
           className="article-content antialiased mt-8"
           dangerouslySetInnerHTML={{ __html: post.content }}
@@ -125,9 +116,6 @@ export default async function PodcastDetailPage({ params }) {
   );
 }
 
-/**
- * 🔥 Generación de slugs (opcional para build)
- */
 export async function generateStaticParams() {
   try {
     const posts = await getAllPodcasts();

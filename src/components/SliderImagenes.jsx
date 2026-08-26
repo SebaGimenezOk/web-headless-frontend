@@ -4,15 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 export default function SliderImagenes({ imagenes = [] }) {
-  // 1. Si no hay imágenes, no renderiza nada
   if (!imagenes || imagenes.length === 0) return null;
 
-  // 2. Si hay solo UNA imagen, renderiza un contenedor estático limpio (sin slider ni flechas)
   if (imagenes.length === 1) {
     return (
       <div className="w-full h-[350px] md:h-[480px] relative rounded-2xl overflow-hidden shadow-xl">
@@ -27,7 +21,6 @@ export default function SliderImagenes({ imagenes = [] }) {
     );
   }
 
-  // 3. Si hay 2 o más imágenes, activa el slider completo
   return (
     <div className="w-full relative rounded-2xl overflow-hidden shadow-xl">
       <Swiper

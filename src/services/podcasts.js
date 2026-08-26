@@ -2,40 +2,60 @@ const API_URL = "https://api.cronicasdeunespectador.com";
 const BASE_ENDPOINT = `${API_URL}/wp-json/wp/v2/podcast?_embed`;
 
 /**
- * 🔥 Mapper central (Resuelve datos de WP, Taxonomías e imágenes ACF)
+ * 🛠️ Función auxiliar para obtener la URL de un ID de medio directamente de WordPress
  */
-function mapPost(post) {
+async function fetchImageUrlById(mediaId) {
+  if (!mediaId || typeof mediaId !== "number") return null;
+  try {
+    const res = await fetch(`${API_URL}/wp-json/wp/v2/media/${mediaId}`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+    const mediaData = await res.json();
+    return mediaData?.source_url || mediaData?.guid?.rendered || null;
+  } catch (error) {
+    console.error(`Error buscando imagen ID ${mediaId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * 🔥 Mapper central (Resuelve URLs, Objetos ACF e IDs numéricos asincrónicamente)
+ */
+async function mapPost(post) {
   const temporadas =
     post._embedded?.["wp:term"]?.[0]?.map((t) => t.name) || [];
 
   const categorias =
     post._embedded?.["wp:term"]?.[1]?.map((c) => c.name) || [];
 
-  // Mapeo inteligente de campos ACF (Soporta URL string, Objeto ACF e IDs numéricos de WP)
   const rawAcf = post.acf || {};
   const acfResolved = {};
 
-  Object.keys(rawAcf).forEach((key) => {
+  // Procesamos todas las claves de ACF
+  const acfKeys = Object.keys(rawAcf);
+  
+  for (const key of acfKeys) {
     const val = rawAcf[key];
 
-    if (!val) return;
+    if (!val) continue;
 
     // Caso 1: String directo (URL)
     if (typeof val === "string" && val.startsWith("http")) {
       acfResolved[key] = val;
     }
-    // Caso 2: Objeto ACF con propiedad .url
+    // Caso 2: Objeto ACF con .url
     else if (typeof val === "object" && val?.url) {
       acfResolved[key] = val.url;
     }
-    // Caso 3: ID numérico -> Busca la URL real en los medios embebidos (_embedded)
-    else if (typeof val === "number" && post._embedded?.["wp:attachment"]) {
-      const media = post._embedded["wp:attachment"].find((item) => item.id === val);
-      if (media?.source_url) {
-        acfResolved[key] = media.source_url;
+    // Caso 3: ID numérico (ej: 69, 74, 80) -> Consulta la API REST de media de WordPress
+    else if (typeof val === "number" && val > 0) {
+      const fetchedUrl = await fetchImageUrlById(val);
+      if (fetchedUrl) {
+        acfResolved[key] = fetchedUrl;
       }
     }
-  });
+  }
 
   return {
     id: post.id,
@@ -62,7 +82,7 @@ function mapPost(post) {
     plateanetUrl: post.acf?.link_plateanet || null,
     alternativaUrl: post.acf?.alternativa_teatral || null,
 
-    // 🔥 OBJETO ACF COMPLETO TRADUCIDO
+    // 🔥 OBJETO ACF CON LAS URLS RESUELTAS
     acf: acfResolved,
 
     // 🔥 TAXONOMÍAS
@@ -85,7 +105,7 @@ export async function getAllPodcasts() {
     if (!res.ok) return [];
 
     const data = await res.json();
-    return data.map(mapPost);
+    return await Promise.all(data.map(mapPost));
   } catch (error) {
     console.error("Error getAllPodcasts:", error);
     return [];
@@ -106,7 +126,7 @@ export async function getPodcastBySlug(slug) {
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) return null;
 
-    return mapPost(data[0]);
+    return await mapPost(data[0]);
   } catch (error) {
     console.error("Error getPodcastBySlug:", error);
     return null;
@@ -125,7 +145,7 @@ export async function getPodcastsByTemporadaId(temporadaId) {
     if (!res.ok) return [];
 
     const data = await res.json();
-    return Array.isArray(data) ? data.map(mapPost) : [];
+    return Array.isArray(data) ? await Promise.all(data.map(mapPost)) : [];
   } catch (error) {
     console.error("Error getPodcastsByTemporadaId:", error);
     return [];
@@ -144,7 +164,7 @@ export async function getPodcastsByCategoriaId(categoriaId) {
     if (!res.ok) return [];
 
     const data = await res.json();
-    return Array.isArray(data) ? data.map(mapPost) : [];
+    return Array.isArray(data) ? await Promise.all(data.map(mapPost)) : [];
   } catch (error) {
     console.error("Error getPodcastsByCategoriaId:", error);
     return [];

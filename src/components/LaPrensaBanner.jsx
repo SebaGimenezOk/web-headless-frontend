@@ -9,7 +9,7 @@ export default function LaPrensaBanner({
     <section className="relative w-full border-y border-(--border) bg-[#090303] py-8 md:py-14 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
       {/* Background Desktop */}
       <Image
-        src="/BenavidesLaPrensa5.jpg"
+        src="/BenavidesLaPrensa5.png"
         alt="Fondo La Prensa"
         fill
         sizes="100vw"

@@ -14,7 +14,7 @@ export default function LaPrensaBanner({
         fill
         sizes="100vw"
         priority
-        className="hidden md:block object-cover object-center"
+        className="hidden md:block object-contain object-center"
       />
       {/* Background Mobile */}
       <Image

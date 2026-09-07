@@ -12,7 +12,7 @@ export default function ContactForm() {
         <input 
           type="text" 
           className="w-full p-3 bg-transparent border border-black/10 focus:border-black outline-none transition-colors"
-          placeholder="Lorem Ipsum"
+          placeholder="Nombre"
         />
       </div>
 
@@ -21,7 +21,7 @@ export default function ContactForm() {
         <input 
           type="email" 
           className="w-full p-3 bg-transparent border border-black/10 focus:border-black outline-none transition-colors"
-          placeholder="lorem@ipsum.com"
+          placeholder="email.com"
         />
       </div>
 

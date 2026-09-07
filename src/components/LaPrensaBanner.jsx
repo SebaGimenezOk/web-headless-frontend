@@ -6,7 +6,7 @@ export default function LaPrensaBanner({
   buttonText = "ir a La Prensa",
 }) {
   return (
-    <section className="relative w-full border-y border-(--border) bg-[#090303] py-4 md:py-10 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
+    <section className="relative w-full border-y border-(--border) bg-[#090303] py-14 md:py-14 px-4 sm:px-6 lg:px-8 my-12 overflow-hidden">
       {/* Background Desktop */}
       <Image
         src="/BenavidesLaPrensa5.png"

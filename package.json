@@ -12,22 +12,23 @@
     "@paper-design/shaders-react": "^0.0.77",
     "framer-motion": "^12.38.0",
     "i18next": "^25.8.18",
-    "lucide-react": "^1.6.0",
+    "lucide-react": "^1.41.0",
     "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-i18next": "^16.5.8",
+    "react-icons": "^5.7.0",
     "soundcloud-widget": "^0.2.1",
     "swiper": "^14.1.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
     "@types/page": "^1.11.9",
-    "autoprefixer": "^10.4.23",
+    "autoprefixer": "^10.5.5",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18"
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3"
   }
 }

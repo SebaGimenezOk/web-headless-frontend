@@ -10,7 +10,7 @@ export default function InstitutionalLinks() {
           Instituciones y medios de referencia
         </h2>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-24 gap-y-12">
+        <div className="flex flex-wrap items-center justify-center gap-x-20 gap-y-12">
           {institutionalLinks.map((site) => (
             <Link
               key={site.name}

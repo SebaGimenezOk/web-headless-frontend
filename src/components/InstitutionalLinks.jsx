@@ -10,7 +10,7 @@ export default function InstitutionalLinks() {
           Instituciones y medios de referencia
         </h2>
 
-        <div className="flex flex-nowrap items-center justify-between gap-6 overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex flex-nowrap items-center justify-between gap-1 overflow-x-auto pb-4 scrollbar-hide">
           {institutionalLinks.map((site) => (
             <Link
               key={site.name}
@@ -25,7 +25,7 @@ export default function InstitutionalLinks() {
                 alt={site.name}
                 width={200}
                 height={200}
-                className="h-28 w-auto max-w-[160px] object-contain opacity-85 transition-all duration-300 hover:opacity-100 hover:-translate-y-1"
+                className="h-28 w-auto max-w-40 object-contain opacity-85 transition-all duration-300 hover:opacity-100 hover:-translate-y-1"
               />
             </Link>
           ))}

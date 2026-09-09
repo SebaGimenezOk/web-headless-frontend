@@ -4,13 +4,13 @@ import institutionalLinks from "@/data/institutionalLinks";
 
 export default function InstitutionalLinks() {
   return (
-    <section className="w-full border-y border-[var(--border)] bg-white py-14">
+    <section className="w-full border-y border-(--border) bg-white py-14">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="mb-8 text-center text-2xl uppercase tracking-[0.2em] text-[var(--olive)]">
+        <h2 className="mb-8 text-center text-2xl uppercase tracking-[0.2em] text-(--olive)">
           Instituciones y medios de referencia
         </h2>
 
-        <div className="flex flex-nowrap items-center justify-center gap-10 overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex flex-nowrap items-center justify-center gap-4 overflow-x-auto pb-4 scrollbar-hide">
           {institutionalLinks.map((site) => (
             <Link
               key={site.name}
@@ -25,7 +25,7 @@ export default function InstitutionalLinks() {
                 alt={site.name}
                 width={200}
                 height={200}
-                className="h-28 w-auto max-w-72 object-contain opacity-85 transition-all duration-300 hover:opacity-100 hover:-translate-y-1"
+                className="h-28 w-auto max-w-40 object-contain opacity-85 transition-all duration-300 hover:opacity-100 hover:-translate-y-1"
               />
             </Link>
           ))}

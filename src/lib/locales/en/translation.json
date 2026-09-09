@@ -1,6 +1,7 @@
 
 {
   "nav.home": "Home",
+   "nav.logoTitle": "Chronicles of a Spectator",
   "nav.seasons": "Seasons",
   "nav.bio": "Bio",
   "nav.search": "Search",
@@ -25,7 +26,8 @@
   "footer.privacy": "Privacy Policy",
   "footer.terms": "Terms and Conditions",
   "footer.rights": "All rights reserved.",
-  "footer.credit": "Powered by SebaGimenezOk"
+  "footer.credit": "Powered by gimenez webfixer"
+  
 
 
 

@@ -1,6 +1,7 @@
 {
   "nav.home": "Portada",
   "nav.seasons": "Temporadas",
+  "nav.logoTitle": "Crónicas del Espectador",
   "nav.bio": "Bio",
   "nav.search": "Buscador",
   "nav.contact": "Contacto",
@@ -24,6 +25,6 @@
   "footer.privacy": "Política de privacidad",
   "footer.terms": "Términos y condiciones",
   "footer.rights": "Todos los derechos reservados.",
-  "footer.credit": "Powered by SebaGimenezOk"
+  "footer.credit": "Powered by gimenez webfixer"
 }
  

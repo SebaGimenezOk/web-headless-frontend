@@ -158,6 +158,7 @@ export default function Navbar() {
               className="text-3xl md:text-3xl tracking-widest uppercase text-(--text-strong) font-normal"
             >
               Crónicas de un Espectador
+              {t("nav.logoTitle")}
             </h1>
           </Link>
         </div>

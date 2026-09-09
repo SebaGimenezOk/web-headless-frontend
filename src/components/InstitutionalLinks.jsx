@@ -4,13 +4,13 @@ import institutionalLinks from "@/data/institutionalLinks";
 
 export default function InstitutionalLinks() {
   return (
-    <section className="w-full border-y border-(--border) bg-white py-14">
+    <section className="w-full border-y border-[var(--border)] bg-white py-14">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="mb-8 text-center text-2xl uppercase tracking-[0.2em] text-(--olive)">
+        <h2 className="mb-8 text-center text-2xl uppercase tracking-[0.2em] text-[var(--olive)]">
           Instituciones y medios de referencia
         </h2>
 
-        <div className="flex flex-nowrap items-center justify-between gap-1 overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex flex-nowrap items-center justify-center gap-10 overflow-x-auto pb-4 scrollbar-hide">
           {institutionalLinks.map((site) => (
             <Link
               key={site.name}
@@ -18,7 +18,7 @@ export default function InstitutionalLinks() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={site.name}
-              className="flex-shrink-0 transition-all duration-300 hover:scale-105"
+              className="shrink-0 transition-all duration-300 hover:scale-105"
             >
               <Image
                 src={site.logo}

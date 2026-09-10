@@ -10,11 +10,9 @@ export default function InstitutionalLinks() {
           Instituciones y medios de referencia
         </h2>
 
-<<<<<<< HEAD
-        <div className="flex flex-nowrap items-center justify-between gap-1 overflow-x-auto pb-4 scrollbar-hide">
-=======
+
         <div className="flex flex-nowrap items-center justify-center gap-20 overflow-x-auto pb-4 scrollbar-hide">
->>>>>>> develop
+
           {institutionalLinks.map((site) => (
             <Link
               key={site.name}

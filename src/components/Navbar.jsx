@@ -157,7 +157,7 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-heading)" }}
               className="text-3xl md:text-3xl tracking-widest uppercase text-(--text-strong) font-normal"
             >
-              Crónicas de un Espectador
+             
               {t("nav.logoTitle")}
             </h1>
           </Link>

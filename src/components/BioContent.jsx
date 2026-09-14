@@ -6,7 +6,7 @@ export default function BioContent() {
       {/* Imagen Horizontal Arriba (Formato apaisado nítido) */}
       <div className="relative w-full aspect-video sm:aspect-21/9 overflow-hidden">
         <Image
-          src="/benavides 3.png"
+          src="/benavides 3.webp"
           alt="Foto del Autor"
           fill
           sizes="(max-width: 1024px) 100vw, 896px"

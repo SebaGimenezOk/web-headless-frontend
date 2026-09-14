@@ -9,12 +9,16 @@ import Script from "next/script";
 import PaperBackground from "@/components/PaperBackground"; 
 import AlternativaTeatralBanner from "@/components/AlternativaTeatralBanner";
 
+
+
+
 export const metadata = {
   title: "Crónicas de un Espectador",
   icons: {
     icon: "/IsologoPluma.png",
     shortcut: "/IsologoPluma.png",
     apple: "/IsologoPluma.png",
+    description: 'Portal cultural dedicado al análisis, críticas de teatro, música académica, podcast y entrevistas en Buenos Aires.',
   },
 };
 

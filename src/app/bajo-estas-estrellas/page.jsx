@@ -2,6 +2,11 @@ import { getProgramasYEntrevistas } from "@/lib/soundcloud";
 import TrackRowClient from "@/components/TrackRowClient";
 import Image from "next/image";
 
+
+export const dynamic = "force-dynamic";
+export const revalidate = 60; 
+
+
 export const metadata = {
   title: 'Bajo Estas Estrellas: Archivo Completo | Crónicas de un Espectador',
   description: 'Colección completa de todas las emisiones grabadas y entrevistas de Bajo Estas Estrellas.',

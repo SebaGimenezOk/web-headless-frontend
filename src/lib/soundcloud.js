@@ -10,7 +10,7 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
   try {
     const res = await fetch(playlistUrl, {
       headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-      next: { revalidate: 60 }
+      next: { revalidate: 0 }
     });
 
     if (!res.ok) return [];

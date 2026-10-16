@@ -6,9 +6,9 @@ import BajoEstrellasCTA from "./BajoEstrellasCTA";
 export default async function ProgramasList() {
   const { programas, entrevistas } = await getProgramasYEntrevistas();
 
-  // Seleccionamos exactamente los últimos 2 programas y las últimas 3 entrevistas
-  const programasRecientes = programas.slice(0, 2);
-  const entrevistasRecientes = entrevistas.slice(0, 3);
+  // Invertimos para asegurar que los más recientes aparezcan primeros y tomamos los últimos
+  const programasRecientes = programas?.length ? [...programas].reverse().slice(0, 2) : [];
+  const entrevistasRecientes = entrevistas?.length ? [...entrevistas].reverse().slice(0, 3) : [];
 
   return (
     <section

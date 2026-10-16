@@ -1,3 +1,5 @@
+import { getProgramasYEntrevistas } from "@/lib/soundcloud";
+import TrackRowClient from "@/components/TrackRowClient";
 import Image from "next/image";
 
 export const metadata = {
@@ -5,17 +7,18 @@ export const metadata = {
   description: 'Colección completa de todas las emisiones grabadas y entrevistas de Bajo Estas Estrellas.',
 };
 
-export default function BajoEstasEstrellasPage() {
-  // URLs de las playlists oficiales de SoundCloud
-  const playlistProgramasUrl = "https%3A//api.soundcloud.com/playlists/1975482434"; // O la URL codificada de tu set de temporada 2026
-  const playlistEntrevistasUrl = "https%3A//api.soundcloud.com/playlists/1975482395"; // O la URL codificada de tu set de entrevistas
+export default async function BajoEstasEstrellasPage() {
+  const data = await getProgramasYEntrevistas();
+  
+  // Invertimos para mostrar los más recientes al principio en el archivo completo
+  const entrevistas = data?.entrevistas ? [...data.entrevistas].reverse() : [];
+  const programas = data?.programas ? [...data.programas].reverse() : [];
 
   return (
     <main
       className="relative w-full py-16 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed min-h-screen"
       style={{ backgroundImage: `url('/bg-MiguelAngel.webp')` }}
     >
-      {/* Capa de fondo general */}
       <div className="absolute inset-0 bg-white/30 backdrop-blur-xs pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto z-10 space-y-12">
@@ -43,7 +46,7 @@ export default function BajoEstasEstrellasPage() {
             </h1>
             
             <p className="text-base md:text-lg text-zinc-700 font-light font-source leading-relaxed max-w-3xl">
-              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa, con invitados especiales y momentos memorables.
+              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa.
             </p>
             
             <div className="pt-2">
@@ -52,54 +55,46 @@ export default function BajoEstasEstrellasPage() {
           </div>
         </header>
 
-        {/* LISTADO DE REPRODUCTORES OFICIALES SOUNDCLOUD (LISTA COMPLETA GARANTIZADA) */}
+        {/* CONTENEDORES CON LAS TARJETAS TrackRowClient */}
         <div className="flex flex-col gap-10">
           
           {/* MÓDULO 1: TODAS LAS ENTREVISTAS */}
-          <div className="rounded-3xl p-6 md:p-10 bg-white/90 backdrop-blur-md shadow-xl border border-zinc-200/80 text-zinc-900 space-y-6">
-            <header className="font-source border-b border-zinc-200 pb-4">
-              <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-900">
-                Todas las Entrevistas
-              </h2>
-              <p className="text-sm text-zinc-600 font-light mt-1">
-                Charlas y notas exclusivas con nuestros invitados
-              </p>
+          <div className="rounded-3xl p-6 md:p-10 bg-white/90 backdrop-blur-md shadow-xl border border-zinc-200/80 text-zinc-900">
+            <header className="mb-8 font-source flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 pb-4">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-900">
+                  Todas las Entrevistas <span className="text-[#bfa15f]">({entrevistas.length})</span>
+                </h2>
+                <p className="text-sm text-zinc-600 font-light mt-1">
+                  Charlas y notas exclusivas con nuestros invitados
+                </p>
+              </div>
             </header>
 
-            {/* Iframe oficial de SoundCloud para la playlist de Entrevistas */}
-            <div className="w-full rounded-2xl overflow-hidden shadow-md">
-              <iframe
-                width="100%"
-                height="450"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/bajoestasestrellas/sets/entrevistas&color=%23bfa15f&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-              ></iframe>
+            <div className="flex flex-col gap-4 font-source">
+              {entrevistas.map((item, index) => (
+                <TrackRowClient key={item.id} item={item} index={index} variant="default" />
+              ))}
             </div>
           </div>
 
           {/* MÓDULO 2: TODOS LOS PROGRAMAS */}
-          <div className="rounded-3xl p-6 md:p-10 bg-white/90 backdrop-blur-md shadow-xl border border-zinc-200/80 text-zinc-900 space-y-6">
-            <header className="font-source border-b border-zinc-200 pb-4">
-              <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-900">
-                Todos los Programas
-              </h2>
-              <p className="text-sm text-zinc-600 font-light mt-1">
-                Emisiones completas transmitidas al aire
-              </p>
+          <div className="rounded-3xl p-6 md:p-10 bg-white/90 backdrop-blur-md shadow-xl border border-zinc-200/80 text-zinc-900">
+            <header className="mb-8 font-source flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 pb-4">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-900">
+                  Todos los Programas <span className="text-[#bfa15f]">({programas.length})</span>
+                </h2>
+                <p className="text-sm text-zinc-600 font-light mt-1">
+                  Emisiones completas transmitidas al aire
+                </p>
+              </div>
             </header>
 
-            {/* Iframe oficial de SoundCloud para la playlist de Programas */}
-            <div className="w-full rounded-2xl overflow-hidden shadow-md">
-              <iframe
-                width="100%"
-                height="450"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/bajoestasestrellas/sets/temporada-2026&color=%23bfa15f&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-              ></iframe>
+            <div className="flex flex-col gap-4 font-source">
+              {programas.map((item, index) => (
+                <TrackRowClient key={item.id} item={item} index={index} variant="default" />
+              ))}
             </div>
           </div>
 

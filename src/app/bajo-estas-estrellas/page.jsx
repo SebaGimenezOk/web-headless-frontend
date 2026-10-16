@@ -3,8 +3,8 @@ import TrackRowClient from "@/components/TrackRowClient";
 import Image from "next/image";
 
 
-export const dynamic = "force-dynamic";
-export const revalidate = 60; 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 
 export const metadata = {

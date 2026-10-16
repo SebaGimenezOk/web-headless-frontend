@@ -1,7 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ProgramasList from "@/components/ProgramasList"; // <-- Importamos el nuevo módulo
 import I18nProvider from "@/components/I18nProvider";
 import { ReproductorProvider } from "@/context/ReproductorContext";
 import Player from "@/components/Player";
@@ -36,7 +35,7 @@ export default function RootLayout({ children }) {
               <main className="relative grow">{children}</main>
               
               {/* 🔥 Colocamos el listado acá: mantiene la textura y se renderiza en todas las páginas antes del footer */}
-              <ProgramasList /> 
+            
               <AlternativaTeatralBanner/>
               <Footer />
             </I18nProvider>

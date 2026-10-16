@@ -5,6 +5,7 @@ import InstitutionalLinks from "@/components/InstitutionalLinks";
 import NewsletterBanner from "@/components/NewsletterBanner";
 import PlateanetBanner from "@/components/PlateanetBanner";
 import LaPrensaBanner from "@/components/LaPrensaBanner";
+import ProgramasList from "@/components/ProgramasList";
 
 export const revalidate = 60; 
 
@@ -27,6 +28,7 @@ export default async function HomePage() {
       <PlateanetBanner/>
       <InstitutionalLinks />
       <NewsletterBanner/>
+      <ProgramasList/>
 
     </>
   );

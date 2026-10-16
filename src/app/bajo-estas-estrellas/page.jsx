@@ -29,7 +29,7 @@ export default async function BajoEstasEstrellasPage() {
               src="/bg-MiguelAngel.webp"
               alt="Fondo Bajo Estas Estrellas"
               fill
-              className="object-cover"
+              className="object-contain w-auto h-auto"
               priority
             />
             {/* Capa translúcida sobre la imagen para asegurar legibilidad perfecta del texto */}

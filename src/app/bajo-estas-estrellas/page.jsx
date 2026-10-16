@@ -64,15 +64,12 @@ export default async function BajoEstasEstrellasPage() {
             <header className="mb-8 font-source flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#bfa15f]/30 pb-4">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-[#bfa15f]">
-                  Todas las Entrevistas
+                  Todas las Entrevistas ({entrevistas.length})
                 </h2>
                 <p className="text-sm text-zinc-300 font-light mt-1">
                   Charlas y notas exclusivas con nuestros invitados
                 </p>
               </div>
-              <span className="self-start sm:self-center text-xs uppercase font-bold tracking-wider px-3.5 py-1.5 bg-[#bfa15f]/20 text-[#bfa15f] rounded-full border border-[#bfa15f]/30">
-                {entrevistas.length} Audios
-              </span>
             </header>
 
             <div className="flex flex-col gap-4 font-source">
@@ -87,15 +84,12 @@ export default async function BajoEstasEstrellasPage() {
             <header className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/20 pb-4">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-100">
-                  Todos los Programas
+                  Todos los Programas ({programas.length})
                 </h2>
                 <p className="text-sm text-zinc-300 font-light mt-1">
                   Emisiones completas transmitidas al aire
                 </p>
               </div>
-              <span className="self-start sm:self-center text-xs uppercase font-bold tracking-wider px-3.5 py-1.5 bg-white/10 text-zinc-200 rounded-full border border-white/20">
-                {programas.length} Audios
-              </span>
             </header>
 
             <div className="flex flex-col gap-4 font-source">

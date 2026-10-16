@@ -31,7 +31,7 @@ export default async function BajoEstasEstrellasPage() {
                 priority
               />
             </div>
-            <div className="flex-1 space-y-3">
+            <div className="flex-1 space-y-3 my-2 md:my-1">
               <span className="text-xs uppercase tracking-widest px-3 py-1 bg-black/10 text-zinc-800 rounded-full font-semibold border border-black/10">
                 Archivo Histórico
               </span>

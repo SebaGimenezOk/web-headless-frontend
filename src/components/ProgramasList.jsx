@@ -1,6 +1,7 @@
 import { getProgramasYEntrevistas } from "@/lib/soundcloud";
 import TrackRowClient from "./TrackRowClient";
 import Image from "next/image";
+import BajoEstrellasCTA from "./BajoEstrellasCTA";
 
 export default async function ProgramasList() {
   const { programas, entrevistas } = await getProgramasYEntrevistas();
@@ -29,6 +30,7 @@ export default async function ProgramasList() {
                 priority
               />
             </div>
+            <BajoEstrellasCTA />
             <div className="text-center sm:text-left flex-1">
               <h1 className="text-2xl md:text-4xl font-medium text-zinc-900 tracking-wide uppercase">
                 Bajo Estas Estrellas: Recientes
@@ -52,7 +54,12 @@ export default async function ProgramasList() {
             </header>
             <div className="flex flex-col gap-4 font-source">
               {programasRecientes.map((item, index) => (
-                <TrackRowClient key={item.id} item={item} index={index} variant="olive" />
+                <TrackRowClient
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  variant="olive"
+                />
               ))}
             </div>
           </div>
@@ -65,9 +72,17 @@ export default async function ProgramasList() {
               </h2>
               <div className="mt-2 h-1 w-12 bg-white/30" />
             </header>
-            <div className="flex flex-col gap-4 text-zinc-700" style={{ fontFamily: "var(--font-body)" }}>
+            <div
+              className="flex flex-col gap-4 text-zinc-700"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
               {entrevistasRecientes.map((item, index) => (
-                <TrackRowClient key={item.id} item={item} index={index} variant="gold" />
+                <TrackRowClient
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  variant="gold"
+                />
               ))}
             </div>
           </div>

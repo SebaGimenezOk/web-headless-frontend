@@ -8,7 +8,12 @@ export const metadata = {
 };
 
 export default async function BajoEstasEstrellasPage() {
-  const { programas, entrevistas } = await getProgramasYEntrevistas();
+  const data = await getProgramasYEntrevistas();
+  
+  // Si la API devuelve los elementos invertidos o quieres asegurarte de ver los más recientes primero,
+  // puedes usar [...data.entrevistas].reverse() o dejarlos tal cual si ya vienen ordenados.
+  const entrevistas = data?.entrevistas ? [...data.entrevistas].reverse() : [];
+  const programas = data?.programas ? [...data.programas].reverse() : [];
 
   return (
     <main
@@ -29,11 +34,11 @@ export default async function BajoEstasEstrellasPage() {
               src="/bg-MiguelAngel.webp"
               alt="Fondo Bajo Estas Estrellas"
               fill
-              className="object-cover object-center filter "
+              className="object-cover object-center filter brightness-90"
               priority
             />
             {/* Capa translúcida suave para que la imagen se aprecie y el texto sea 100% legible */}
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-white/60 backdrop-blur-sm" />
           </div>
 
           {/* Contenido de texto superpuesto sobre el banner */}
@@ -60,7 +65,7 @@ export default async function BajoEstasEstrellasPage() {
         <div className="flex flex-col gap-10">
           
           {/* MÓDULO 1: TODAS LAS ENTREVISTAS */}
-          <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/15 backdrop-blur-md shadow-2xl border border-white/10 text-white">
+          <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/85 backdrop-blur-md shadow-2xl border border-white/10 text-white">
             <header className="mb-8 font-source flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#bfa15f]/30 pb-4">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-[#bfa15f]">
@@ -80,7 +85,7 @@ export default async function BajoEstasEstrellasPage() {
           </div>
 
           {/* MÓDULO 2: TODOS LOS PROGRAMAS */}
-          <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/15 backdrop-blur-md shadow-2xl border border-white/10 text-white">
+          <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/85 backdrop-blur-md shadow-2xl border border-white/10 text-white">
             <header className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/20 pb-4">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-100">

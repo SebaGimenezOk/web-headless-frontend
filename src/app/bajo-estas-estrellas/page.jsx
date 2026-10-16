@@ -18,22 +18,22 @@ export default async function BajoEstasEstrellasPage() {
       {/* Capa de fondo general para mantener el blur y contraste */}
       <div className="absolute inset-0 bg-white/20 backdrop-blur-xs pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto z-10 space-y-12">
+      <div className="relative max-w-5xl mx-auto z-10 space-y-12">
         
-        {/* ENCABEZADO TIPO BANNER DE ANCHO COMPLETO CON LA IMAGEN DE FONDO Y BORDES REDONDEADOS */}
-        <header className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-8 md:p-14 flex items-center">
+        {/* ENCABEZADO TIPO BANNER DE ANCHO COMPLETO CON LA IMAGEN DE FONDO VISIBLE */}
+        <header className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-8 md:p-14 flex items-center min-h-[260px]">
           
-          {/* Imagen de fondo dentro del banner con posicionamiento absoluto */}
+          {/* Imagen de fondo dentro del banner */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/bg-MiguelAngel.webp"
               alt="Fondo Bajo Estas Estrellas"
               fill
-              className="object-contain w-auto h-auto"
+              className="object-cover object-center filter brightness-90"
               priority
             />
-            {/* Capa translúcida sobre la imagen para asegurar legibilidad perfecta del texto */}
-            <div className="absolute inset-0 bg-white/70 backdrop-blur-md" />
+            {/* Capa translúcida suave para que la imagen se aprecie y el texto sea 100% legible */}
+            <div className="absolute inset-0 bg-white/60 backdrop-blur-sm" />
           </div>
 
           {/* Contenido de texto superpuesto sobre el banner */}
@@ -42,7 +42,7 @@ export default async function BajoEstasEstrellasPage() {
               Archivo Histórico
             </span>
             
-            <h1 className="text-3xl md:text-5xl font-medium text-zinc-900 tracking-wide uppercase leading-tight">
+            <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-wide uppercase leading-tight">
               Bajo Estas Estrellas: Colección Completa
             </h1>
             
@@ -56,16 +56,48 @@ export default async function BajoEstasEstrellasPage() {
           </div>
         </header>
 
-        {/* LISTADO COMPLETO EN DOS COLUMNAS AMPLIAS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* COLUMNA 1: TODOS LOS PROGRAMAS */}
-          <div className="rounded-2xl p-6 md:p-10 bg-(--olive)/50 backdrop-blur-md shadow-2xl border border-white/10">
-            <header className="mb-8">
-              <h2 className="text-2xl font-bold uppercase text-zinc-800 tracking-wide">
-                Todos los Programas ({programas.length})
-              </h2>
-              <div className="mt-2 h-1 w-16 bg-white/40" />
+        {/* LISTADO COMPLETO EN 1 SOLA COLUMNA CON MÓDULOS MARRONES SEPARADOS */}
+        <div className="flex flex-col gap-10">
+          
+          {/* MÓDULO 1: TODAS LAS ENTREVISTAS */}
+          <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/85 backdrop-blur-md shadow-2xl border border-white/10 text-white">
+            <header className="mb-8 font-source flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#bfa15f]/30 pb-4">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-[#bfa15f]">
+                  Todas las Entrevistas
+                </h2>
+                <p className="text-sm text-zinc-300 font-light mt-1">
+                  Charlas y notas exclusivas con nuestros invitados
+                </p>
+              </div>
+              <span className="self-start sm:self-center text-xs uppercase font-bold tracking-wider px-3.5 py-1.5 bg-[#bfa15f]/20 text-[#bfa15f] rounded-full border border-[#bfa15f]/30">
+                {entrevistas.length} Audios
+              </span>
             </header>
+
+            <div className="flex flex-col gap-4 font-source">
+              {entrevistas.map((item, index) => (
+                <TrackRowClient key={item.id} item={item} index={index} variant="gold" />
+              ))}
+            </div>
+          </div>
+
+          {/* MÓDULO 2: TODOS LOS PROGRAMAS */}
+          <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/85 backdrop-blur-md shadow-2xl border border-white/10 text-white">
+            <header className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/20 pb-4">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-100">
+                  Todos los Programas
+                </h2>
+                <p className="text-sm text-zinc-300 font-light mt-1">
+                  Emisiones completas transmitidas al aire
+                </p>
+              </div>
+              <span className="self-start sm:self-center text-xs uppercase font-bold tracking-wider px-3.5 py-1.5 bg-white/10 text-zinc-200 rounded-full border border-white/20">
+                {programas.length} Audios
+              </span>
+            </header>
+
             <div className="flex flex-col gap-4 font-source">
               {programas.map((item, index) => (
                 <TrackRowClient key={item.id} item={item} index={index} variant="olive" />
@@ -73,21 +105,8 @@ export default async function BajoEstasEstrellasPage() {
             </div>
           </div>
 
-          {/* COLUMNA 2: TODAS LAS ENTREVISTAS */}
-          <div className="rounded-2xl p-6 md:p-10 bg-[#bfa15f]/50 backdrop-blur-md shadow-2xl border border-white/10">
-            <header className="mb-8 font-source">
-              <h2 className="text-2xl font-bold uppercase text-zinc-800 tracking-wide">
-                Todas las Entrevistas ({entrevistas.length})
-              </h2>
-              <div className="mt-2 h-1 w-16 bg-white/40" />
-            </header>
-            <div className="flex flex-col gap-4 text-zinc-700" style={{ fontFamily: "var(--font-body)" }}>
-              {entrevistas.map((item, index) => (
-                <TrackRowClient key={item.id} item={item} index={index} variant="gold" />
-              ))}
-            </div>
-          </div>
         </div>
+
       </div>
     </main>
   );

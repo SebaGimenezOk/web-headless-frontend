@@ -22,7 +22,7 @@ export default async function ProgramasList() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             <div className="relative w-45 h-45 shrink-0 overflow-hidden rounded-2xl">
               <Image
-                src="/Alejandro-Claudia-2.png"
+                src="/portada cuadrada fantasia.webp"
                 alt="Conductores"
                 width={180}
                 height={180}

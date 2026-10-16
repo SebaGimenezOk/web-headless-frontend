@@ -23,7 +23,7 @@ export default async function BajoEstasEstrellasPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             <div className="relative w-48 h-48 shrink-0 overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/Alejandro-Claudia-2.png"
+                src="/portada encabezado fantasia.webp"
                 alt="Conductores Bajo Estas Estrellas"
                 width={192}
                 height={192}

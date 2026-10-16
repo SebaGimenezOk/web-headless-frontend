@@ -93,6 +93,11 @@ export default function Navbar() {
               <Link href="/">{t("nav.home")}</Link>
             </li>
 
+            {/* ENLACE BAJO ESTAS ESTRELLAS */}
+            <li className="hover:opacity-60 transition-opacity">
+              <Link href="/bajo-estas-estrellas">Bajo Estas Estrellas</Link>
+            </li>
+
             {/* DROP DOWN TEMPORADAS */}
             <li
               onMouseEnter={() => setActiveDropdown("temporadas")}
@@ -157,7 +162,6 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-heading)" }}
               className="text-3xl md:text-3xl tracking-widest uppercase text-(--text-strong) font-normal"
             >
-             
               {t("nav.logoTitle")}
             </h1>
           </Link>
@@ -226,6 +230,15 @@ export default function Navbar() {
             className="py-1 border-b border-black/5"
           >
             {t("nav.home")}
+          </Link>
+
+          {/* Mobile Bajo Estas Estrellas */}
+          <Link
+            href="/bajo-estas-estrellas"
+            onClick={() => setMenuOpen(false)}
+            className="py-1 border-b border-black/5"
+          >
+            Bajo Estas Estrellas
           </Link>
 
           {/* Mobile Temporadas */}

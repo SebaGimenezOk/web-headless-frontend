@@ -22,7 +22,7 @@ export default async function ProgramasList() {
         {/* 🌟 ENCABEZADO PRINCIPAL */}
         <header className="max-w-5xl mx-auto bg-transparent p-4 md:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
-            <div className="relative w-45 h-45 shrink-0 overflow-hidden rounded-2xl">
+            <div className="relative w-auto h-auto shrink-0 overflow-hidden rounded-2xl">
               <Image
                 src="/portada cuadrada fantasia.webp"
                 alt="Conductores"
@@ -49,7 +49,7 @@ export default async function ProgramasList() {
         </header>
 
         {/* 🟤 MÓDULO ÚNICO CON FONDO MARRÓN UNIFICADO */}
-        <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/80 backdrop-blur-md shadow-2xl border border-white/10 text-white space-y-10">
+        <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/20 backdrop-blur-md shadow-2xl border border-white/10 text-white space-y-10">
           
           {/* SECCIÓN 1: ÚLTIMAS 3 ENTREVISTAS */}
           <div>

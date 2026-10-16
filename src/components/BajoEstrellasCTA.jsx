@@ -23,7 +23,7 @@ export default function BajoEstrellasCTA() {
           </div>
 
           {/* Textos descriptivos */}
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-3 ">
             <span className="text-[11px] mb-3 uppercase tracking-widest px-3 py-1 bg-[#bfa15f]/20 text-[#bfa15f] rounded-full font-semibold border border-[#bfa15f]/30">
               Espacio Radial Exclusivo
             </span>

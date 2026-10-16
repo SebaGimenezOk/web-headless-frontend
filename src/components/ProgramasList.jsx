@@ -32,11 +32,11 @@ export default async function ProgramasList() {
             </div>
 
             <div className="text-center sm:text-left flex-1">
-              <h1 className="md:text-4xl font-bold text-zinc-900 tracking-wide uppercase">
-                PODCAST
+              <h1 className="text-3xlmd:text-5xl font-bold text-zinc-900 tracking-wide uppercase">
+                BAJO ESTAS ESTRELLAS
               </h1>
               <h2 className=" md:text-4xl font-medium text-zinc-900 tracking-wide uppercase">
-                BAJO ESTAS ESTRELLAS
+               EL PODCAST
               </h2>
               <p className="mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed">
                 Emitido en vivo todos los jueves desde los estudios de Radio Grote. 

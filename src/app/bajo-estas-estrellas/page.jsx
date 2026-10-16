@@ -12,36 +12,46 @@ export default async function BajoEstasEstrellasPage() {
 
   return (
     <main
-      className="relative w-full py-20 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed min-h-screen"
+      className="relative w-full py-16 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed min-h-screen"
       style={{ backgroundImage: `url('/bg-MiguelAngel.webp')` }}
     >
-      <div className="absolute inset-0 bg-white/25 backdrop-blur-xs pointer-events-none" />
+      {/* Capa de fondo general para mantener el blur y contraste */}
+      <div className="absolute inset-0 bg-white/20 backdrop-blur-xs pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto z-10 space-y-16">
-        {/* ENCABEZADO EXTENDIDO */}
-        <header className="max-w-5xl mx-auto bg-transparent p-4 md:p-6 text-center sm:text-left">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
-            <div className="relative w-48 h-48 shrink-0 overflow-hidden rounded-2xl shadow-xl">
-              <Image
-                src="/portada encabezado fantasia.webp"
-                alt="Conductores Bajo Estas Estrellas"
-                width={192}
-                height={192}
-                className="object-contain"
-                priority
-              />
-            </div>
-            <div className="flex-1 space-y-3 ">
-              <span className="text-xs mb-3 uppercase tracking-widest px-3 py-1 bg-black/10 text-zinc-800 rounded-full font-semibold border border-black/10">
-                Archivo Histórico
-              </span>
-              <h1 className="text-3xl md:text-5xl font-medium text-zinc-900 tracking-wide uppercase">
-                Bajo Estas Estrellas: Colección Completa
-              </h1>
-              <p className="text-base md:text-lg text-zinc-700 font-light font-source leading-relaxed">
-                Todas las ediciones que hemos hecho,  programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa, con la participación de invitados especiales y momentos memorables.
-              </p>
-              <div className="h-0.5 w-20 bg-[#bfa15f] mx-auto sm:mx-0 opacity-90" />
+      <div className="relative max-w-6xl mx-auto z-10 space-y-12">
+        
+        {/* ENCABEZADO TIPO BANNER DE ANCHO COMPLETO CON LA IMAGEN DE FONDO Y BORDES REDONDEADOS */}
+        <header className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-8 md:p-14 flex items-center">
+          
+          {/* Imagen de fondo dentro del banner con posicionamiento absoluto */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/bg-MiguelAngel.webp"
+              alt="Fondo Bajo Estas Estrellas"
+              fill
+              className="object-cover object-center filter brightness-90"
+              priority
+            />
+            {/* Capa translúcida sobre la imagen para asegurar legibilidad perfecta del texto */}
+            <div className="absolute inset-0 bg-white/70 backdrop-blur-md" />
+          </div>
+
+          {/* Contenido de texto superpuesto sobre el banner */}
+          <div className="relative z-10 max-w-4xl space-y-4 text-left">
+            <span className="inline-block text-xs uppercase tracking-widest px-3.5 py-1.5 bg-black/80 text-white rounded-full font-semibold shadow-sm">
+              Archivo Histórico
+            </span>
+            
+            <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-wide uppercase leading-tight">
+              Bajo Estas Estrellas: Colección Completa
+            </h1>
+            
+            <p className="text-base md:text-lg text-zinc-800 font-light font-source leading-relaxed max-w-3xl">
+              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa, con la participación de invitados especiales y momentos memorables.
+            </p>
+            
+            <div className="pt-2">
+              <div className="h-1 w-24 bg-[#bfa15f] rounded-full opacity-90" />
             </div>
           </div>
         </header>

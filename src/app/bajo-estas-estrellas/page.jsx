@@ -29,7 +29,7 @@ export default async function BajoEstasEstrellasPage() {
               src="/bg-MiguelAngel.webp"
               alt="Fondo Bajo Estas Estrellas"
               fill
-              className="object-cover object-center filter brightness-90"
+              className="object-cover object-center"
               priority
             />
             {/* Capa translúcida sobre la imagen para asegurar legibilidad perfecta del texto */}
@@ -42,7 +42,7 @@ export default async function BajoEstasEstrellasPage() {
               Archivo Histórico
             </span>
             
-            <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-wide uppercase leading-tight">
+            <h1 className="text-3xl md:text-5xl font-medium text-zinc-900 tracking-wide uppercase leading-tight">
               Bajo Estas Estrellas: Colección Completa
             </h1>
             

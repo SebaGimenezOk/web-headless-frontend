@@ -24,8 +24,8 @@ export default async function ProgramasList() {
               <Image
                 src="/portada cuadrada fantasia.webp"
                 alt="Conductores"
-                width={180}
-                height={180}
+                width={480}
+                height={480}
                 className="object-contain"
                 priority
               />

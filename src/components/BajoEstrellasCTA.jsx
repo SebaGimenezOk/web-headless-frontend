@@ -24,10 +24,10 @@ export default function BajoEstrellasCTA() {
 
           {/* Textos descriptivos */}
           <div className="flex-1 space-y-3">
-            <span className="text-[11px] uppercase tracking-widest px-3 py-1 bg-[#bfa15f]/20 text-[#bfa15f] rounded-full font-semibold border border-[#bfa15f]/30">
+            <span className="text-[11px] mb-3 uppercase tracking-widest px-3 py-1 bg-[#bfa15f]/20 text-[#bfa15f] rounded-full font-semibold border border-[#bfa15f]/30">
               Espacio Radial Exclusivo
             </span>
-            <h2 className="text-2xl md:text-3xl font-bold uppercase text-white tracking-wide">
+            <h2 className="text-2xl md:text-3xl font-medium uppercase text-white tracking-wide">
               Bajo Estas Estrellas
             </h2>
             <p className="text-sm md:text-base text-neutral-400 font-light font-source leading-relaxed max-w-xl">

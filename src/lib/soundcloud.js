@@ -1,4 +1,5 @@
 // src/lib/soundcloud.js
+
 export async function resolveTrack(url) {
   const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
   const res = await fetch(`https://api.soundcloud.com/resolve?url=${url}&client_id=${client_id}`);
@@ -10,7 +11,7 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
   try {
     const res = await fetch(playlistUrl, {
       headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-      next: { revalidate: 0 }
+      next: { revalidate: 0 } // Forzamos cero caché para traer siempre lo último
     });
 
     if (!res.ok) return [];
@@ -25,10 +26,10 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
 
     let count = 0;
     for (const match of matches) {
-      if (count >= 4) break; 
-      
       const link = match[1];
       const title = match[2].trim();
+      
+      // Filtramos enlaces que no sean tracks individuales
       if (link.includes("/sets/")) continue;
 
       const fullUrl = link.startsWith("http") ? link : `https://soundcloud.com${link}`;
@@ -43,7 +44,12 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
       });
       count++;
     }
-    return tracks;
+
+    // 🔄 ORDENAMIENTO CRONOLÓGICO: 
+    // Como SoundCloud por defecto suele entregar primero los más viejos de la lista estática o viceversa,
+    // invertimos el array aquí mismo para que el index 0 sea siempre el contenido más reciente subido.
+    return tracks.reverse();
+
   } catch (error) {
     console.error(`Error extrayendo tracks:`, error);
     return [];

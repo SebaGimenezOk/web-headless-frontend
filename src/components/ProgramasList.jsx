@@ -24,7 +24,7 @@ export default async function ProgramasList() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             <div className="relative w-auto h-auto shrink-0 overflow-hidden rounded-2xl">
               <Image
-                src="/portada cuadrada fantasia.webp"
+                src="/bg-MiguelAngel.webp"
                 alt="Conductores"
                 width={480}
                 height={480}
@@ -34,10 +34,10 @@ export default async function ProgramasList() {
             </div>
 
             <div className="text-center sm:text-left flex-1">
-              <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-wide uppercase">
+              <h1 className="text-2xl md:text-3xl font-medium text-zinc-900 tracking-wide uppercase">
                 BAJO ESTAS ESTRELLAS
               </h1>
-              <h2 className="text-xl md:text-3xl font-medium text-zinc-800 tracking-wide uppercase mt-1">
+              <h2 className="text-xl md:text-2xl font-medium text-zinc-800 tracking-wide uppercase mt-1">
                 EL PODCAST
               </h2>
               <p className="mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed">
@@ -54,7 +54,7 @@ export default async function ProgramasList() {
           {/* SECCIÓN 1: ÚLTIMAS 3 ENTREVISTAS */}
           <div>
             <header className="mb-6 font-source">
-              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#bfa15f]">
+              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-700 ">
                 Últimas Entrevistas
               </h2>
               <div className="mt-2 h-1 w-16 bg-[#bfa15f]/40" />
@@ -78,7 +78,7 @@ export default async function ProgramasList() {
           {/* SECCIÓN 2: ÚLTIMOS 2 PROGRAMAS */}
           <div>
             <header className="mb-6">
-              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-200">
+              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-700 ">
                 Últimos Programas
               </h2>
               <div className="mt-2 h-1 w-16 bg-white/30" />

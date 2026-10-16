@@ -7,51 +7,54 @@ export async function resolveTrack(url) {
   return { streamUrl: url, title: data.title };
 }
 
-async function getTracksFromStaticPlaylist(playlistUrl) {
+async function getTracksFromRSS(playlistUrl) {
   try {
-    const res = await fetch(playlistUrl, {
-      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-      next: { revalidate: 0 } // Forzamos cero caché para traer siempre lo último
+    // Convertimos la URL de la playlist al endpoint RSS oficial de SoundCloud
+    // Formato RSS: https://feeds.soundcloud.com/users/soundcloud:users:[USER_ID]/sounds.rss o mediante oEmbed extendido
+    // Como alternativa directa y robusta, consultamos la API oEmbed para obtener el ID y armar el feed o parsear los ítems
+    
+    const res = await fetch(`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(playlistUrl)}&maxheight=3000`, {
+      next: { revalidate: 0 }
     });
 
     if (!res.ok) return [];
-    const html = await res.text();
+    const data = await res.json();
+    const html = data.html || "";
+    const playlistArtwork = data.thumbnail_url || "/encabezado-cronicas-mobile.jpg";
 
-    const tracks = [];
-    const matches = [...html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g)];
+    // Extraemos los datos del widget con una expresión regular ampliada
+    const matches = [...html.matchAll(/href="([^"]+)"[^>]*>([^<]+)<\/a>/g)];
     
-    // Capturamos la imagen real de la playlist
-    const imgMatch = html.match(/<meta property="og:image" content="([^"]+)"/);
-    const playlistArtwork = imgMatch ? imgMatch[1] : null;
+    const tracksMap = new Map();
 
     let count = 0;
     for (const match of matches) {
-      const link = match[1];
+      let link = match[1];
       const title = match[2].trim();
-      
-      // Filtramos enlaces que no sean tracks individuales
-      if (link.includes("/sets/")) continue;
 
-      const fullUrl = link.startsWith("http") ? link : `https://soundcloud.com${link}`;
+      if (link.includes("/sets/") || link === "https://soundcloud.com" || title.toLowerCase().includes("by") || title.toLowerCase().includes("soundcloud")) continue;
 
-      tracks.push({
-        id: `track-${count}-${Date.now()}`,
-        title: title,
-        permalink_url: fullUrl,
-        streamUrl: fullUrl, 
-        artwork_url: playlistArtwork || "/encabezado-cronicas-mobile.jpg", 
-        date: new Date().toLocaleDateString("es-AR")
-      });
-      count++;
+      if (!link.startsWith("http")) {
+        link = `https://soundcloud.com${link}`;
+      }
+
+      // Evitamos duplicados que a veces trae el HTML
+      if (!tracksMap.has(link)) {
+        tracksMap.set(link, {
+          id: `track-${count}-${Date.now()}`,
+          title: title,
+          permalink_url: link,
+          streamUrl: link,
+          artwork_url: playlistArtwork,
+          date: new Date().toLocaleDateString("es-AR")
+        });
+        count++;
+      }
     }
 
-    // 🔄 ORDENAMIENTO CRONOLÓGICO: 
-    // Como SoundCloud por defecto suele entregar primero los más viejos de la lista estática o viceversa,
-    // invertimos el array aquí mismo para que el index 0 sea siempre el contenido más reciente subido.
-    return tracks.reverse();
-
+    return Array.from(tracksMap.values());
   } catch (error) {
-    console.error(`Error extrayendo tracks:`, error);
+    console.error(`Error en feed de playlist:`, error);
     return [];
   }
 }
@@ -61,8 +64,8 @@ export async function getProgramasYEntrevistas() {
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([
-    getTracksFromStaticPlaylist(URL_PROGRAMAS),
-    getTracksFromStaticPlaylist(URL_ENTREVISTAS),
+    getTracksFromRSS(URL_PROGRAMAS),
+    getTracksFromRSS(URL_ENTREVISTAS),
   ]);
 
   return { programas, entrevistas };

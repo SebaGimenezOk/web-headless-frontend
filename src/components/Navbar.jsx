@@ -94,7 +94,7 @@ export default function Navbar() {
             </li>
 
             {/* ENLACE BAJO ESTAS ESTRELLAS */}
-            <li className="hover:opacity-60 transition-opacity">
+            <li className="hover:opacity-60 transition-opacity text-xs">
               <Link href="/bajo-estas-estrellas">Bajo Estas Estrellas</Link>
             </li>
 

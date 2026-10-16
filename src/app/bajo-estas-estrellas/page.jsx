@@ -88,10 +88,10 @@ export default async function BajoEstasEstrellasPage() {
           <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/85 backdrop-blur-md shadow-2xl border border-white/10 text-white">
             <header className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/20 pb-4">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-100">
+                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-800">
                   Todos los Programas ({programas.length})
                 </h2>
-                <p className="text-sm text-zinc-300 font-light mt-1">
+                <p className="text-sm text-zinc-800 font-light mt-1">
                   Emisiones completas transmitidas al aire
                 </p>
               </div>

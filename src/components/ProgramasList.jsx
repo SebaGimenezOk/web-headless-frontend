@@ -30,7 +30,7 @@ export default async function ProgramasList() {
                 priority
               />
             </div>
-            <BajoEstrellasCTA />
+
             <div className="text-center sm:text-left flex-1">
               <h1 className="text-2xl md:text-4xl font-medium text-zinc-900 tracking-wide uppercase">
                 Bajo Estas Estrellas: Recientes
@@ -88,6 +88,7 @@ export default async function ProgramasList() {
           </div>
         </div>
       </div>
+      <BajoEstrellasCTA />
     </section>
   );
 }

@@ -32,11 +32,14 @@ export default async function ProgramasList() {
             </div>
 
             <div className="text-center sm:text-left flex-1">
-              <h1 className="text-2xl md:text-4xl font-bold text-zinc-900 tracking-wide uppercase">
+              <h1 className="md:text-4xl font-bold text-zinc-900 tracking-wide uppercase">
                 Bajo Estas Estrellas: Podcast
               </h1>
+              <h2 className=" md:text-4xl font-medium text-zinc-900 tracking-wide uppercase">
+                Emitido en vivo todos los jueves desde los estudios de Radio Grote.
+              </h2>
               <p className="mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed">
-                Emitido en vivo desde los estudios de Radio Grote. 
+                Emitido en vivo todos los jueves desde los estudios de Radio Grote. 
               </p>
               <div className="mt-4 h-0.5 w-16 bg-[#bfa15f] mx-auto sm:mx-0 opacity-80" />
             </div>

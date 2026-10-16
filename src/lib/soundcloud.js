@@ -25,8 +25,6 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
 
     let count = 0;
     for (const match of matches) {
-      if (count >= 4) break; 
-      
       const link = match[1];
       const title = match[2].trim();
       if (link.includes("/sets/")) continue;

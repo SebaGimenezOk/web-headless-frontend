@@ -11,34 +11,31 @@ async function fetchPlaylistViaHydration(playlistUrl) {
       next: { revalidate: 60 }
     });
 
-    if (!res.ok) {
-      console.error(`Error HTTP al obtener SoundCloud: ${res.status}`);
-      return [];
-    }
+    if (!res.ok) return [];
 
     const html = await res.text();
-
-    // SoundCloud almacena los datos de la página en un script con __sc_hydration
     const hydrationMatch = html.match(/window\.__sc_hydration\s*=\s*(\[.+?\]);\s*<\/script>/s);
     
-    if (!hydrationMatch) {
-      console.error("No se encontró el bloque de hidratación de SoundCloud");
-      return [];
-    }
+    if (!hydrationMatch) return [];
 
     const hydrationData = JSON.parse(hydrationMatch[1]);
-    
-    // Buscamos el objeto que contenga la playlist o los tracks dentro de la hidratación
     let rawTracks = [];
-    
+    let playlistArtwork = null;
+
+    // Buscamos la playlist y sus tracks
     for (const item of hydrationData) {
-      if (item.hydratable === "playlist" && item.data?.tracks) {
-        rawTracks = item.data.tracks;
-        break;
+      if (item.hydratable === "playlist" && item.data) {
+        if (item.data.artwork_url) {
+          playlistArtwork = item.data.artwork_url;
+        }
+        if (item.data.tracks) {
+          rawTracks = item.data.tracks;
+          break;
+        }
       }
     }
 
-    // Si no vino directo en la playlist, buscamos chunks de sonidos
+    // Si no vino directo en la playlist, recolectamos los sonidos sueltos
     if (rawTracks.length === 0) {
       for (const item of hydrationData) {
         if (item.hydratable === "sound" && item.data) {
@@ -47,16 +44,27 @@ async function fetchPlaylistViaHydration(playlistUrl) {
       }
     }
 
-    return rawTracks.map((track, index) => ({
-      id: track.id ? String(track.id) : `track-${index}-${Date.now()}`,
-      title: track.title || "Sin título",
-      permalink_url: track.permalink_url,
-      streamUrl: track.permalink_url,
-      artwork_url: track.artwork_url 
-        ? track.artwork_url.replace('-large', '-t500x500') 
-        : "/encabezado-cronicas-mobile.jpg",
-      date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
-    }));
+    // Mapeo robusto con fallbacks para títulos y carátulas vacías
+    return rawTracks
+      .map((track, index) => {
+        const title = track.title || track.permalink || track.description || `Episodio ${index + 1}`;
+        const permalink = track.permalink_url || playlistUrl;
+        
+        // Resolvemos la imagen con múltiples alternativas
+        const artwork = track.artwork_url 
+          ? track.artwork_url.replace('-large', '-t500x500') 
+          : (playlistArtwork ? playlistArtwork.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg");
+
+        return {
+          id: track.id ? String(track.id) : `track-${index}-${Date.now()}`,
+          title: title.trim(),
+          permalink_url: permalink,
+          streamUrl: permalink,
+          artwork_url: artwork,
+          date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
+        };
+      })
+      .filter((track) => track.title && track.title !== "Sin título"); // Filtramos entradas vacías si las hubiera
   } catch (error) {
     console.error("Error parseando hidratación de SoundCloud:", error);
     return [];

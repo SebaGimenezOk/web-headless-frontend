@@ -1,88 +1,36 @@
 // src/lib/soundcloud.js
-export async function resolveTrack(url) {
+
+async function getTracksFromApiPlaylist(playlistUrl) {
   const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
-  const res = await fetch(`https://api.soundcloud.com/resolve?url=${url}&client_id=${client_id}`);
-  const data = await res.json();
-  return { streamUrl: url, title: data.title };
-}
+  if (!client_id) {
+    console.error("Falta configurar NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID en las variables de entorno.");
+    return [];
+  }
 
-async function getTracksFromStaticPlaylist(playlistUrl) {
   try {
-    const res = await fetch(playlistUrl, {
-      headers: { 
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" 
-      },
-      next: { revalidate: 0 }
-    });
-
-    if (!res.ok) return [];
-    const html = await res.text();
-
-    const tracks = [];
-    const seenUrls = new Set();
-
-    // 1. Intentamos extraer la estructura JSON-LD embebida que contiene el dataset completo del Set
-    const jsonLdMatches = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    const resolveUrl = `https://api-v2.soundcloud.com/resolve?url=${encodeURIComponent(playlistUrl)}&client_id=${client_id}`;
+    const res = await fetch(resolveUrl, { next: { revalidate: 0 } });
     
-    for (const match of jsonLdMatches) {
-      try {
-        const jsonData = JSON.parse(match[1]);
-        // Si el objeto es un MusicPlaylist o contiene tracklist
-        const itemList = jsonData.track || jsonData.itemListElement || [];
-        if (Array.isArray(itemList) && itemList.length > 0) {
-          itemList.forEach((item, idx) => {
-            const trackObj = item.item || item;
-            const url = trackObj.url || trackObj['@id'];
-            const title = trackObj.name || trackObj.title;
-
-            if (url && !seenUrls.has(url)) {
-              seenUrls.add(url);
-              const fullUrl = url.startsWith("http") ? url : `https://soundcloud.com${url}`;
-              tracks.push({
-                id: `track-json-${idx}-${Date.now()}`,
-                title: title || "Sin título",
-                permalink_url: fullUrl,
-                streamUrl: fullUrl,
-                artwork_url: jsonData.image || "/encabezado-cronicas-mobile.jpg",
-                date: new Date().toLocaleDateString("es-AR")
-              });
-            }
-          });
-        }
-      } catch (e) {
-        // Ignoramos bloques JSON que no sean compatibles
-      }
+    if (!res.ok) {
+      console.error(`Error al resolver playlist de SoundCloud: ${res.status} - ${res.statusText}`);
+      return [];
     }
 
-    // 2. Fallback por regex si el JSON-LD no devolvió elementos
-    if (tracks.length === 0) {
-      const matches = [...html.matchAll(/<a[^>]+itemprop="url"[^>]+href="(\/bajoestasestrellas\/[^"]+)"[^>]*>([^<]+)<\/a>/g)];
-      const imgMatch = html.match(/<meta property="og:image" content="([^"]+)"/);
-      const playlistArtwork = imgMatch ? imgMatch[1] : null;
+    const data = await res.json();
+    const rawTracks = data.tracks || [];
 
-      for (const match of matches) {
-        const link = match[1];
-        const title = match[2].trim();
-
-        if (link.includes("/sets/") || seenUrls.has(link)) continue;
-        seenUrls.add(link);
-
-        const fullUrl = `https://soundcloud.com${link}`;
-
-        tracks.push({
-          id: `track-regex-${tracks.length}-${Date.now()}`,
-          title: title,
-          permalink_url: fullUrl,
-          streamUrl: fullUrl,
-          artwork_url: playlistArtwork || "/encabezado-cronicas-mobile.jpg",
-          date: new Date().toLocaleDateString("es-AR")
-        });
-      }
-    }
-
-    return tracks;
+    return rawTracks.map((track, index) => ({
+      id: track.id ? String(track.id) : `track-${index}-${Date.now()}`,
+      title: track.title || "Sin título",
+      permalink_url: track.permalink_url,
+      streamUrl: track.permalink_url,
+      artwork_url: track.artwork_url 
+        ? track.artwork_url.replace('-large', '-t500x500') 
+        : (data.artwork_url ? data.artwork_url.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg"),
+      date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
+    }));
   } catch (error) {
-    console.error(`Error extrayendo tracks:`, error);
+    console.error("Error consultando la API de SoundCloud:", error);
     return [];
   }
 }
@@ -92,8 +40,8 @@ export async function getProgramasYEntrevistas() {
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([
-    getTracksFromStaticPlaylist(URL_PROGRAMAS),
-    getTracksFromStaticPlaylist(URL_ENTREVISTAS),
+    getTracksFromApiPlaylist(URL_PROGRAMAS),
+    getTracksFromApiPlaylist(URL_ENTREVISTAS),
   ]);
 
   return { programas, entrevistas };

@@ -1,80 +1,76 @@
 // src/lib/soundcloud.js
 
-async function getRssTracks() {
+async function fetchPlaylistViaHydration(playlistUrl) {
   try {
-    // Intentamos obtener el RSS público directo del usuario
-    const res = await fetch("https://feeds.soundcloud.com/users/soundcloud:users:12345678/sounds.rss", {
+    const res = await fetch(playlistUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "es-ES,es;q=0.9"
+      },
       next: { revalidate: 60 }
     });
 
-    let xmlText = "";
-
     if (!res.ok) {
-      // Si la ID estática no resuelve, leemos la página del perfil para extraer la URL del RSS activa
-      const profileRes = await fetch("https://soundcloud.com/bajoestasestrellas", {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        },
-        next: { revalidate: 60 }
-      });
-
-      if (!profileRes.ok) return { programas: [], entrevistas: [] };
-
-      const html = await profileRes.text();
-      const rssMatch = html.match(/href="(https:\/\/feeds\.soundcloud\.com\/users\/soundcloud:users:\d+\/sounds\.rss)"/);
-
-      if (!rssMatch) return { programas: [], entrevistas: [] };
-
-      const realRssRes = await fetch(rssMatch[1], { next: { revalidate: 60 } });
-      if (!realRssRes.ok) return { programas: [], entrevistas: [] };
-      xmlText = await realRssRes.text();
-    } else {
-      xmlText = await res.text();
+      console.error(`Error HTTP al obtener SoundCloud: ${res.status}`);
+      return [];
     }
 
-    return parseRssXml(xmlText);
+    const html = await res.text();
+
+    // SoundCloud almacena los datos de la página en un script con __sc_hydration
+    const hydrationMatch = html.match(/window\.__sc_hydration\s*=\s*(\[.+?\]);\s*<\/script>/s);
+    
+    if (!hydrationMatch) {
+      console.error("No se encontró el bloque de hidratación de SoundCloud");
+      return [];
+    }
+
+    const hydrationData = JSON.parse(hydrationMatch[1]);
+    
+    // Buscamos el objeto que contenga la playlist o los tracks dentro de la hidratación
+    let rawTracks = [];
+    
+    for (const item of hydrationData) {
+      if (item.hydratable === "playlist" && item.data?.tracks) {
+        rawTracks = item.data.tracks;
+        break;
+      }
+    }
+
+    // Si no vino directo en la playlist, buscamos chunks de sonidos
+    if (rawTracks.length === 0) {
+      for (const item of hydrationData) {
+        if (item.hydratable === "sound" && item.data) {
+          rawTracks.push(item.data);
+        }
+      }
+    }
+
+    return rawTracks.map((track, index) => ({
+      id: track.id ? String(track.id) : `track-${index}-${Date.now()}`,
+      title: track.title || "Sin título",
+      permalink_url: track.permalink_url,
+      streamUrl: track.permalink_url,
+      artwork_url: track.artwork_url 
+        ? track.artwork_url.replace('-large', '-t500x500') 
+        : "/encabezado-cronicas-mobile.jpg",
+      date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
+    }));
   } catch (error) {
-    console.error("Error obteniendo el RSS de SoundCloud:", error);
-    return { programas: [], entrevistas: [] };
+    console.error("Error parseando hidratación de SoundCloud:", error);
+    return [];
   }
 }
 
-function parseRssXml(xmlText) {
-  const items = xmlText.split("<item>");
-  const programas = [];
-  const entrevistas = [];
+export async function getProgramasYEntrevistas() {
+  const URL_PROGRAMAS = "https://soundcloud.com/bajoestasestrellas/sets/temporada-2026";
+  const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
-  items.slice(1).forEach((item, index) => {
-    const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/) || item.match(/<title>(.*?)<\/title>/);
-    const linkMatch = item.match(/<link>(.*?)<\/link>/);
-    const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
-    const imageMatch = item.match(/<itunes:image href="(.*?)"/);
-
-    const title = titleMatch ? titleMatch[1].trim() : "Sin título";
-    const link = linkMatch ? linkMatch[1].trim() : "";
-    const artwork = imageMatch ? imageMatch[1] : "/encabezado-cronicas-mobile.jpg";
-    const date = pubDateMatch ? new Date(pubDateMatch[1]).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR");
-
-    const trackObj = {
-      id: `rss-${index}`,
-      title,
-      permalink_url: link,
-      streamUrl: link,
-      artwork_url: artwork,
-      date
-    };
-
-    // Filtramos dinámicamente según el título
-    if (title.toLowerCase().includes("entrevista")) {
-      entrevistas.push(trackObj);
-    } else {
-      programas.push(trackObj);
-    }
-  });
+  const [programas, entrevistas] = await Promise.all([
+    fetchPlaylistViaHydration(URL_PROGRAMAS),
+    fetchPlaylistViaHydration(URL_ENTREVISTAS),
+  ]);
 
   return { programas, entrevistas };
-}
-
-export async function getProgramasYEntrevistas() {
-  return await getRssTracks();
 }

@@ -3,7 +3,6 @@
 async function fetchSoundCloudPlaylist(playlistUrl) {
   const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
 
-  // 1. Intento primario: API oficial v2 /resolve mediante Client_ID
   if (client_id) {
     try {
       const resolveUrl = `https://api-v2.soundcloud.com/resolve?url=${encodeURIComponent(playlistUrl)}&client_id=${client_id}`;
@@ -36,7 +35,6 @@ async function fetchSoundCloudPlaylist(playlistUrl) {
     }
   }
 
-  // 2. Fallback: Resolución vía OEmbed + Widget API (para entornos de producción/preview)
   try {
     const oembedUrl = `https://soundcloud.com/oembed?url=${encodeURIComponent(playlistUrl)}&format=json`;
     const resOembed = await fetch(oembedUrl, { next: { revalidate: 60 } });
@@ -65,27 +63,6 @@ async function fetchSoundCloudPlaylist(playlistUrl) {
     const widgetData = await resWidget.json();
     const tracks = widgetData.tracks || [];
 
-<<<<<<< HEAD
-    let count = 0;
-    for (const match of matches) {
-      const link = match[1];
-      const title = match[2].trim();
-      if (link.includes("/sets/")) continue;
-
-      const fullUrl = link.startsWith("http") ? link : `https://soundcloud.com${link}`;
-
-      tracks.push({
-        id: `track-${count}-${Date.now()}`,
-        title: title,
-        permalink_url: fullUrl,
-        streamUrl: fullUrl, 
-        artwork_url: playlistArtwork || "/encabezado-cronicas-mobile.jpg", 
-        date: new Date().toLocaleDateString("es-AR")
-      });
-      count++;
-    }
-    return tracks;
-=======
     return tracks.map((track, index) => ({
       id: track.id ? String(track.id) : `track-widget-${index}`,
       title: track.title || "Sin título",
@@ -96,7 +73,6 @@ async function fetchSoundCloudPlaylist(playlistUrl) {
         : (oembedData.thumbnail_url || "/encabezado-cronicas-mobile.jpg"),
       date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
     }));
->>>>>>> develop
   } catch (error) {
     console.error("Error al obtener playlist de SoundCloud:", error);
     return [];

@@ -1,36 +1,54 @@
 // src/lib/soundcloud.js
 
-async function getTracksFromApiPlaylist(playlistUrl) {
-  const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
-  if (!client_id) {
-    console.error("Falta configurar NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID en las variables de entorno.");
-    return [];
-  }
-
+async function getPlaylistData(playlistUrl) {
   try {
-    const resolveUrl = `https://api-v2.soundcloud.com/resolve?url=${encodeURIComponent(playlistUrl)}&client_id=${client_id}`;
-    const res = await fetch(resolveUrl, { next: { revalidate: 0 } });
-    
+    // Consultamos el endpoint oembed oficial de SoundCloud para obtener el ID de la playlist
+    const oembedUrl = `https://soundcloud.com/oembed?url=${encodeURIComponent(playlistUrl)}&format=json`;
+    const res = await fetch(oembedUrl, { next: { revalidate: 60 } });
+
     if (!res.ok) {
-      console.error(`Error al resolver playlist de SoundCloud: ${res.status} - ${res.statusText}`);
+      console.error(`Error OEmbed: ${res.status}`);
       return [];
     }
 
-    const data = await res.json();
-    const rawTracks = data.tracks || [];
+    const oembedData = await res.json();
+    
+    // Extraemos el ID numérico del iframe que devuelve SoundCloud
+    const iframeHtml = oembedData.html || "";
+    const playlistIdMatch = iframeHtml.match(/playlists%2F(\d+)/) || iframeHtml.match(/playlists\/(\d+)/);
+
+    if (!playlistIdMatch) {
+      console.error("No se pudo extraer el ID de la playlist");
+      return [];
+    }
+
+    const playlistId = playlistIdMatch[1];
+    const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
+
+    // Consultamos la API pública del widget para la playlist
+    const widgetApiUrl = `https://api-widget.soundcloud.com/playlists/${playlistId}?representation=full&client_id=${client_id}`;
+    const playlistRes = await fetch(widgetApiUrl, { next: { revalidate: 60 } });
+
+    if (!playlistRes.ok) {
+      console.error(`Error Widget API: ${playlistRes.status}`);
+      return [];
+    }
+
+    const playlistData = await playlistRes.json();
+    const rawTracks = playlistData.tracks || [];
 
     return rawTracks.map((track, index) => ({
-      id: track.id ? String(track.id) : `track-${index}-${Date.now()}`,
+      id: track.id ? String(track.id) : `track-${index}`,
       title: track.title || "Sin título",
       permalink_url: track.permalink_url,
       streamUrl: track.permalink_url,
       artwork_url: track.artwork_url 
         ? track.artwork_url.replace('-large', '-t500x500') 
-        : (data.artwork_url ? data.artwork_url.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg"),
+        : (oembedData.thumbnail_url || "/encabezado-cronicas-mobile.jpg"),
       date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
     }));
   } catch (error) {
-    console.error("Error consultando la API de SoundCloud:", error);
+    console.error("Error obteniendo playlist de SoundCloud:", error);
     return [];
   }
 }
@@ -40,8 +58,8 @@ export async function getProgramasYEntrevistas() {
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([
-    getTracksFromApiPlaylist(URL_PROGRAMAS),
-    getTracksFromApiPlaylist(URL_ENTREVISTAS),
+    getPlaylistData(URL_PROGRAMAS),
+    getPlaylistData(URL_ENTREVISTAS),
   ]);
 
   return { programas, entrevistas };

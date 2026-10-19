@@ -15,7 +15,11 @@ export const metadata = {
 export default async function BajoEstasEstrellasPage() {
   const data = await getProgramasYEntrevistas();
   
+<<<<<<< HEAD
   // Aseguramos que los más recientes aparezcan primero invirtiendo el array si es necesario
+=======
+  // Invertimos para mostrar los más recientes al principio en el archivo completo
+>>>>>>> develop
   const entrevistas = data?.entrevistas ? [...data.entrevistas].reverse() : [];
   const programas = data?.programas ? [...data.programas].reverse() : [];
 
@@ -24,7 +28,10 @@ export default async function BajoEstasEstrellasPage() {
       className="relative w-full py-16 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed min-h-screen"
       style={{ backgroundImage: `url('/bg-MiguelAngel.webp')` }}
     >
+<<<<<<< HEAD
       {/* Capa de fondo general */}
+=======
+>>>>>>> develop
       <div className="absolute inset-0 bg-white/30 backdrop-blur-xs pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto z-10 space-y-12">
@@ -52,7 +59,11 @@ export default async function BajoEstasEstrellasPage() {
             </h1>
             
             <p className="text-base md:text-lg text-zinc-700 font-light font-source leading-relaxed max-w-3xl">
+<<<<<<< HEAD
               Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa, con la participación de invitados especiales y momentos memorables.
+=======
+              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa.
+>>>>>>> develop
             </p>
             
             <div className="pt-2">
@@ -61,7 +72,11 @@ export default async function BajoEstasEstrellasPage() {
           </div>
         </header>
 
+<<<<<<< HEAD
         {/* LISTADO EN CONTENEDORES CLAROS Y LIMPIOS (TIPO ProgramasList) */}
+=======
+        {/* CONTENEDORES CON LAS TARJETAS TrackRowClient */}
+>>>>>>> develop
         <div className="flex flex-col gap-10">
           
           {/* MÓDULO 1: TODAS LAS ENTREVISTAS */}

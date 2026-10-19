@@ -26,7 +26,7 @@ async function fetchPlaylistViaHydration(playlistUrl) {
     let playlistArtwork = null;
 
     for (const item of hydrationData) {
-      // Coleccionamos todos los sonidos completos presentes en el payload
+      // Coleccionamos todos los sonidos completos presentes en el payload 
       if (item.hydratable === "sound" && item.data && item.data.id) {
         soundsById.set(String(item.data.id), item.data);
       }

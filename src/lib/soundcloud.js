@@ -1,48 +1,39 @@
 // src/lib/soundcloud.js
-export async function resolveTrack(url) {
-  const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
-  const res = await fetch(`https://api.soundcloud.com/resolve?url=${url}&client_id=${client_id}`);
-  const data = await res.json();
-  return { streamUrl: url, title: data.title };
-}
 
-async function getTracksFromStaticPlaylist(playlistUrl) {
+// Función auxiliar para obtener los tracks de una playlist mediante la API v2 de SoundCloud
+async function getTracksFromApiPlaylist(playlistUrl) {
+  const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID || "4UBpi35NOKe8gSOYeOphEMWyeIjKPXyN";
+  
   try {
-    const res = await fetch(playlistUrl, {
-      headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" },
-      next: { revalidate: 0 }
-    });
+    // 1. Primero resolvemos la URL de la playlist para obtener su ID numérico y datos de la API
+    const resolveRes = await fetch(
+      `https://api-v2.soundcloud.com/resolve?url=${encodeURIComponent(playlistUrl)}&client_id=${client_id}`,
+      { next: { revalidate: 0 } }
+    );
 
-    if (!res.ok) return [];
-    const html = await res.text();
-
-    const tracks = [];
-    const matches = [...html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g)];
-    
-    const imgMatch = html.match(/<meta property="og:image" content="([^"]+)"/);
-    const playlistArtwork = imgMatch ? imgMatch[1] : null;
-
-    let count = 0;
-    for (const match of matches) {
-      const link = match[1];
-      const title = match[2].trim();
-      if (link.includes("/sets/")) continue;
-
-      const fullUrl = link.startsWith("http") ? link : `https://soundcloud.com${link}`;
-
-      tracks.push({
-        id: `track-${count}-${Date.now()}`,
-        title: title,
-        permalink_url: fullUrl,
-        streamUrl: fullUrl, 
-        artwork_url: playlistArtwork || "/encabezado-cronicas-mobile.jpg", 
-        date: new Date().toLocaleDateString("es-AR")
-      });
-      count++;
+    if (!resolveRes.ok) {
+      throw new Error(`No se pudo resolver la playlist: ${resolveRes.status}`);
     }
-    return tracks;
+
+    const playlistData = await resolveRes.json();
+    
+    // Si la API nos devuelve los tracks directamente embebidos o necesitamos consultar la playlist completa
+    const tracksList = playlistData.tracks || [];
+
+    // Mapeamos los tracks al formato que ya utiliza tu aplicación
+    return tracksList.map((track, index) => ({
+      id: track.id || `track-${index}-${Date.now()}`,
+      title: track.title || "Sin título",
+      permalink_url: track.permalink_url,
+      streamUrl: track.permalink_url, // Mantenemos la URL para tu reproductor
+      artwork_url: track.artwork_url 
+        ? track.artwork_url.replace('-large', '-t500x500') 
+        : (playlistData.artwork_url ? playlistData.artwork_url.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg"),
+      date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
+    }));
+
   } catch (error) {
-    console.error(`Error extrayendo tracks:`, error);
+    console.error(`Error consultando la API de SoundCloud para ${playlistUrl}:`, error);
     return [];
   }
 }
@@ -52,8 +43,8 @@ export async function getProgramasYEntrevistas() {
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([
-    getTracksFromStaticPlaylist(URL_PROGRAMAS),
-    getTracksFromStaticPlaylist(URL_ENTREVISTAS),
+    getTracksFromApiPlaylist(URL_PROGRAMAS),
+    getTracksFromApiPlaylist(URL_ENTREVISTAS),
   ]);
 
   return { programas, entrevistas };

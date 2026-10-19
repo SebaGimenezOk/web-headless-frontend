@@ -19,61 +19,58 @@ async function fetchPlaylistViaHydration(playlistUrl) {
     if (!hydrationMatch) return [];
 
     const hydrationData = JSON.parse(hydrationMatch[1]);
-    let rawTracks = [];
+    
+    // Mapa global de sonidos indexados por su ID
+    const soundsById = new Map();
+    let playlistTrackReferences = [];
     let playlistArtwork = null;
 
-    // Buscamos específicamente el objeto 'playlist' dentro de la hidratación que coincida con la URL o contenga los tracks reales
     for (const item of hydrationData) {
+      // Coleccionamos todos los sonidos completos presentes en el payload
+      if (item.hydratable === "sound" && item.data && item.data.id) {
+        soundsById.set(String(item.data.id), item.data);
+      }
+
+      // Buscamos la playlist solicitada
       if (item.hydratable === "playlist" && item.data) {
-        // Verificamos si esta playlist es la que corresponde a la URL solicitada o tiene los tracks
-        const permalink = item.data.permalink_url || "";
-        if (playlistUrl.includes(permalink) || (item.data.tracks && item.data.tracks.length > 0)) {
-          if (item.data.artwork_url) {
-            playlistArtwork = item.data.artwork_url;
-          }
-          if (item.data.tracks && Array.isArray(item.data.tracks)) {
-            // Si los tracks vienen completos como objetos detallados
-            rawTracks = item.data.tracks;
-            break;
-          }
+        if (item.data.artwork_url) {
+          playlistArtwork = item.data.artwork_url;
+        }
+        if (Array.isArray(item.data.tracks)) {
+          playlistTrackReferences = item.data.tracks;
         }
       }
     }
 
-    // Fallback: si el objeto playlist vino con referencias numéricas de IDs en lugar de objetos de tracks completos
-    if (rawTracks.length === 0) {
-      for (const item of hydrationData) {
-        if (item.hydratable === "playlist" && item.data?.tracks) {
-          rawTracks = item.data.tracks;
-          break;
-        }
+    // Mapeamos los tracks de la playlist usando el mapa de sonidos completos
+    const tracks = playlistTrackReferences.map((trackRef, index) => {
+      let track = typeof trackRef === "object" ? trackRef : null;
+      const trackId = track ? String(track.id) : String(trackRef);
+
+      // Si el track venía solo como ID numérico, lo buscamos en el mapa global
+      if ((!track || !track.title) && soundsById.has(trackId)) {
+        track = soundsById.get(trackId);
       }
-    }
 
-    // Mapeo estricto evitando elementos vacíos o genéricos cruzados
-    return rawTracks
-      .map((track, index) => {
-        // Si track es solo un ID numérico (referencia), lo ignoramos para evitar desajustes
-        if (typeof track === "number") return null;
+      if (!track || (!track.title && !track.permalink)) return null;
 
-        const title = track.title || track.permalink;
-        if (!title) return null;
+      const title = track.title || track.permalink || `Pista ${index + 1}`;
+      const permalink = track.permalink_url || playlistUrl;
+      const artwork = track.artwork_url 
+        ? track.artwork_url.replace('-large', '-t500x500') 
+        : (playlistArtwork ? playlistArtwork.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg");
 
-        const permalink = track.permalink_url || playlistUrl;
-        const artwork = track.artwork_url 
-          ? track.artwork_url.replace('-large', '-t500x500') 
-          : (playlistArtwork ? playlistArtwork.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg");
+      return {
+        id: trackId,
+        title: title.trim(),
+        permalink_url: permalink,
+        streamUrl: permalink,
+        artwork_url: artwork,
+        date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
+      };
+    }).filter(Boolean);
 
-        return {
-          id: track.id ? String(track.id) : `track-${index}-${Date.now()}`,
-          title: title.trim(),
-          permalink_url: permalink,
-          streamUrl: permalink,
-          artwork_url: artwork,
-          date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
-        };
-      })
-      .filter(Boolean); // Limpiamos nulos
+    return tracks;
   } catch (error) {
     console.error("Error parseando hidratación de SoundCloud:", error);
     return [];

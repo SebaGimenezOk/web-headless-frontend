@@ -19,14 +19,11 @@ async function getTracksFromStaticPlaylist(playlistUrl) {
     const tracks = [];
     const matches = [...html.matchAll(/<a itemprop="url" href="([^"]+)">([^<]+)<\/a>/g)];
     
-    // Capturamos la imagen real de la playlist
     const imgMatch = html.match(/<meta property="og:image" content="([^"]+)"/);
     const playlistArtwork = imgMatch ? imgMatch[1] : null;
 
     let count = 0;
     for (const match of matches) {
-      if (count >= 4) break; 
-      
       const link = match[1];
       const title = match[2].trim();
       if (link.includes("/sets/")) continue;

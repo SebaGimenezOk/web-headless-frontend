@@ -12,9 +12,16 @@ export default function BajoEstasEstrellas() {
       setLoading(true);
       setError(null);
 
-     try {
+      try {
         const res = await fetch('/api/soundcloud/tracks');
-        const data = await res.json();
+        const text = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch {
+          throw new Error('El servidor devolvió una respuesta no válida.');
+        }
 
         if (!res.ok) {
           throw new Error(data.error || 'Error en la petición');
@@ -75,7 +82,7 @@ export default function BajoEstasEstrellas() {
                 href={track.permalink_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black text-sm font-bold rounded transition-colors"
+                className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black text-sm font-bold rounded transition-colors shrink-0"
               >
                 Escuchar
               </a>

@@ -1,108 +1,153 @@
-import { getProgramasYEntrevistas } from "@/lib/soundcloud";
-import TrackRowClient from "./TrackRowClient";
-import Image from "next/image";
-import BajoEstrellasCTA from "./BajoEstrellasCTA";
+'use client';
 
-export default async function ProgramasList() {
-  const { programas, entrevistas } = await getProgramasYEntrevistas();
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import image from 'next/image';
 
-  // Invertimos para asegurar que los más recientes aparezcan primeros y tomamos los últimos
-  const programasRecientes = programas?.length ? [...programas].reverse().slice(0, 2) : [];
-  const entrevistasRecientes = entrevistas?.length ? [...entrevistas].reverse().slice(0, 3) : [];
+
+export default function ProgramasLista() {
+  const [entrevistas, setEntrevistas] = useState([]);
+  const [programas, setProgramas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // 1. Obtener entrevistas de SoundCloud
+        const soundcloudRes = await fetch('/api/soundcloud/tracks');
+        const scText = await soundcloudRes.text();
+        let soundcloudData = [];
+
+        try {
+          soundcloudData = JSON.parse(scText);
+        } catch {
+          throw new Error('La API de SoundCloud no devolvió un JSON válido.');
+        }
+
+        if (!soundcloudRes.ok) {
+          throw new Error(soundcloudData.error || 'Error al obtener entrevistas');
+        }
+
+        // Tomar únicamente las últimas 3 entrevistas
+        setEntrevistas(soundcloudData.slice(0, 3));
+
+        // 2. Obtener últimos 2 programas desde WordPress Headless
+        const wpRes = await fetch(
+          'https://api.cronicasdeunespectador.com/wp-json/wp/v2/posts?per_page=2&_embed'
+        );
+
+        if (wpRes.ok) {
+          const wpText = await wpRes.text();
+          try {
+            const wpData = JSON.parse(wpText);
+            setProgramas(wpData);
+          } catch (e) {
+            console.error('Error parseando WordPress:', e);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="p-8 text-center text-zinc-400">Cargando programas y entrevistas...</div>;
+  }
+
+  if (error) {
+    return <div className="p-8 text-center text-red-500">Error: {error}</div>;
+  }
 
   return (
-    <section
-      className="relative w-full py-20 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed"
-      style={{ backgroundImage: `url('/bg-MiguelAngel.webp')` }}
-    >
-      {/* Capa de contraste con desenfoque suave */}
-      <div className="absolute inset-0 bg-white/20 backdrop-blur-xs pointer-events-none" />
-
-      <div className="relative max-w-5xl mx-auto z-10 space-y-12">
-        {/* 🌟 ENCABEZADO PRINCIPAL */}
-        <header className="max-w-5xl mx-auto bg-transparent p-4 md:p-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
-            <div className="relative w-auto h-auto shrink-0 overflow-hidden rounded-2xl">
-              <Image
-                src="/bg-MiguelAngel.webp"
-                alt="Conductores"
-                width={480}
-                height={480}
-                className="object-contain"
-                priority
-              />
-            </div>
-
-            <div className="text-center sm:text-left flex-1">
-              <h1 className="text-3xl md:text-5xl font-medium text-zinc-900 tracking-wide uppercase">
-                BAJO ESTAS ESTRELLAS
-              </h1>
-              <h2 className="text-2xl md:text-4xl font-medium text-zinc-800 tracking-wide uppercase mt-1">
-                EL PODCAST
-              </h2>
-              <p className="md:mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed">
-                Emitido en vivo todos los jueves desde los estudios de Radio Grote.
-              </p>
-              <div className="mt-4 h-0.5 w-16 bg-[#bfa15f] mx-auto sm:mx-0 opacity-80" />
-            </div>
-          </div>
-        </header>
-
-        {/* 🟤 MÓDULO ÚNICO CON FONDO MARRÓN UNIFICADO */}
-        <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/20 backdrop-blur-md shadow-2xl border border-white/10 text-white space-y-10">
-          
-          {/* SECCIÓN 1: ÚLTIMAS 3 ENTREVISTAS */}
-          <div>
-            <header className="mb-6 font-source">
-              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-700 ">
-                Últimas Entrevistas
-              </h2>
-              <div className="mt-2 h-1 w-16 bg-[#bfa15f]/40" />
-            </header>
-
-            <div className="flex flex-col gap-4 font-source">
-              {entrevistasRecientes.map((item, index) => (
-                <TrackRowClient
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  variant="gold"
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* DIVISOR INTERNO SUTIL */}
-          <div className="h-px bg-white/10 w-full" />
-
-          {/* SECCIÓN 2: ÚLTIMOS 2 PROGRAMAS */}
-          <div>
-            <header className="mb-6">
-              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-700 ">
-                Últimos Programas
-              </h2>
-              <div className="mt-2 h-1 w-16 bg-white/30" />
-            </header>
-
-            <div className="flex flex-col gap-4 font-source">
-              {programasRecientes.map((item, index) => (
-                <TrackRowClient
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  variant="olive"
-                />
-              ))}
-            </div>
-          </div>
-
+    <div className="max-w-7xl mx-auto px-4 py-8 space-y-12">
+      {/* SECCIÓN 1: ÚLTIMAS 3 ENTREVISTAS */}
+      <section>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl md:text-2xl font-heading text-[#bfa15f] uppercase tracking-wide">
+            Últimas Entrevistas
+          </h2>
+          <Link href="/bajo-estas-estrellas" className="text-xs text-zinc-400 hover:text-[#bfa15f] uppercase tracking-wider">
+            Ver todas →
+          </Link>
         </div>
 
-        {/* 🚀 CALL TO ACTION (DEBAJO DEL MÓDULO) */}
-        <div className="pt-4">
-          <BajoEstrellasCTA />
+        <div className="space-y-3">
+          {entrevistas.map((item, index) => (
+            <div
+              key={item.id}
+              className="p-4 bg-white border border-zinc-200/80 rounded-xl flex items-center justify-between gap-4 hover:border-[#bfa15f]/50 transition-all"
+            >
+              <div className="flex-1 min-w-0">
+                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#bfa15f]/15 text-[#bfa15f] mr-2">
+                  Ep. {(index + 1).toString().padStart(2, '0')}
+                </span>
+                <h3 className="inline text-sm font-semibold text-zinc-900 truncate">
+                  {item.title}
+                </h3>
+              </div>
+              <a
+                href={item.permalink_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 bg-[#f8f5ee] hover:bg-[#bfa15f] hover:text-white border border-[#e5e0d8] text-xs uppercase rounded-lg transition-all font-medium shrink-0"
+              >
+                Escuchar 🎙️
+              </a>
+            </div>
+          ))}
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* SECCIÓN 2: ÚLTIMOS 2 PROGRAMAS */}
+      <section>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl md:text-2xl font-heading text-[#bfa15f] uppercase tracking-wide">
+            Últimos Programas
+          </h2>
+          <Link href="/programas" className="text-xs text-zinc-400 hover:text-[#bfa15f] uppercase tracking-wider">
+            Ver todos →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {programas.map((post) => {
+            const featuredImg =
+              post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/placeholder.jpg';
+
+            return (
+              <article key={post.id} className="bg-white border border-zinc-200/80 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all">
+                <image
+                  src={featuredImg}
+                  alt={post.title.rendered}
+                  className="w-full h-48 object-cover rounded-xl mb-4"
+                  width={400}
+                  height={200}
+                />
+                <h3
+                  className="text-lg font-bold text-zinc-900 mb-2 line-clamp-2"
+                  dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                />
+                <Link
+                  href={`/podcasts/${post.slug}`}
+                  className="inline-block mt-2 text-xs font-semibold uppercase text-[#bfa15f] hover:underline"
+                >
+                  Ver programa →
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </div>
   );
 }

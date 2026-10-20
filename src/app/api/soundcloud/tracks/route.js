@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   const CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID || '4UBpi35NOKe8gSOYeOphEMWyeIjKPXyN';
   const CLIENT_SECRET = process.env.SOUNDCLOUD_CLIENT_SECRET || 'npd7QQFbdpMav9c2mUAdqjA00lMoz7Nk';
-  const PROFILE_URL = 'https://soundcloud.com/bajoestasestrellas';
+  const PROFILE_URL = process.env.SOUNDCLOUD_PROFILE_URL || 'https://soundcloud.com/bajoestasestrellas';
 
   try {
-    // 1. Obtener Token mediante Basic Auth
+    // 1. Autenticación Basic Auth
     const credentials = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
 
     const tokenRes = await fetch('https://secure.soundcloud.com/oauth/token', {
@@ -32,8 +32,9 @@ export async function GET() {
 
     const { access_token } = tokenData;
 
-    // 2. Obtener la información del perfil para sacar el ID interno
-    const resolveRes = await fetch(`https://api.soundcloud.com/resolve?url=${encodeURIComponent(PROFILE_URL)}`, {
+    // 2. Obtener el ID del perfil desde la URL limpia
+    const cleanProfileUrl = PROFILE_URL.split('?')[0];
+    const resolveRes = await fetch(`https://api.soundcloud.com/resolve?url=${encodeURIComponent(cleanProfileUrl)}`, {
       headers: {
         Authorization: `OAuth ${access_token}`,
       },
@@ -50,7 +51,7 @@ export async function GET() {
 
     const userId = userData.id;
 
-    // 3. Traer todos los audios paginados
+    // 3. Obtener todos los tracks paginados
     let allTracks = [];
     let nextUrl = `https://api.soundcloud.com/users/${userId}/tracks?limit=200&linked_partitioning=1`;
 
@@ -75,7 +76,7 @@ export async function GET() {
       }
     }
 
-    // 4. Ordenar cronológicamente (más recientes primero)
+    // 4. Ordenar más recientes primero
     const sortedTracks = allTracks.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );

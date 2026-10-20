@@ -4,9 +4,8 @@ import Image from "next/image";
 import BajoEstrellasCTA from "./BajoEstrellasCTA";
 
 export default async function ProgramasList() {
-  const { programas, entrevistas } = await getProgramasYEntrevistas();
+  const { programas = [], entrevistas = [] } = await getProgramasYEntrevistas();
 
-  // Invertimos para asegurar que los más recientes aparezcan primeros y tomamos los últimos
   const programasRecientes = programas?.length ? [...programas].reverse().slice(0, 2) : [];
   const entrevistasRecientes = entrevistas?.length ? [...entrevistas].reverse().slice(0, 3) : [];
 
@@ -15,11 +14,9 @@ export default async function ProgramasList() {
       className="relative w-full py-20 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed"
       style={{ backgroundImage: `url('/bg-MiguelAngel.webp')` }}
     >
-      {/* Capa de contraste con desenfoque suave */}
       <div className="absolute inset-0 bg-white/20 backdrop-blur-xs pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto z-10 space-y-12">
-        {/* 🌟 ENCABEZADO PRINCIPAL */}
         <header className="max-w-5xl mx-auto bg-transparent p-4 md:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8">
             <div className="relative w-auto h-auto shrink-0 overflow-hidden rounded-2xl">
@@ -48,10 +45,7 @@ export default async function ProgramasList() {
           </div>
         </header>
 
-        {/* 🟤 MÓDULO ÚNICO CON FONDO MARRÓN UNIFICADO */}
         <div className="rounded-3xl p-6 md:p-10 bg-[#3a2e2b]/20 backdrop-blur-md shadow-2xl border border-white/10 text-white space-y-10">
-          
-          {/* SECCIÓN 1: ÚLTIMAS 3 ENTREVISTAS */}
           <div>
             <header className="mb-6 font-source">
               <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-700 ">
@@ -72,10 +66,8 @@ export default async function ProgramasList() {
             </div>
           </div>
 
-          {/* DIVISOR INTERNO SUTIL */}
           <div className="h-px bg-white/10 w-full" />
 
-          {/* SECCIÓN 2: ÚLTIMOS 2 PROGRAMAS */}
           <div>
             <header className="mb-6">
               <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-zinc-700 ">
@@ -95,10 +87,8 @@ export default async function ProgramasList() {
               ))}
             </div>
           </div>
-
         </div>
 
-        {/* 🚀 CALL TO ACTION (DEBAJO DEL MÓDULO) */}
         <div className="pt-4">
           <BajoEstrellasCTA />
         </div>

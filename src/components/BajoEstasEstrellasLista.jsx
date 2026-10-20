@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function BajoEstasEstrellas() {
   const [interviews, setInterviews] = useState([]);
@@ -12,7 +13,7 @@ export default function BajoEstasEstrellas() {
       setLoading(true);
       setError(null);
 
-     try {
+      try {
         const res = await fetch('/api/soundcloud/tracks');
         const data = await res.json();
 
@@ -20,7 +21,7 @@ export default function BajoEstasEstrellas() {
           throw new Error(data.error || 'Error en la petición');
         }
 
-        setInterviews(data);
+        setInterviews(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err);
         setError(err.message);
@@ -32,57 +33,95 @@ export default function BajoEstasEstrellas() {
     fetchTracks();
   }, []);
 
-  if (loading) {
-    return <div className="p-6 text-center text-gray-400">Cargando todas las entrevistas...</div>;
-  }
-
-  if (error) {
-    return <div className="p-6 text-center text-red-500">{error}</div>;
-  }
-
   return (
-    <div className="max-w-5xl mx-auto p-4 text-white">
-      <h1 className="text-2xl font-bold mb-6 text-yellow-400">
-        Bajo Estas Estrellas — Entrevistas ({interviews.length})
-      </h1>
+    <main className="relative w-full py-16 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed min-h-screen" style={{ backgroundImage: "url('/bg-MiguelAngel.webp')" }}>
+      <div className="absolute inset-0 bg-white/30 backdrop-blur-xs pointer-events-none"></div>
 
-      <div className="space-y-4">
-        {interviews.map((track) => (
-          <div
-            key={track.id}
-            className="p-4 bg-gray-900 rounded-lg border border-gray-800 hover:border-yellow-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
-          >
-            <div className="flex-1">
-              <span className="text-xs text-gray-400">
-                {new Date(track.created_at).toLocaleDateString("es-AR", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </span>
-              <h2 className="text-lg font-semibold text-gray-100 mt-1">
-                {track.title}
-              </h2>
-              {track.description && (
-                <p className="text-sm text-gray-400 line-clamp-2 mt-1">
-                  {track.description}
-                </p>
-              )}
-            </div>
-
-            <div className="w-full md:w-auto flex items-center gap-3">
-              <a
-                href={track.permalink_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black text-sm font-bold rounded transition-colors"
-              >
-                Escuchar
-              </a>
+      <div className="relative max-w-5xl mx-auto z-10 space-y-12">
+        <header className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-8 md:p-14 flex items-center min-h-65">
+          <div className="absolute inset-0 z-0">
+            <Image 
+              alt="Fondo Bajo Estas Estrellas" 
+              src="/bg-MiguelAngel.webp"
+              fill
+              className="object-cover object-center filter brightness-90"
+            />
+            <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
+          </div>
+          
+          <div className="relative z-10 max-w-4xl space-y-4 text-left">
+            <span className="inline-block text-xs uppercase tracking-widest px-3.5 py-1.5 bg-zinc-900 text-white rounded-full font-semibold shadow-sm">
+              Archivo Histórico
+            </span>
+            <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-wide uppercase leading-tight">
+              Bajo Estas Estrellas: Colección Completa
+            </h1>
+            <p className="text-base md:text-lg text-zinc-700 font-light font-source leading-relaxed max-w-3xl">
+              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa.
+            </p>
+            <div className="pt-2">
+              <div className="h-1 w-24 bg-[#bfa15f] rounded-full opacity-90"></div>
             </div>
           </div>
-        ))}
+        </header>
+
+        <div className="flex flex-col gap-10">
+          <div className="rounded-3xl p-6 md:p-10 bg-white/90 backdrop-blur-md shadow-xl border border-zinc-200/80 text-zinc-900">
+            <header className="mb-8 font-source flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 pb-4">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-zinc-900">
+                  Todas las Entrevistas <span className="text-[#bfa15f]">({interviews.length})</span>
+                </h2>
+                <p className="text-sm text-zinc-600 font-light mt-1">Charlas y notas exclusivas con nuestros invitados</p>
+              </div>
+            </header>
+
+            {loading ? (
+              <div className="p-6 text-center text-zinc-500 font-source">Cargando todas las entrevistas...</div>
+            ) : error ? (
+              <div className="p-6 text-center text-red-500 font-source">{error}</div>
+            ) : (
+              <div className="flex flex-col gap-4 font-source">
+                {interviews.map((track) => (
+                  <div
+                    key={track.id}
+                    className="p-5 bg-white border border-zinc-200/80 rounded-2xl shadow-xs hover:border-[#bfa15f] transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <span className="text-xs text-zinc-400">
+                        {new Date(track.created_at).toLocaleDateString("es-AR", {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </span>
+                      <h3 className="text-base md:text-lg font-semibold text-zinc-900 truncate mt-1">
+                        {track.title}
+                      </h3>
+                      {track.description && (
+                        <p className="text-xs md:text-sm text-zinc-500 line-clamp-2 mt-1">
+                          {track.description}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="w-full md:w-auto flex items-center gap-3 shrink-0">
+                      <a
+                        href={track.permalink_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-[#f8f5ee] hover:bg-[#bfa15f] text-neutral-800 hover:text-white border border-[#e5e0d8] hover:border-[#bfa15f] text-xs uppercase tracking-wider transition-all rounded-xl font-medium shadow-xs"
+                      >
+                        Escuchar 🎙️
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

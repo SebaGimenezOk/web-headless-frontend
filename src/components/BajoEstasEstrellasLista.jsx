@@ -12,16 +12,18 @@ export default function BajoEstasEstrellas() {
       setLoading(true);
       setError(null);
 
-      try {
+     try {
         const res = await fetch('/api/soundcloud/tracks');
-        if (!res.ok) {
-          throw new Error('No se pudo obtener la lista');
-        }
         const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Error en la petición');
+        }
+
         setInterviews(data);
       } catch (err) {
         console.error(err);
-        setError('No se pudieron cargar todas las entrevistas.');
+        setError(err.message);
       } finally {
         setLoading(false);
       }

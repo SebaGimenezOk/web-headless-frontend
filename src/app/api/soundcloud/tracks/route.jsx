@@ -60,10 +60,10 @@ export async function GET() {
     );
 
     return NextResponse.json(sortedTracks);
-  } catch (error) {
-    console.error('Error en API SoundCloud:', error);
+  }  catch (error) {
+    console.error('Fallo general en API SoundCloud:', error.message);
     return NextResponse.json(
-      { error: 'Error al obtener audios de SoundCloud' },
+      { error: error.message },
       { status: 500 }
     );
   }

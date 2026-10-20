@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import image from 'next/image';
-
+import Image from 'next/image';
 
 export default function ProgramasLista() {
   const [entrevistas, setEntrevistas] = useState([]);
@@ -85,7 +84,7 @@ export default function ProgramasLista() {
           {entrevistas.map((item, index) => (
             <div
               key={item.id}
-              className="p-4 bg-white border border-zinc-200/80 rounded-xl flex items-center justify-between gap-4 hover:border-[#bfa15f]/50 transition-all"
+              className="p-4 bg-white border border-zinc-200/80 rounded-xl flex items-center justify-between gap-4 hover:border-[#bfa15f]/50 transition-all shadow-sm"
             >
               <div className="flex-1 min-w-0">
                 <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#bfa15f]/15 text-[#bfa15f] mr-2">
@@ -130,8 +129,6 @@ export default function ProgramasLista() {
                   src={featuredImg}
                   alt={post.title.rendered}
                   className="w-full h-48 object-cover rounded-xl mb-4"
-                  width={400}
-                  height={200}
                 />
                 <h3
                   className="text-lg font-bold text-zinc-900 mb-2 line-clamp-2"
@@ -147,6 +144,22 @@ export default function ProgramasLista() {
             );
           })}
         </div>
+      </section>
+
+      {/* SECCIÓN CTA / LLAMADA A LA ACCIÓN A BAJO LAS ESTRELLAS */}
+      <section className="bg-[#f8f5ee] border border-[#e5e0d8] rounded-2xl p-8 text-center my-8 shadow-xs">
+        <h3 className="text-xl md:text-2xl font-heading text-neutral-900 mb-2">
+          ¿Querés revivir todos los programas anteriores?
+        </h3>
+        <p className="text-sm text-zinc-600 max-w-xl mx-auto mb-6">
+          Explorá el archivo completo de entrevistas y transmisiones de Bajo Estas Estrellas en nuestro espacio exclusivo.
+        </p>
+        <Link
+          href="/bajo-estas-estrellas"
+          className="inline-flex items-center justify-center px-6 py-3 bg-[#bfa15f] hover:bg-[#a88e52] text-white text-xs uppercase tracking-widest font-semibold rounded-xl transition-all shadow-sm"
+        >
+          Ver archivo completo de entrevistas →
+        </Link>
       </section>
     </div>
   );

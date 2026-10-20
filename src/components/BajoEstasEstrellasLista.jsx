@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import BajoEstrellasCTA from './BajoEstrellasCTA';
 
 export default function BajoEstasEstrellas() {
   const [interviews, setInterviews] = useState([]);
@@ -40,56 +41,62 @@ export default function BajoEstasEstrellas() {
   }, []);
 
   if (loading) {
-    return <div className="p-6 text-center text-gray-400">Cargando todas las entrevistas...</div>;
+    return <div className="p-8 text-center text-zinc-400">Cargando todas las entrevistas de SoundCloud...</div>;
   }
 
   if (error) {
-    return <div className="p-6 text-center text-red-500">{error}</div>;
+    return <div className="p-8 text-center text-red-500">Error: {error}</div>;
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-4 text-white">
-      <h1 className="text-2xl font-bold mb-6 text-yellow-400">
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <h1 className="text-2xl md:text-3xl font-heading mb-8 text-[#bfa15f] tracking-wide uppercase">
         Bajo Estas Estrellas — Entrevistas ({interviews.length})
       </h1>
 
       <div className="space-y-4">
-        {interviews.map((track) => (
+        {interviews.map((track, index) => (
           <div
             key={track.id}
-            className="p-4 bg-gray-900 rounded-lg border border-gray-800 hover:border-yellow-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+            className="p-5 bg-white border border-zinc-200/80 rounded-2xl shadow-sm hover:border-[#bfa15f]/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group"
           >
-            <div className="flex-1">
-              <span className="text-xs text-gray-400">
-                {new Date(track.created_at).toLocaleDateString("es-AR", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </span>
-              <h2 className="text-lg font-semibold text-gray-100 mt-1">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-3 mb-1">
+                <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-md bg-[#bfa15f]/15 text-[#bfa15f] tracking-wider">
+                  Ep. {(index + 1).toString().padStart(2, '0')}
+                </span>
+                <span className="text-xs text-zinc-400">
+                  {new Date(track.created_at).toLocaleDateString('es-AR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </span>
+              </div>
+              <h2 className="text-base md:text-lg font-semibold text-zinc-900 group-hover:text-[#bfa15f] transition-colors truncate">
                 {track.title}
               </h2>
               {track.description && (
-                <p className="text-sm text-gray-400 line-clamp-2 mt-1">
+                <p className="text-xs md:text-sm text-zinc-500 line-clamp-2 mt-1">
                   {track.description}
                 </p>
               )}
             </div>
 
-            <div className="w-full md:w-auto flex items-center gap-3">
+            <div className="shrink-0 w-full md:w-auto flex items-center gap-3">
               <a
                 href={track.permalink_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black text-sm font-bold rounded transition-colors shrink-0"
+                className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-[#f8f5ee] hover:bg-[#bfa15f] text-neutral-800 hover:text-white border border-[#e5e0d8] hover:border-[#bfa15f] text-xs uppercase tracking-wider transition-all rounded-xl font-medium shadow-xs"
               >
-                Escuchar
+                Escuchar 🎙️
               </a>
             </div>
           </div>
         ))}
       </div>
+      <BajoEstrellasCTA/>
     </div>
   );
 }

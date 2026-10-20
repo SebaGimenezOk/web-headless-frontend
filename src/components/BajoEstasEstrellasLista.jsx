@@ -12,7 +12,7 @@ export default function BajoEstasEstrellas() {
       setLoading(true);
       setError(null);
 
-      // Reemplazar con el client_id o endpoint/proxy de SoundCloud
+     
       const CLIENT_ID = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID; 
       const USER_ID = process.env.NEXT_PUBLIC_SOUNDCLOUD_USER_ID; 
 

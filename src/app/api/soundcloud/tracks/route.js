@@ -1,27 +1,31 @@
-
-
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID;
-  const CLIENT_SECRET = process.env.SOUNDCLOUD_CLIENT_SECRET;
+  const CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID || '4UBpi35NOKe8gSOYeOphEMWyeIjKPXyN';
+  const CLIENT_SECRET = process.env.SOUNDCLOUD_CLIENT_SECRET || 'npd7QQFbdpMav9c2mUAdqjA00lMoz7Nk';
   const PROFILE_URL = process.env.SOUNDCLOUD_PROFILE_URL;
 
   try {
-    const authHeader = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
-
-    // 1. Obtener Token
+    // 1. Obtener Token pasando las credenciales en el body (como exige el CLI)
     const tokenRes = await fetch('https://secure.soundcloud.com/oauth/token', {
       method: 'POST',
       headers: {
-        'Authorization': `Basic ${authHeader}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams({ grant_type: 'client_credentials' }),
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+      }),
     });
 
     const tokenData = await tokenRes.json();
-    if (!tokenRes.ok) throw new Error('Error de autenticación OAuth');
+
+    if (!tokenRes.ok) {
+      console.error('Detalle de error OAuth:', tokenData);
+      throw new Error(`Error de autenticación OAuth: ${JSON.stringify(tokenData)}`);
+    }
+
     const { access_token } = tokenData;
 
     // 2. Resolver la URL del perfil para obtener el User ID automáticamente

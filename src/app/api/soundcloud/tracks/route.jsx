@@ -1,47 +1,52 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID;
-  const CLIENT_SECRET = process.env.SOUNDCLOUD_CLIENT_SECRET;
+  const CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID || '4UBpi35NOKe8gSOYeOphEMWyeIjKPXyN';
+  const CLIENT_SECRET = process.env.SOUNDCLOUD_CLIENT_SECRET || 'npd7QQFbdpMav9c2mUAdqjA00lMoz7Nk';
   const USER_ID = process.env.SOUNDCLOUD_USER_ID;
 
   try {
-    // 1. Obtener Access Token del servidor de SoundCloud
+    // Codificar client_id:client_secret en Base64 para el Basic Auth
+    const authHeader = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
+
+    // 1. Obtener Access Token mediante Basic Auth Header
     const tokenRes = await fetch('https://secure.soundcloud.com/oauth/token', {
       method: 'POST',
       headers: {
+        'Authorization': `Basic ${authHeader}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
         grant_type: 'client_credentials',
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
       }),
-      next: { revalidate: 3600 }, // Caché de 1 hora
     });
 
+    const tokenData = await tokenRes.json();
+
     if (!tokenRes.ok) {
-      throw new Error(`Error autenticando con SoundCloud: ${tokenRes.status}`);
+      console.error('Error token SoundCloud:', tokenData);
+      throw new Error(`Error autenticando: ${tokenRes.status} - ${JSON.stringify(tokenData)}`);
     }
 
-    const { access_token } = await tokenRes.json();
+    const { access_token } = tokenData;
 
-    // 2. Traer todos los tracks paginados usando el Access Token
+    // 2. Traer todos los tracks paginados
     let allTracks = [];
     let nextUrl = `https://api.soundcloud.com/users/${USER_ID}/tracks?limit=200&linked_partitioning=1`;
 
     while (nextUrl) {
       const res = await fetch(nextUrl, {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `OAuth ${access_token}`,
         },
       });
 
-      if (!res.ok) {
-        throw new Error(`Error en la llamada a SoundCloud: ${res.status}`);
-      }
-
       const data = await res.json();
+
+      if (!res.ok) {
+        console.error('Error tracks SoundCloud:', data);
+        throw new Error(`Error en tracks: ${res.status} - ${JSON.stringify(data)}`);
+      }
 
       if (data.collection) {
         allTracks = [...allTracks, ...data.collection];
@@ -60,8 +65,8 @@ export async function GET() {
     );
 
     return NextResponse.json(sortedTracks);
-  }  catch (error) {
-    console.error('Fallo general en API SoundCloud:', error.message);
+  } catch (error) {
+    console.error('Fallo general API SoundCloud:', error.message);
     return NextResponse.json(
       { error: error.message },
       { status: 500 }

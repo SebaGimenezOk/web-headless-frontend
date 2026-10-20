@@ -1,5 +1,5 @@
+'use client';
 
-"use client";
 import { useState, useEffect } from 'react';
 
 export default function BajoEstasEstrellas() {
@@ -8,58 +8,26 @@ export default function BajoEstasEstrellas() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchAllSoundCloudTracks() {
+    async function fetchTracks() {
       setLoading(true);
       setError(null);
 
-     
-      const CLIENT_ID = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID; 
-      const USER_ID = process.env.NEXT_PUBLIC_SOUNDCLOUD_USER_ID; 
-
-      if (!CLIENT_ID || !USER_ID) {
-        // Opción B: Si consumen a través de la API local de Next/WordPress
-        // ajustamos el URL al proxy interno
-      }
-
-      let allTracks = [];
-      let nextUrl = `https://api.soundcloud.com/users/${USER_ID}/tracks?client_id=${CLIENT_ID}&limit=200&linked_partitioning=1`;
-
       try {
-        // Paginación recursiva hasta traer el catálogo completo
-        while (nextUrl) {
-          const res = await fetch(nextUrl);
-          if (!res.ok) {
-            throw new Error(`Error en la petición: ${res.status}`);
-          }
-          const data = await res.json();
-
-          // Manejo del formato con linked_partitioning (collection + next_href)
-          if (data.collection) {
-            allTracks = [...allTracks, ...data.collection];
-            nextUrl = data.next_href ? `${data.next_href}&client_id=${CLIENT_ID}` : null;
-          } else if (Array.isArray(data)) {
-            allTracks = [...allTracks, ...data];
-            nextUrl = null;
-          } else {
-            nextUrl = null;
-          }
+        const res = await fetch('/api/soundcloud/tracks');
+        if (!res.ok) {
+          throw new Error('No se pudo obtener la lista');
         }
-
-        // Ordenar de la más reciente a la primera (descendente por fecha)
-        const sorted = allTracks.sort(
-          (a, b) => new Date(b.created_at) - new Date(a.created_at)
-        );
-
-        setInterviews(sorted);
+        const data = await res.json();
+        setInterviews(data);
       } catch (err) {
-        console.error("Error cargando entrevistas de SoundCloud:", err);
-        setError("No se pudieron cargar todas las entrevistas.");
+        console.error(err);
+        setError('No se pudieron cargar todas las entrevistas.');
       } finally {
         setLoading(false);
       }
     }
 
-    fetchAllSoundCloudTracks();
+    fetchTracks();
   }, []);
 
   if (loading) {
@@ -100,7 +68,6 @@ export default function BajoEstasEstrellas() {
               )}
             </div>
 
-            {/* Reproductor embed o enlace directo */}
             <div className="w-full md:w-auto flex items-center gap-3">
               <a
                 href={track.permalink_url}

@@ -6,8 +6,8 @@ import BajoEstrellasCTA from "./BajoEstrellasCTA";
 export default async function ProgramasList() {
   const { programas = [], entrevistas = [] } = await getProgramasYEntrevistas();
 
-  const programasRecientes = programas?.length ? [...programas].reverse().slice(0, 2) : [];
-  const entrevistasRecientes = entrevistas?.length ? [...entrevistas].reverse().slice(0, 3) : [];
+  const entrevistasRecientes = entrevistas.slice(0, 3);
+  const programasRecientes = programas.slice(0, 2);
 
   return (
     <section
@@ -38,7 +38,8 @@ export default async function ProgramasList() {
                 EL PODCAST
               </h2>
               <p className="md:mt-3 text-sm md:text-base text-zinc-700 font-light font-source leading-relaxed">
-                Emitido en vivo todos los jueves desde los estudios de Radio Grote.
+                Emitido en vivo todos los jueves desde los estudios de Radio
+                Grote.
               </p>
               <div className="mt-4 h-0.5 w-16 bg-[#bfa15f] mx-auto sm:mx-0 opacity-80" />
             </div>

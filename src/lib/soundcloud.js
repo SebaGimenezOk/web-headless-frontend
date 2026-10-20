@@ -86,15 +86,25 @@ export async function getProgramasYEntrevistas() {
         : new Date().toLocaleDateString('es-AR'),
     }));
 
-    // Separar o distribuir entrevistas y programas
-    const entrevistas = formatted.filter(t => 
-      t.title.toLowerCase().includes('entrevista') || t.title.toLowerCase().includes('nota')
-    );
-    const programas = formatted.filter(t => 
-      !t.title.toLowerCase().includes('entrevista') && !t.title.toLowerCase().includes('nota')
-    );
 
-    // Si la separación por título no aplica, asignamos fallback
+
+
+
+const sortedFormatted = formatted.sort(
+  (a, b) => new Date(b.created_at) - new Date(a.created_at)
+);
+
+const entrevistas = sortedFormatted.filter(t => 
+  t.title.toLowerCase().includes('entrevista') || t.title.toLowerCase().includes('nota')
+);
+const programas = sortedFormatted.filter(t => 
+  !t.title.toLowerCase().includes('entrevista') && !t.title.toLowerCase().includes('nota')
+);
+
+return {
+  programas: programas.length > 0 ? programas : sortedFormatted,
+  entrevistas: entrevistas.length > 0 ? entrevistas : sortedFormatted,
+};
     return {
       programas: programas.length > 0 ? programas : formatted,
       entrevistas: entrevistas.length > 0 ? entrevistas : formatted,

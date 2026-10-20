@@ -15,7 +15,7 @@ export const metadata = {
 export default async function BajoEstasEstrellasPage() {
   const data = await getProgramasYEntrevistas();
   
-  // Aseguramos que los más recientes aparezcan primero invirtiendo el array si es necesario
+  // Invertimos para mostrar los más recientes al principio en el archivo completo
   const entrevistas = data?.entrevistas ? [...data.entrevistas].reverse() : [];
   const programas = data?.programas ? [...data.programas].reverse() : [];
 
@@ -24,13 +24,12 @@ export default async function BajoEstasEstrellasPage() {
       className="relative w-full py-16 px-4 md:px-6 bg-cover bg-center bg-no-repeat bg-fixed min-h-screen"
       style={{ backgroundImage: `url('/bg-MiguelAngel.webp')` }}
     >
-      {/* Capa de fondo general */}
       <div className="absolute inset-0 bg-white/30 backdrop-blur-xs pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto z-10 space-y-12">
         
         {/* ENCABEZADO TIPO BANNER */}
-        <header className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-8 md:p-14 flex items-center min-h-[260px]">
+        <header className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-8 md:p-14 flex items-center min-h-65">
           <div className="absolute inset-0 z-0">
             <Image
               src="/bg-MiguelAngel.webp"
@@ -52,7 +51,7 @@ export default async function BajoEstasEstrellasPage() {
             </h1>
             
             <p className="text-base md:text-lg text-zinc-700 font-light font-source leading-relaxed max-w-3xl">
-              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa, con la participación de invitados especiales y momentos memorables.
+              Todas las ediciones que hemos hecho, programas especiales y entrevistas. Un viaje a través de la historia de nuestro programa.
             </p>
             
             <div className="pt-2">
@@ -61,7 +60,7 @@ export default async function BajoEstasEstrellasPage() {
           </div>
         </header>
 
-        {/* LISTADO EN CONTENEDORES CLAROS Y LIMPIOS (TIPO ProgramasList) */}
+        {/* CONTENEDORES CON LAS TARJETAS TrackRowClient */}
         <div className="flex flex-col gap-10">
           
           {/* MÓDULO 1: TODAS LAS ENTREVISTAS */}

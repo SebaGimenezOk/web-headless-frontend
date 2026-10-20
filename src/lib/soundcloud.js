@@ -1,80 +1,78 @@
 // src/lib/soundcloud.js
 
-async function fetchSoundCloudPlaylist(playlistUrl) {
-  const client_id = process.env.NEXT_PUBLIC_SOUNDCLOUD_CLIENT_ID;
-
-  if (client_id) {
-    try {
-      const resolveUrl = `https://api-v2.soundcloud.com/resolve?url=${encodeURIComponent(playlistUrl)}&client_id=${client_id}`;
-      const res = await fetch(resolveUrl, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        },
-        next: { revalidate: 60 }
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        const rawTracks = data.tracks || [];
-
-        if (rawTracks.length > 0) {
-          return rawTracks.map((track, index) => ({
-            id: track.id ? String(track.id) : `track-${index}`,
-            title: track.title || "Sin título",
-            permalink_url: track.permalink_url,
-            streamUrl: track.permalink_url,
-            artwork_url: track.artwork_url 
-              ? track.artwork_url.replace('-large', '-t500x500') 
-              : (data.artwork_url ? data.artwork_url.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg"),
-            date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
-          }));
-        }
-      }
-    } catch (err) {
-      console.warn("API v2 no disponible, intentando vía OEmbed...", err);
-    }
-  }
-
+async function fetchPlaylistViaHydration(playlistUrl) {
   try {
-    const oembedUrl = `https://soundcloud.com/oembed?url=${encodeURIComponent(playlistUrl)}&format=json`;
-    const resOembed = await fetch(oembedUrl, { next: { revalidate: 60 } });
-
-    if (!resOembed.ok) return [];
-
-    const oembedData = await resOembed.json();
-    const iframeHtml = oembedData.html || "";
-    const playlistIdMatch = iframeHtml.match(/playlists%2F(\d+)/) || iframeHtml.match(/playlists\/(\d+)/);
-
-    if (!playlistIdMatch) return [];
-
-    const playlistId = playlistIdMatch[1];
-    const widgetUrl = `https://api-widget.soundcloud.com/playlists/${playlistId}?representation=full${client_id ? `&client_id=${client_id}` : ''}`;
-
-    const resWidget = await fetch(widgetUrl, {
+    const res = await fetch(playlistUrl, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://soundcloud.com/"
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "es-ES,es;q=0.9"
       },
       next: { revalidate: 60 }
     });
 
-    if (!resWidget.ok) return [];
+    if (!res.ok) return [];
 
-    const widgetData = await resWidget.json();
-    const tracks = widgetData.tracks || [];
+    const html = await res.text();
+    const hydrationMatch = html.match(/window\.__sc_hydration\s*=\s*(\[.+?\]);\s*<\/script>/s);
+    
+    if (!hydrationMatch) return [];
 
-    return tracks.map((track, index) => ({
-      id: track.id ? String(track.id) : `track-widget-${index}`,
-      title: track.title || "Sin título",
-      permalink_url: track.permalink_url,
-      streamUrl: track.permalink_url,
-      artwork_url: track.artwork_url 
+    const hydrationData = JSON.parse(hydrationMatch[1]);
+    
+    // Mapa global de sonidos indexados por su ID
+    const soundsById = new Map();
+    let playlistTrackReferences = [];
+    let playlistArtwork = null;
+
+    for (const item of hydrationData) {
+      // Coleccionamos todos los sonidos completos presentes en el payload 
+      if (item.hydratable === "sound" && item.data && item.data.id) {
+        soundsById.set(String(item.data.id), item.data);
+      }
+
+      // Buscamos la playlist solicitada
+      if (item.hydratable === "playlist" && item.data) {
+        if (item.data.artwork_url) {
+          playlistArtwork = item.data.artwork_url;
+        }
+        if (Array.isArray(item.data.tracks)) {
+          playlistTrackReferences = item.data.tracks;
+        }
+      }
+    }
+
+    // Mapeamos los tracks de la playlist usando el mapa de sonidos completos
+    const tracks = playlistTrackReferences.map((trackRef, index) => {
+      let track = typeof trackRef === "object" ? trackRef : null;
+      const trackId = track ? String(track.id) : String(trackRef);
+
+      // Si el track venía solo como ID numérico, lo buscamos en el mapa global
+      if ((!track || !track.title) && soundsById.has(trackId)) {
+        track = soundsById.get(trackId);
+      }
+
+      if (!track || (!track.title && !track.permalink)) return null;
+
+      const title = track.title || track.permalink || `Pista ${index + 1}`;
+      const permalink = track.permalink_url || playlistUrl;
+      const artwork = track.artwork_url 
         ? track.artwork_url.replace('-large', '-t500x500') 
-        : (oembedData.thumbnail_url || "/encabezado-cronicas-mobile.jpg"),
-      date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
-    }));
+        : (playlistArtwork ? playlistArtwork.replace('-large', '-t500x500') : "/encabezado-cronicas-mobile.jpg");
+
+      return {
+        id: trackId,
+        title: title.trim(),
+        permalink_url: permalink,
+        streamUrl: permalink,
+        artwork_url: artwork,
+        date: track.created_at ? new Date(track.created_at).toLocaleDateString("es-AR") : new Date().toLocaleDateString("es-AR")
+      };
+    }).filter(Boolean);
+
+    return tracks;
   } catch (error) {
-    console.error("Error al obtener playlist de SoundCloud:", error);
+    console.error("Error parseando hidratación de SoundCloud:", error);
     return [];
   }
 }
@@ -84,8 +82,8 @@ export async function getProgramasYEntrevistas() {
   const URL_ENTREVISTAS = "https://soundcloud.com/bajoestasestrellas/sets/entrevistas";
 
   const [programas, entrevistas] = await Promise.all([
-    fetchSoundCloudPlaylist(URL_PROGRAMAS),
-    fetchSoundCloudPlaylist(URL_ENTREVISTAS),
+    fetchPlaylistViaHydration(URL_PROGRAMAS),
+    fetchPlaylistViaHydration(URL_ENTREVISTAS),
   ]);
 
   return { programas, entrevistas };

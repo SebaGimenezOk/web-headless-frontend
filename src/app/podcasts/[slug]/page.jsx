@@ -100,7 +100,7 @@ export default async function PodcastDetailPage({ params }) {
 
         {post.bajada && <p className="podcast-bajada">{post.bajada}</p>}
 
-        <RatingObra score={puntuacion} />
+      <RatingObra score={post.acf?.puntuacion_de_obra} />
 
         <div className="w-full my-12">
           <SliderImagenes imagenes={imagenesSlider} />

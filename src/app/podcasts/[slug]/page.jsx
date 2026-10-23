@@ -1,8 +1,11 @@
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
 import SliderImagenes from "@/components/SliderImagenes";
+import RatingObra from "@/components/RatingObra";
+
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -90,16 +93,14 @@ export default async function PodcastDetailPage({ params }) {
           {post.audioUrl && (
             <>
               <span>•</span>
-              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️"/>
+              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️" />
             </>
           )}
         </div>
 
-        {post.bajada && (
-          <p className="podcast-bajada">
-            {post.bajada}
-          </p>
-        )}
+        {post.bajada && <p className="podcast-bajada">{post.bajada}</p>}
+
+        <RatingObra score={puntuacion} />
 
         <div className="w-full my-12">
           <SliderImagenes imagenes={imagenesSlider} />

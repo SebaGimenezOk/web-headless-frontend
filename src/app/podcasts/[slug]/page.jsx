@@ -1,11 +1,9 @@
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPodcastBySlug, getAllPodcasts } from "@/services/podcasts";
 import PlayButton from "@/components/PlayButton";
 import SliderImagenes from "@/components/SliderImagenes";
 import RatingObra from "@/components/RatingObra";
-
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -51,7 +49,6 @@ export default async function PodcastDetailPage({ params }) {
       })
     : "";
 
-  // Toma imageUrl + cualquier propiedad en post.acf que empiece con "imagen_"
   const acfImages = Object.keys(post?.acf || {})
     .filter((key) => key.startsWith("imagen_"))
     .map((key) => post.acf[key])
@@ -86,21 +83,26 @@ export default async function PodcastDetailPage({ params }) {
 
           {post.duration && (
             <span>
-              • <strong>Duración:</strong> {post.duration}
+              - <strong>Duración:</strong> {post.duration}
             </span>
           )}
 
           {post.audioUrl && (
             <>
               <span>•</span>
-              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️" />
+              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️"/>
             </>
           )}
         </div>
 
-        {post.bajada && <p className="podcast-bajada">{post.bajada}</p>}
+        {post.bajada && (
+          <p className="podcast-bajada">
+            {post.bajada}
+          </p>
+        )}
 
-      <RatingObra score={post.acf?.puntuacion_de_obra} />
+        {/* Componente de Puntuación */}
+        <RatingObra score={post.puntuacion} />
 
         <div className="w-full my-12">
           <SliderImagenes imagenes={imagenesSlider} />

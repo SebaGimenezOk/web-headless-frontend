@@ -20,7 +20,7 @@ async function fetchImageUrlById(mediaId) {
 }
 
 /**
- * 🔥 Mapper central (Resuelve URLs, Objetos ACF e IDs numéricos asincrónicamente)
+ * 🔥 Mapper central
  */
 async function mapPost(post) {
   const temporadas =
@@ -32,24 +32,24 @@ async function mapPost(post) {
   const rawAcf = post.acf || {};
   const acfResolved = {};
 
-  // Procesamos todas las claves de ACF
   const acfKeys = Object.keys(rawAcf);
-  
+
   for (const key of acfKeys) {
     const val = rawAcf[key];
 
     if (!val) continue;
 
-    // Caso 1: String directo (URL)
+    // Si es la puntuación, la conservamos directa sin buscarla como ID de imagen
+    if (key === "puntuacion_de_obra") {
+      acfResolved[key] = val;
+      continue;
+    }
+
     if (typeof val === "string" && val.startsWith("http")) {
       acfResolved[key] = val;
-    }
-    // Caso 2: Objeto ACF con .url
-    else if (typeof val === "object" && val?.url) {
+    } else if (typeof val === "object" && val?.url) {
       acfResolved[key] = val.url;
-    }
-    // Caso 3: ID numérico (ej: 69, 74, 80) -> Consulta la API REST de media de WordPress
-    else if (typeof val === "number" && val > 0) {
+    } else if (typeof val === "number" && val > 0) {
       const fetchedUrl = await fetchImageUrlById(val);
       if (fetchedUrl) {
         acfResolved[key] = fetchedUrl;
@@ -73,7 +73,7 @@ async function mapPost(post) {
       post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
       null,
 
-    // 🔥 CAMPOS ACF INDIVIDUALES
+    // CAMPOS ACF INDIVIDUALES
     author: post.acf?.author || "Autor desconocido",
     bajada: post.acf?.bajada || "",
     audioUrl: post.acf?.audio_url || null,
@@ -82,10 +82,11 @@ async function mapPost(post) {
     plateanetUrl: post.acf?.link_plateanet || null,
     alternativaUrl: post.acf?.alternativa_teatral || null,
 
-    // 🔥 OBJETO ACF CON LAS URLS RESUELTAS
+    // ⭐ PUNTUACIÓN DE LA OBRA
+    puntuacion: post.acf?.puntuacion_de_obra || 0,
+
     acf: acfResolved,
 
-    // 🔥 TAXONOMÍAS
     category: categorias.length ? categorias.join(", ") : "Sin categoría",
     temporada: temporadas.length ? temporadas.join(", ") : "Sin temporada",
 

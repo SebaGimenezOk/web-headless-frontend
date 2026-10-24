@@ -61,7 +61,7 @@ export default async function PodcastDetailPage({ params }) {
       <div className="flex justify-end">
         <Link
           href="/podcasts"
-          className="text-xl uppercase text-gray-500 hover:text-'var(--beige-oscuro)'"
+          className="text-sm uppercase text-gray-500 hover:text-'var(--beige-oscuro)'"
         >
           ← Volver a crónicas
         </Link>

@@ -10,7 +10,7 @@ export default function RatingObra({ score }) {
   if (!ratingValue) return null;
 
   return (
-    <div className="my-5 flex items-center gap-8">
+    <div className="ml-2 flex items-center gap-3 p-2">
       <span
         className="text-xs uppercase tracking-widest font-medium"
         style={{ color: 'var(--text)' }}

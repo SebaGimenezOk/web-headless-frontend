@@ -1,29 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Star } from 'lucide-react';
 
 export default function PeekRating({
-  defaultValue = 0,
   count = 5,
-  labels = ['Mala', 'Regular', 'Buena', 'Muy Buena', 'Excelente'],
-  activeColor = '#f5b400',
-  idleColor = '#52525b',
-  size = 28,
+  defaultValue = 0,
+  value,
   readOnly = false,
+  size = 18,
+  activeColor = 'var(--ocre)',
+  idleColor = 'var(--border)',
+  labels,
   onChange,
 }) {
-  const [rating, setRating] = useState(defaultValue);
   const [hoverIndex, setHoverIndex] = useState(null);
+  const [internalValue, setInternalValue] = useState(defaultValue);
+
+  const isControlled = value !== undefined;
+  const currentDisplay = hoverIndex !== null 
+    ? hoverIndex + 1 
+    : (isControlled ? value : internalValue);
 
   const handleClick = (index) => {
     if (readOnly) return;
-    const newRating = index + 1;
-    setRating(newRating);
-    if (onChange) onChange(newRating);
+    const newValue = index + 1;
+    if (!isControlled) {
+      setInternalValue(newValue);
+    }
+    if (onChange) {
+      onChange(newValue);
+    }
   };
-
-  const currentDisplay = hoverIndex !== null ? hoverIndex + 1 : rating;
 
   return (
     <div className="flex flex-col items-start gap-1">
@@ -56,7 +64,10 @@ export default function PeekRating({
         })}
       </div>
       {labels && currentDisplay > 0 && (
-        <span className="text-xs font-medium text-neutral-400 mt-1">
+        <span
+          className="text-xs font-semibold tracking-wide uppercase mt-0.5"
+          style={{ color: 'var(--text-strong)' }}
+        >
           {labels[currentDisplay - 1]}
         </span>
       )}

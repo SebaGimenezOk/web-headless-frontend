@@ -119,8 +119,14 @@ export default function Player() {
   if (!trackUrl) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 w-full border-t border-(--border) bg-(--surface) shadow">
-      <div className="flex h-20 items-center gap-4 px-4">
+    <div
+      className="fixed bottom-0 left-0 z-50 w-full border-t shadow-lg transition-colors"
+      style={{
+        backgroundColor: "var(--surface)",
+        borderColor: "var(--border)",
+      }}
+    >
+      <div className="flex h-20 items-center gap-4 px-6 max-w-7xl mx-auto">
         {/* Artwork */}
         {artwork && (
           <Image
@@ -128,7 +134,7 @@ export default function Player() {
             alt={title || "Portada del audio"}
             width={56}
             height={56}
-            className="h-14 w-14 rounded object-cover"
+            className="h-14 w-14 rounded object-cover border border-(--border)"
             unoptimized
           />
         )}
@@ -137,21 +143,24 @@ export default function Player() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => widgetRef.current?.seekTo(0)}
-            className="text-gray-500 transition-colors hover:text-(--olive)"
+            className="transition-colors hover:opacity-80"
+            style={{ color: "var(--text)" }}
           >
             <SkipBack size={18} />
           </button>
 
           <button
             onClick={togglePlay}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-(--olive) text-white transition-opacity hover:opacity-90"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-transform hover:scale-105 shadow-sm"
+            style={{ backgroundColor: "var(--ocre)" }}
           >
-            {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+            {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
           </button>
 
           <button
             onClick={() => widgetRef.current?.seekTo(current + 10000)}
-            className="text-gray-500 transition-colors hover:text-(--olive)"
+            className="transition-colors hover:opacity-80"
+            style={{ color: "var(--text)" }}
           >
             <SkipForward size={18} />
           </button>
@@ -159,13 +168,21 @@ export default function Player() {
 
         {/* Info + Progress */}
         <div className="flex-1">
-          <p className="truncate text-sm font-semibold text-(--text-strong)">
+          <p
+            className="truncate text-sm font-semibold tracking-tight"
+            style={{ color: "var(--text-strong)" }}
+          >
             {title || "Cargando..."}
           </p>
 
-          <p className="truncate text-xs text-(--olive)">
-            {artist}
-          </p>
+          {artist && (
+            <p
+              className="truncate text-xs font-medium"
+              style={{ color: "var(--ocre)" }}
+            >
+              {artist}
+            </p>
+          )}
 
           <input
             type="range"
@@ -174,17 +191,23 @@ export default function Player() {
             step="0.1"
             value={duration ? (current / duration) * 100 : 0}
             onInput={handleSeek}
-            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-(--olive)"
+            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg bg-(--border) accent-(--ocre)"
           />
 
-          <div className="mt-1 flex justify-between text-[11px] text-(--text)">
+          <div
+            className="mt-1 flex justify-between text-[11px] font-medium"
+            style={{ color: "var(--text)" }}
+          >
             <span>{formatTime(current)}</span>
             <span>{formatTime(duration)}</span>
           </div>
         </div>
 
         {/* Volume */}
-        <div className="flex w-32 items-center gap-2 text-(--olive)">
+        <div
+          className="flex w-32 items-center gap-2"
+          style={{ color: "var(--text)" }}
+        >
           {volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
 
           <input
@@ -193,7 +216,7 @@ export default function Player() {
             max="100"
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
-            className="w-full cursor-pointer accent-(--olive)"
+            className="w-full cursor-pointer accent-(--ocre)"
           />
         </div>
       </div>

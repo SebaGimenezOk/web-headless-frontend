@@ -120,13 +120,13 @@ export default function Player() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 z-50 w-full h-24 shadow-md"
+      className="fixed bottom-0 left-0 z-50 w-full  shadow-md"
       style={{
-        backgroundColor: "var(--background)",
+        backgroundColor: "var(--beige-suave)",
         
       }}
     >
-      <div className="flex h-20 items-center gap-4 px-8 max-w-7xl mx-auto">
+      <div className="flex  items-center h-24 gap-4 px-8 max-w-7xl mx-auto">
         {/* Artwork */}
         {artwork && (
           <Image
@@ -177,7 +177,7 @@ export default function Player() {
         </div>
 
         {/* Info + Progress */}
-        <div className="flex-1">
+        <div className="flex-1 pt-1.5">
           <p
             className="truncate text-sm font-semibold tracking-tight"
             style={{ color: "var(--text-strong)" }}

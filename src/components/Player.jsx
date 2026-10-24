@@ -122,7 +122,7 @@ export default function Player() {
     <div
       className="fixed bottom-0 left-0 z-50 w-full  shadow-md"
       style={{
-        backgroundColor: "var(--beige-suave)",
+        backgroundColor: "var(--background)",
         
       }}
     >

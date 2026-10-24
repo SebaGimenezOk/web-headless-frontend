@@ -120,13 +120,13 @@ export default function Player() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 z-50 w-full border-t shadow-md"
+      className="fixed bottom-0 left-0 z-50 w-full h-24 shadow-md"
       style={{
         backgroundColor: "var(--background)",
-        borderColor: "var(--border)",
+        
       }}
     >
-      <div className="flex h-20 items-center gap-4 px-6 max-w-7xl mx-auto">
+      <div className="flex h-20 items-center gap-4 px-8 max-w-7xl mx-auto">
         {/* Artwork */}
         {artwork && (
           <Image
@@ -135,7 +135,7 @@ export default function Player() {
             width={56}
             height={56}
             className="h-14 w-14 rounded object-cover border"
-            style={{ borderColor: "var(--border)" }}
+           
             unoptimized
           />
         )}
@@ -153,7 +153,7 @@ export default function Player() {
           {/* Círculo Play / Pause con --beige-oscuro */}
           <button
             onClick={togglePlay}
-            className="flex h-10 w-10 items-center justify-center rounded-full transition-transform hover:scale-105 shadow-sm cursor-pointer border"
+            className="flex h-10 w-10 items-center justify-center rounded-full transition-transform hover:scale-105  cursor-pointer border"
             style={{
               backgroundColor: "var(--beige-oscuro)",
               borderColor: "var(--border)",

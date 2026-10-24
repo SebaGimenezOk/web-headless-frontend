@@ -120,10 +120,10 @@ export default function Player() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 z-50 w-full border-t shadow-lg transition-colors"
+      className="fixed bottom-0 left-0 z-50 w-full border-t shadow-md"
       style={{
-        backgroundColor: "var(--beige)",
-        borderColor: "var(--beige-suave)",
+        backgroundColor: "var(--beige-suave)",
+        borderColor: "var(--border)",
       }}
     >
       <div className="flex h-20 items-center gap-4 px-6 max-w-7xl mx-auto">
@@ -134,7 +134,8 @@ export default function Player() {
             alt={title || "Portada del audio"}
             width={56}
             height={56}
-            className="h-14 w-14 rounded object-cover border border-(--border)"
+            className="h-14 w-14 rounded object-cover border"
+            style={{ borderColor: "var(--border)" }}
             unoptimized
           />
         )}
@@ -143,24 +144,33 @@ export default function Player() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => widgetRef.current?.seekTo(0)}
-            className="transition-colors hover:opacity-80"
-            style={{ color: "var(--text)" }}
+            className="transition-colors hover:opacity-80 cursor-pointer"
+            style={{ color: "var(--text-strong)" }}
           >
             <SkipBack size={18} />
           </button>
 
+          {/* Círculo Play / Pause con --beige-oscuro */}
           <button
             onClick={togglePlay}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-transform hover:scale-105 shadow-sm"
-            style={{ backgroundColor: "var(--ocre)" }}
+            className="flex h-10 w-10 items-center justify-center rounded-full transition-transform hover:scale-105 shadow-sm cursor-pointer border"
+            style={{
+              backgroundColor: "var(--beige-oscuro)",
+              borderColor: "var(--border)",
+              color: "var(--text-strong)",
+            }}
           >
-            {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
+            {isPlaying ? (
+              <Pause size={18} />
+            ) : (
+              <Play size={18} className="ml-0.5" />
+            )}
           </button>
 
           <button
             onClick={() => widgetRef.current?.seekTo(current + 10000)}
-            className="transition-colors hover:opacity-80"
-            style={{ color: "var(--text)" }}
+            className="transition-colors hover:opacity-80 cursor-pointer"
+            style={{ color: "var(--text-strong)" }}
           >
             <SkipForward size={18} />
           </button>
@@ -178,7 +188,7 @@ export default function Player() {
           {artist && (
             <p
               className="truncate text-xs font-medium"
-              style={{ color: "var(--ocre)" }}
+              style={{ color: "var(--text)" }}
             >
               {artist}
             </p>
@@ -191,7 +201,8 @@ export default function Player() {
             step="0.1"
             value={duration ? (current / duration) * 100 : 0}
             onInput={handleSeek}
-            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg bg-(--border) accent-(--beige-oscuro)"
+            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg accent-(--text-strong)"
+            style={{ backgroundColor: "var(--border)" }}
           />
 
           <div
@@ -206,7 +217,7 @@ export default function Player() {
         {/* Volume */}
         <div
           className="flex w-32 items-center gap-2"
-          style={{ color: "var(--text)" }}
+          style={{ color: "var(--text-strong)" }}
         >
           {volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
 
@@ -216,7 +227,7 @@ export default function Player() {
             max="100"
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
-            className="w-full cursor-pointer accent-(--ocre)"
+            className="w-full cursor-pointer accent-(--text-strong)"
           />
         </div>
       </div>

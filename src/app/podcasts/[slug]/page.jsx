@@ -80,6 +80,8 @@ export default async function PodcastDetailPage({ params }) {
               autor: <strong>{post.author}</strong>
             </span>
           )}
+          {/* Componente de Puntuación */}
+          <RatingObra score={post.puntuacion} />
 
           {post.duration && (
             <span>
@@ -90,19 +92,12 @@ export default async function PodcastDetailPage({ params }) {
           {post.audioUrl && (
             <>
               <span>•</span>
-              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️"/>
+              <PlayButton url={post.audioUrl} label="Posee Entrevista 🎙️" />
             </>
           )}
         </div>
 
-        {post.bajada && (
-          <p className="podcast-bajada">
-            {post.bajada}
-          </p>
-        )}
-
-        {/* Componente de Puntuación */}
-        <RatingObra score={post.puntuacion} />
+        {post.bajada && <p className="podcast-bajada">{post.bajada}</p>}
 
         <div className="w-full my-12">
           <SliderImagenes imagenes={imagenesSlider} />

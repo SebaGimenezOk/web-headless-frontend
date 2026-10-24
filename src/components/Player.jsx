@@ -122,8 +122,8 @@ export default function Player() {
     <div
       className="fixed bottom-0 left-0 z-50 w-full border-t shadow-lg transition-colors"
       style={{
-        backgroundColor: "var(--surface)",
-        borderColor: "var(--border)",
+        backgroundColor: "var(--beige)",
+        borderColor: "var(--beige-suave)",
       }}
     >
       <div className="flex h-20 items-center gap-4 px-6 max-w-7xl mx-auto">
@@ -191,7 +191,7 @@ export default function Player() {
             step="0.1"
             value={duration ? (current / duration) * 100 : 0}
             onInput={handleSeek}
-            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg bg-(--border) accent-(--ocre)"
+            className="mt-1 h-1 w-full cursor-pointer appearance-none rounded-lg bg-(--border) accent-(--beige-oscuro)"
           />
 
           <div
